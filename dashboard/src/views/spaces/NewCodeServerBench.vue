@@ -51,7 +51,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.spaces.code_server_bench_options',
+				url: 'cloud.api.spaces.code_server_bench_options',
 				params: {
 					group: this.selectedGroup
 				},

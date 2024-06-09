@@ -61,7 +61,7 @@ export default {
 	resources: {
 		restoreBackup() {
 			return {
-				url: 'press.api.site.restore',
+				url: 'cloud.api.site.restore',
 				params: {
 					name: this.site,
 					files: this.selectedFiles,

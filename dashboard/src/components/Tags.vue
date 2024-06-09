@@ -63,7 +63,7 @@ export default {
 	resources: {
 		addTag() {
 			return {
-				url: 'press.api.dashboard.add_tag',
+				url: 'cloud.api.dashboard.add_tag',
 				params: {
 					name: this.name,
 					doctype: this.doctype,
@@ -84,7 +84,7 @@ export default {
 		},
 		removeTag() {
 			return {
-				url: 'press.api.dashboard.remove_tag',
+				url: 'cloud.api.dashboard.remove_tag',
 				onSuccess(d) {
 					this.addedTags = this.addedTags.filter(t => t.name != d);
 				}
@@ -92,7 +92,7 @@ export default {
 		},
 		createTag() {
 			return {
-				url: 'press.api.dashboard.create_new_tag',
+				url: 'cloud.api.dashboard.create_new_tag',
 				params: {
 					name: this.name,
 					doctype: this.doctype,

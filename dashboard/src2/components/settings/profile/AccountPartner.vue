@@ -80,7 +80,7 @@ export default {
 	resources: {
 		addPartnerCode() {
 			return {
-				url: 'press.api.account.add_partner',
+				url: 'cloud.api.account.add_partner',
 				params: {
 					referral_code: this.code
 				},
@@ -96,7 +96,7 @@ export default {
 		},
 		partnerName() {
 			return {
-				url: 'press.api.account.get_partner_name',
+				url: 'cloud.api.account.get_partner_name',
 				auto: true,
 				params: {
 					partner_email: this.$team.doc.partner_email
@@ -110,7 +110,7 @@ export default {
 			this.partnerExists = false;
 
 			let result = await frappeRequest({
-				url: 'press.api.account.validate_partner_code',
+				url: 'cloud.api.account.validate_partner_code',
 				params: { code: code }
 			});
 

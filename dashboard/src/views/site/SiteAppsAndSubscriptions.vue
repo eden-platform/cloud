@@ -249,7 +249,7 @@ export default {
 	resources: {
 		marketplaceSubscriptions() {
 			return {
-				url: 'press.api.marketplace.get_marketplace_subscriptions_for_site',
+				url: 'cloud.api.marketplace.get_marketplace_subscriptions_for_site',
 				params: {
 					site: this.siteName
 				},
@@ -259,7 +259,7 @@ export default {
 
 		changePlan() {
 			return {
-				url: 'press.api.marketplace.change_app_plan',
+				url: 'cloud.api.marketplace.change_app_plan',
 				onSuccess() {
 					this.showAppPlanChangeDialog = false;
 					this.$resources.marketplaceSubscriptions.fetch();
@@ -277,7 +277,7 @@ export default {
 
 		installedApps() {
 			return {
-				url: 'press.api.site.installed_apps',
+				url: 'cloud.api.site.installed_apps',
 				params: { name: this.siteName },
 				auto: true
 			};
@@ -285,14 +285,14 @@ export default {
 
 		availableApps() {
 			return {
-				url: 'press.api.site.available_apps',
+				url: 'cloud.api.site.available_apps',
 				params: { name: this.siteName }
 			};
 		},
 
 		installApp() {
 			return {
-				url: 'press.api.site.install_app',
+				url: 'cloud.api.site.install_app',
 				makeParams() {
 					return {
 						name: this.siteName,
@@ -314,7 +314,7 @@ export default {
 		},
 
 		uninstallApp: {
-			url: 'press.api.site.uninstall_app',
+			url: 'cloud.api.site.uninstall_app',
 			onSuccess() {
 				this.$emit('app-uninstalled');
 			}

@@ -20,7 +20,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Agent Job',
-				url: 'press.api.spaces.code_server_jobs',
+				url: 'cloud.api.spaces.code_server_jobs',
 				filters: { code_server: this.serverName },
 				orderBy: 'creation desc',
 				start: 0,

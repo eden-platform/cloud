@@ -14,7 +14,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Press Notification',
-				url: 'press.api.notifications.get_notifications',
+				url: 'cloud.api.notifications.get_notifications',
 				auto: true,
 				filters: {
 					team: $team.name

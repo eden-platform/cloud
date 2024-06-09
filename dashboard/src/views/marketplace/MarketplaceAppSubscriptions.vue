@@ -6,7 +6,7 @@ const props = defineProps({
 });
 
 const appSubscriptions = createResource({
-	url: 'press.api.marketplace.get_subscriptions_list',
+	url: 'cloud.api.marketplace.get_subscriptions_list',
 	params: {
 		marketplace_app: props.appName
 	},

@@ -75,7 +75,7 @@ const props = defineProps(['product']);
 const state = ref('Pending'); // Pending, Wait for Site, Site Created
 
 const saasProduct = createResource({
-	url: 'press.api.saas.get_saas_product_info',
+	url: 'cloud.api.saas.get_saas_product_info',
 	params: {
 		product: props.product
 	},
@@ -92,7 +92,7 @@ const saasProduct = createResource({
 
 const subdomain = ref(null);
 const createSite = createResource({
-	url: 'press.api.saas.create_site',
+	url: 'cloud.api.saas.create_site',
 	makeParams() {
 		return {
 			product: props.product,
@@ -110,7 +110,7 @@ const createSite = createResource({
 });
 
 const siteProgress = createResource({
-	url: 'press.api.saas.get_site_progress',
+	url: 'cloud.api.saas.get_site_progress',
 	makeParams() {
 		return {
 			site_request: saasProduct.data.site_request.name
@@ -129,7 +129,7 @@ const siteProgress = createResource({
 });
 
 const loginToSite = createResource({
-	url: 'press.api.saas.login_to_site',
+	url: 'cloud.api.saas.login_to_site',
 	makeParams() {
 		return {
 			site_request: saasProduct.data.site_request.name

@@ -4,7 +4,7 @@
 			<span class="font-semibold">
 				<router-link :to="{ name: 'Site List' }">
 					<img
-						:src="`/assets/press/images/frappecloud-logo.png`"
+						:src="`/assets/cloud/images/frappecloud-logo.png`"
 						class="h-7 w-7 shrink-0"
 						alt="Eden Cloud Logo"
 					/>

@@ -23,7 +23,7 @@ export function pollJobStatus(jobId, stopFunction) {
 
 function fetchJobStatus(jobId) {
 	return frappeRequest({
-		url: 'press.api.site.get_job_status',
+		url: 'cloud.api.site.get_job_status',
 		params: { job_name: jobId }
 	}).then(result => result.status);
 }

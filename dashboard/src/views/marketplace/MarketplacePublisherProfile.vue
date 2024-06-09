@@ -40,7 +40,7 @@ export default {
 	resources: {
 		getPublisherProfileInfo() {
 			return {
-				url: 'press.api.marketplace.get_publisher_profile_info',
+				url: 'cloud.api.marketplace.get_publisher_profile_info',
 				auto: true
 			};
 		}

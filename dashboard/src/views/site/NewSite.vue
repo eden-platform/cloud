@@ -203,7 +203,7 @@ export default {
 			this.selectedGroup = this.bench;
 			this.benchTitle = this.bench;
 			let { title, creation, team } = await this.$call(
-				'press.api.bench.get_title_and_creation',
+				'cloud.api.bench.get_title_and_creation',
 				{
 					name: this.bench
 				}
@@ -222,7 +222,7 @@ export default {
 	resources: {
 		newSite() {
 			return {
-				url: 'press.api.site.new',
+				url: 'cloud.api.site.new',
 				params: {
 					site: {
 						name: this.subdomain,
@@ -273,7 +273,7 @@ export default {
 
 				// Fetch apps that have plans
 				this.appsWithPlans = await this.$call(
-					'press.api.marketplace.get_apps_with_plans',
+					'cloud.api.marketplace.get_apps_with_plans',
 					{
 						apps: JSON.stringify(this.selectedApps),
 						release_group: this.selectedGroup

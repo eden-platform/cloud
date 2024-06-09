@@ -60,7 +60,7 @@ export default {
 	resources: {
 		changeSitePlan() {
 			return {
-				url: 'press.api.developer.marketplace.change_site_plan'
+				url: 'cloud.api.developer.marketplace.change_site_plan'
 			};
 		}
 	},

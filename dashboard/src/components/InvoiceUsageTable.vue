@@ -125,7 +125,7 @@ export default {
 	resources: {
 		doc() {
 			return {
-				url: 'press.api.billing.get_invoice_usage',
+				url: 'cloud.api.billing.get_invoice_usage',
 				params: { invoice: this.invoice },
 				auto: this.invoice,
 				onSuccess(doc) {

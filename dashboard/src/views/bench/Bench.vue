@@ -90,7 +90,7 @@ export default {
 	resources: {
 		bench() {
 			return {
-				url: 'press.api.bench.get',
+				url: 'cloud.api.bench.get',
 				params: {
 					name: this.benchName
 				},
@@ -100,7 +100,7 @@ export default {
 		},
 		updateAllSites() {
 			return {
-				url: 'press.api.bench.update_all_sites',
+				url: 'cloud.api.bench.update_all_sites',
 				params: {
 					name: this.benchName
 				},

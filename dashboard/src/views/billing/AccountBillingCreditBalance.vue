@@ -35,7 +35,7 @@
 export default {
 	name: 'AccountBillingCreditBalance',
 	resources: {
-		balances: 'press.api.billing.balances'
+		balances: 'cloud.api.billing.balances'
 	},
 	methods: {
 		formatDate(d) {

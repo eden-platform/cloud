@@ -123,7 +123,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.bench.options',
+				url: 'cloud.api.bench.options',
 				initialData: {
 					versions: [],
 					clusters: []
@@ -143,7 +143,7 @@ export default {
 		},
 		createBench() {
 			return {
-				url: 'press.api.bench.new',
+				url: 'cloud.api.bench.new',
 				params: {
 					bench: {
 						title: this.benchTitle,
@@ -182,7 +182,7 @@ export default {
 	async mounted() {
 		if (this.server) {
 			let { title, cluster } = await this.$call(
-				'press.api.server.get_title_and_cluster',
+				'cloud.api.server.get_title_and_cluster',
 				{
 					name: this.server
 				}

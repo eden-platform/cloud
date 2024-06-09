@@ -180,7 +180,7 @@ export default {
 	resources: {
 		signup() {
 			return {
-				url: 'press.api.account.signup',
+				url: 'cloud.api.account.signup',
 				params: {
 					email: this.email,
 					referrer: this.getReferrerIfAny(),
@@ -194,7 +194,7 @@ export default {
 		},
 		oauthLogin() {
 			return {
-				url: 'press.api.oauth.oauth_authorize_url',
+				url: 'cloud.api.oauth.oauth_authorize_url',
 				onSuccess(url) {
 					localStorage.setItem('login_email', this.email);
 					window.location.href = url;
@@ -203,7 +203,7 @@ export default {
 		},
 		googleLogin() {
 			return {
-				url: 'press.api.google.login',
+				url: 'cloud.api.google.login',
 				makeParams() {
 					return {
 						product: this.$route.query.product
@@ -216,7 +216,7 @@ export default {
 		},
 		resetPassword() {
 			return {
-				url: 'press.api.account.send_reset_password_email',
+				url: 'cloud.api.account.send_reset_password_email',
 				params: {
 					email: this.email
 				},
@@ -227,7 +227,7 @@ export default {
 		},
 		signupSettings() {
 			return {
-				url: 'press.api.account.signup_settings',
+				url: 'cloud.api.account.signup_settings',
 				params: {
 					product: this.$route.query.product
 				},

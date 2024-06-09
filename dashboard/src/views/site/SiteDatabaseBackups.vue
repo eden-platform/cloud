@@ -124,14 +124,14 @@ export default {
 	resources: {
 		sites() {
 			return {
-				url: 'press.api.site.all',
+				url: 'cloud.api.site.all',
 				initialData: [],
 				auto: true
 			};
 		},
 		backups() {
 			return {
-				url: 'press.api.site.backups',
+				url: 'cloud.api.site.backups',
 				params: {
 					name: this.site?.name
 				},
@@ -141,7 +141,7 @@ export default {
 		},
 		scheduleBackup() {
 			return {
-				url: 'press.api.site.backup',
+				url: 'cloud.api.site.backup',
 				params: {
 					name: this.site?.name,
 					with_files: true
@@ -179,7 +179,7 @@ export default {
 			return {
 				backups: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.get_backup_link'
+					'cloud.api.site.get_backup_link'
 				)
 			};
 		}
@@ -279,7 +279,7 @@ export default {
 		},
 		async downloadBackup(name, file, database_url, offsite) {
 			let link = offsite
-				? await this.$call('press.api.site.get_backup_link', {
+				? await this.$call('cloud.api.site.get_backup_link', {
 						name: this.site.name,
 						backup: name,
 						file: file
@@ -289,7 +289,7 @@ export default {
 		},
 		async restoreOffsiteBackup(backup) {
 			this.isRestorePending = true;
-			this.$call('press.api.site.restore', {
+			this.$call('cloud.api.site.restore', {
 				name: this.site.name,
 				files: {
 					database: backup.remote_database_file,
@@ -306,7 +306,7 @@ export default {
 		},
 		async restoreOffsiteBackupOnAnotherSite(backup) {
 			this.isRestorePending = true;
-			this.$call('press.api.site.restore', {
+			this.$call('cloud.api.site.restore', {
 				name: this.selectedSite.name,
 				files: {
 					database: backup.remote_database_file,

@@ -63,7 +63,7 @@ export default {
 	resources: {
 		validateResetKey() {
 			return {
-				url: 'press.api.account.get_user_for_reset_password_key',
+				url: 'cloud.api.account.get_user_for_reset_password_key',
 				params: {
 					key: this.requestKey
 				},
@@ -75,7 +75,7 @@ export default {
 		},
 		resetPassword() {
 			return {
-				url: 'press.api.account.reset_password',
+				url: 'cloud.api.account.reset_password',
 				params: {
 					key: this.requestKey,
 					password: this.password

@@ -160,7 +160,7 @@ export default {
 	resources: {
 		apps() {
 			return {
-				url: 'press.api.bench.apps',
+				url: 'cloud.api.bench.apps',
 				params: {
 					name: this.benchName
 				},
@@ -169,7 +169,7 @@ export default {
 		},
 		installableApps() {
 			return {
-				url: 'press.api.bench.installable_apps',
+				url: 'cloud.api.bench.installable_apps',
 				params: {
 					name: this.benchName
 				},
@@ -184,7 +184,7 @@ export default {
 		},
 		fetchLatestAppUpdate() {
 			return {
-				url: 'press.api.bench.fetch_latest_app_update',
+				url: 'cloud.api.bench.fetch_latest_app_update',
 				onSuccess() {
 					window.location.reload();
 				}
@@ -192,7 +192,7 @@ export default {
 		},
 		addApps() {
 			return {
-				url: 'press.api.bench.add_apps',
+				url: 'cloud.api.bench.add_apps',
 				onSuccess() {
 					window.location.reload();
 				}
@@ -200,7 +200,7 @@ export default {
 		},
 		removeApp() {
 			return {
-				url: 'press.api.bench.remove_app',
+				url: 'cloud.api.bench.remove_app',
 				onSuccess(app_name) {
 					this.$resources.apps.setData(data =>
 						data.filter(app => app.name !== app_name)

@@ -48,7 +48,7 @@ export default {
 	resources: {
 		SSHActivity() {
 			return {
-				url: 'press.api.security.fetch_ssh_session_activity',
+				url: 'cloud.api.security.fetch_ssh_session_activity',
 				params: {
 					server: this.server?.name,
 					filename: this.logId

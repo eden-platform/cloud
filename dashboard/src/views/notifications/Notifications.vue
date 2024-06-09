@@ -65,7 +65,7 @@ export default {
 		unreadNotifications() {
 			if (this.activeTab !== 'Unread') return;
 			return {
-				url: 'press.api.notifications.get_notifications',
+				url: 'cloud.api.notifications.get_notifications',
 				params: {
 					filters: { team: this.$account.team.name, read: false }
 				},
@@ -76,7 +76,7 @@ export default {
 		readNotifications() {
 			if (this.activeTab !== 'Read') return;
 			return {
-				url: 'press.api.notifications.get_notifications',
+				url: 'cloud.api.notifications.get_notifications',
 				params: {
 					filters: {
 						team: this.$account.team.name,
@@ -88,7 +88,7 @@ export default {
 			};
 		},
 		markNotificationAsRead: {
-			url: 'press.api.notifications.mark_notification_as_read'
+			url: 'cloud.api.notifications.mark_notification_as_read'
 		}
 	},
 	methods: {

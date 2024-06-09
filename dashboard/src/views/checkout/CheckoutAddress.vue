@@ -117,7 +117,7 @@ export default {
 	resources: {
 		updateBillingDetails() {
 			return {
-				url: 'press.api.developer.marketplace.update_billing_info',
+				url: 'cloud.api.developer.marketplace.update_billing_info',
 				params: {
 					secret_key: this.secretKey,
 					data: {

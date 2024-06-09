@@ -146,7 +146,7 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 
-			return this.$call('press.api.site.change_auto_update', {
+			return this.$call('cloud.api.site.change_auto_update', {
 				name: this.site.name,
 				auto_update_enabled: event.target.checked
 			}).then(() => {
@@ -175,14 +175,14 @@ export default {
 			});
 		},
 		deactivate() {
-			return this.$call('press.api.site.deactivate', {
+			return this.$call('cloud.api.site.deactivate', {
 				name: this.site.name
 			}).then(() => {
 				setTimeout(() => window.location.reload(), 1000);
 			});
 		},
 		activate() {
-			this.$call('press.api.site.activate', {
+			this.$call('cloud.api.site.activate', {
 				name: this.site.name
 			});
 			notify({
@@ -199,11 +199,11 @@ export default {
 			return {
 				drop: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.archive'
+					'cloud.api.site.archive'
 				),
 				deactivate: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.deactivate'
+					'cloud.api.site.deactivate'
 				)
 			};
 		}

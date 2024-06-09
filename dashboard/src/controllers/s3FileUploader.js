@@ -22,7 +22,7 @@ export default class S3FileUploader {
 			async function getUploadLink() {
 				try {
 					let response = await fetch(
-						`/api/method/press.api.site.get_upload_link?file=${file.name}`
+						`/api/method/cloud.api.site.get_upload_link?file=${file.name}`
 					);
 					let data = await response.json();
 					return data.message;
@@ -68,7 +68,7 @@ export default class S3FileUploader {
 						}
 						let out =
 							r.message ||
-							call('press.api.site.uploaded_backup_info', {
+							call('cloud.api.site.uploaded_backup_info', {
 								file: file.name,
 								path: file_path,
 								type: file.type,

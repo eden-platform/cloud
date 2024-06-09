@@ -67,7 +67,7 @@ export default {
 	resources: {
 		app() {
 			return {
-				url: 'press.api.marketplace.get_app',
+				url: 'cloud.api.marketplace.get_app',
 				params: {
 					name: this.appName
 				},

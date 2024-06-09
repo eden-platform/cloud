@@ -88,7 +88,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.account.get_permission_options',
+				url: 'cloud.api.account.get_permission_options',
 				auto: true,
 				params: {
 					name: this.name,
@@ -105,7 +105,7 @@ export default {
 		},
 		updatePermissions() {
 			return {
-				url: 'press.api.account.update_permissions',
+				url: 'cloud.api.account.update_permissions',
 				params: {
 					user: this.name,
 					ptype: this.type,

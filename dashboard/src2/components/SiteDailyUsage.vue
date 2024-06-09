@@ -35,7 +35,7 @@ export default {
 		requestCounter() {
 			let localTimezone = dayjs.tz.guess();
 			return {
-				url: 'press.api.analytics.daily_usage',
+				url: 'cloud.api.analytics.daily_usage',
 				params: { name: this.site, timezone: localTimezone },
 				auto: true
 			};

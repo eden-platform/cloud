@@ -580,7 +580,7 @@ export default {
 														],
 														resource() {
 															return {
-																url: 'press.api.site.available_apps',
+																url: 'cloud.api.site.available_apps',
 																params: {
 																	name: site.doc.name
 																},
@@ -1051,7 +1051,7 @@ export default {
 													onRestore(siteName) {
 														return toast.promise(
 															frappeRequest({
-																url: 'press.api.site.restore',
+																url: 'cloud.api.site.restore',
 																params: {
 																	name: siteName,
 																	files: {

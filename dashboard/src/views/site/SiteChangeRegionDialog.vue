@@ -110,7 +110,7 @@ export default {
 	resources: {
 		changeRegionOptions() {
 			return {
-				url: 'press.api.site.change_region_options',
+				url: 'cloud.api.site.change_region_options',
 				params: {
 					name: this.site?.name
 				},
@@ -119,7 +119,7 @@ export default {
 		},
 		changeRegion() {
 			return {
-				url: 'press.api.site.change_region',
+				url: 'cloud.api.site.change_region',
 				validate() {
 					if (
 						this.$resources.changeRegionOptions.data.current_region ===

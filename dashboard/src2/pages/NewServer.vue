@@ -371,7 +371,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.server.options',
+				url: 'cloud.api.server.options',
 				auto: true,
 				transform(data) {
 					return {
@@ -409,13 +409,13 @@ export default {
 		},
 		hybridOptions() {
 			return {
-				url: 'press.api.selfhosted.options_for_new',
+				url: 'cloud.api.selfhosted.options_for_new',
 				auto: true
 			};
 		},
 		createServer() {
 			return {
-				url: 'press.api.server.new',
+				url: 'cloud.api.server.new',
 				validate({ server }) {
 					if (!server.title) {
 						return 'Server name is required';
@@ -446,7 +446,7 @@ export default {
 		},
 		createHybridServer() {
 			return {
-				url: 'press.api.selfhosted.create_and_verify_selfhosted',
+				url: 'cloud.api.selfhosted.create_and_verify_selfhosted',
 				validate() {
 					if (!this.serverTitle) {
 						return 'Server name is required';

@@ -22,7 +22,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Agent Job',
-				url: 'press.api.bench.jobs',
+				url: 'cloud.api.bench.jobs',
 				filters: { name: this.benchName },
 				auto: true,
 				orderBy: 'creation desc',

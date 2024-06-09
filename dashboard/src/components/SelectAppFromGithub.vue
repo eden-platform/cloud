@@ -104,7 +104,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.github.options',
+				url: 'cloud.api.github.options',
 				auto: true,
 				onError(error) {
 					if (error.messages.includes('Bad credentials')) {
@@ -122,7 +122,7 @@ export default {
 			};
 
 			return {
-				url: 'press.api.github.repository',
+				url: 'cloud.api.github.repository',
 				params,
 				auto,
 				onSuccess(repository) {
@@ -138,7 +138,7 @@ export default {
 				branch: this.selectedBranch
 			};
 			return {
-				url: 'press.api.github.app',
+				url: 'cloud.api.github.app',
 				params,
 				onSuccess(data) {
 					if (data) {
@@ -160,7 +160,7 @@ export default {
 		},
 		clearAccessToken() {
 			return {
-				url: 'press.api.github.clear_token_and_get_installation_url',
+				url: 'cloud.api.github.clear_token_and_get_installation_url',
 				onSuccess(installation_url) {
 					window.location.href = installation_url + '?state=' + this.state;
 				}

@@ -81,7 +81,7 @@ if (window.press_frontend_posthog_host?.includes('https://')) {
 
 if (import.meta.env.DEV) {
 	request({
-		url: '/api/method/press.www.dashboard.get_context_for_dev'
+		url: '/api/method/cloud.www.dashboard.get_context_for_dev'
 	}).then(values => {
 		for (let key in values) {
 			window[key] = values[key];

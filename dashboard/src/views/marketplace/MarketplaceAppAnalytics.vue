@@ -143,7 +143,7 @@ export default {
 	resources: {
 		analytics() {
 			return {
-				url: 'press.api.marketplace.analytics',
+				url: 'cloud.api.marketplace.analytics',
 				auto: true,
 				params: {
 					name: this.app?.app
@@ -152,7 +152,7 @@ export default {
 		},
 		plausible_analytics() {
 			return {
-				url: 'press.api.analytics.plausible_analytics',
+				url: 'cloud.api.analytics.plausible_analytics',
 				auto: true,
 				params: {
 					name: this.app?.app

@@ -28,7 +28,7 @@ export default class Account {
 			return;
 		}
 		try {
-			this._fetchAccountPromise = call('press.api.account.get');
+			this._fetchAccountPromise = call('cloud.api.account.get');
 			let result = await this._fetchAccountPromise;
 			this.user = result.user;
 			this.ssh_key = result.ssh_key;
@@ -62,7 +62,7 @@ export default class Account {
 		if (team === this.team.name) {
 			return;
 		}
-		let result = await call('press.api.account.switch_team', { team });
+		let result = await call('cloud.api.account.switch_team', { team });
 		this.team = result.team;
 		this.team_members = result.team_members;
 		localStorage.setItem('current_team', team);

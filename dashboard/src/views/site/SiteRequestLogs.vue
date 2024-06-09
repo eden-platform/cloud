@@ -95,7 +95,7 @@ export default {
 	resources: {
 		requestLogs() {
 			return {
-				url: 'press.api.analytics.request_logs',
+				url: 'cloud.api.analytics.request_logs',
 				params: {
 					name: this.site?.name,
 					timezone: DateTime.local().zoneName,
@@ -111,7 +111,7 @@ export default {
 		},
 		getPlan() {
 			return {
-				url: 'press.api.site.current_plan',
+				url: 'cloud.api.site.current_plan',
 				params: {
 					name: this.site?.name
 				},

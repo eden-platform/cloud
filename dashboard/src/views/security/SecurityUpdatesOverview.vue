@@ -45,7 +45,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Security Update',
-				url: 'press.api.security.fetch_security_updates',
+				url: 'cloud.api.security.fetch_security_updates',
 				filters: { server: this.server?.name },
 				orderBy: 'priority_level asc',
 				pageLength: 3,

@@ -219,19 +219,19 @@ export default {
 	resources: {
 		domains() {
 			return {
-				url: 'press.api.site.domains',
+				url: 'cloud.api.site.domains',
 				params: { name: this.site?.name },
 				auto: true
 			};
 		},
 		checkDNS: {
-			url: 'press.api.site.check_dns',
+			url: 'cloud.api.site.check_dns',
 			validate() {
 				if (!this.newDomain) return 'Domain cannot be empty';
 			}
 		},
 		addDomain: {
-			url: 'press.api.site.add_domain',
+			url: 'cloud.api.site.add_domain',
 			onSuccess() {
 				this.$resources.checkDNS.reset();
 				this.$resources.domains.reload();
@@ -239,31 +239,31 @@ export default {
 			}
 		},
 		removeDomain: {
-			url: 'press.api.site.remove_domain',
+			url: 'cloud.api.site.remove_domain',
 			onSuccess() {
 				this.$resources.domains.reload();
 			}
 		},
 		retryAddDomain: {
-			url: 'press.api.site.retry_add_domain',
+			url: 'cloud.api.site.retry_add_domain',
 			onSuccess() {
 				this.$resources.domains.fetch();
 			}
 		},
 		setHostName: {
-			url: 'press.api.site.set_host_name',
+			url: 'cloud.api.site.set_host_name',
 			onSuccess() {
 				this.$resources.domains.reload();
 			}
 		},
 		setupRedirect: {
-			url: 'press.api.site.set_redirect',
+			url: 'cloud.api.site.set_redirect',
 			onSuccess() {
 				this.$resources.domains.reload();
 			}
 		},
 		removeRedirect: {
-			url: 'press.api.site.unset_redirect',
+			url: 'cloud.api.site.unset_redirect',
 			onSuccess() {
 				this.$resources.domains.reload();
 			}

@@ -48,10 +48,10 @@ export default {
 	},
 	resources: {
 		finalizeInvoices: {
-			url: 'press.api.billing.finalize_invoices'
+			url: 'cloud.api.billing.finalize_invoices'
 		},
 		unpaidInvoices: {
-			url: 'press.api.billing.unpaid_invoices',
+			url: 'cloud.api.billing.unpaid_invoices',
 			auto: true
 		}
 	}

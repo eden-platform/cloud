@@ -169,7 +169,7 @@ export default {
 	},
 	resources: {
 		addApp: {
-			url: 'press.api.bench.add_app',
+			url: 'cloud.api.bench.add_app',
 			onSuccess() {
 				this.$emit('appAdd');
 			},
@@ -179,7 +179,7 @@ export default {
 		},
 		installableApps() {
 			return {
-				url: 'press.api.bench.all_apps',
+				url: 'cloud.api.bench.all_apps',
 				params: {
 					name: this.groupName
 				},

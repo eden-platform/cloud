@@ -125,7 +125,7 @@ export default {
 	resources: {
 		server() {
 			return {
-				url: 'press.api.server.get',
+				url: 'cloud.api.server.get',
 				params: {
 					name: this.serverName
 				},
@@ -138,7 +138,7 @@ export default {
 		},
 		reboot() {
 			return {
-				url: 'press.api.server.reboot',
+				url: 'cloud.api.server.reboot',
 				params: {
 					name: this.serverName
 				},
@@ -215,7 +215,7 @@ export default {
 						this.server.status === 'Active' &&
 						this.$account.hasPermission(
 							this.server.name,
-							'press.api.server.reboot'
+							'cloud.api.server.reboot'
 						),
 					loading: this.$resources.reboot.loading,
 					onClick: () => {

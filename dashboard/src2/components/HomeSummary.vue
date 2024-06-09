@@ -35,7 +35,7 @@ export default {
 		home() {
 			if (!this.$team.doc?.name) return;
 			return {
-				url: 'press.api.client.run_doc_method',
+				url: 'cloud.api.client.run_doc_method',
 				cache: ['home_data', this.$team.doc.name],
 				makeParams() {
 					return {

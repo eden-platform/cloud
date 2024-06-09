@@ -96,7 +96,7 @@ export default {
 	resources: {
 		createSecret() {
 			return {
-				url: 'press.api.account.create_api_secret',
+				url: 'cloud.api.account.create_api_secret',
 				onSuccess() {
 					notify({
 						title: 'Created new API Secret',

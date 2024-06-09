@@ -19,7 +19,7 @@ export default {
 	resources: {
 		reviewStages() {
 			return {
-				url: 'press.api.marketplace.review_steps',
+				url: 'cloud.api.marketplace.review_steps',
 				params: {
 					name: this.appName
 				},

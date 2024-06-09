@@ -46,7 +46,7 @@ export default {
 	resources: {
 		createRazorpayOrder() {
 			return {
-				url: 'press.api.billing.create_razorpay_order',
+				url: 'cloud.api.billing.create_razorpay_order',
 				params: {
 					amount: this.amount
 				},
@@ -62,7 +62,7 @@ export default {
 		},
 		handlePaymentFailed() {
 			return {
-				url: 'press.api.billing.handle_razorpay_payment_failed',
+				url: 'cloud.api.billing.handle_razorpay_payment_failed',
 				onSuccess() {
 					console.log('Payment Failed.');
 				}
@@ -78,7 +78,7 @@ export default {
 				key: data.key_id,
 				order_id: data.order_id,
 				name: 'Eden Cloud',
-				image: '/assets/press/images/frappe-cloud-logo.png',
+				image: '/assets/cloud/images/frappe-cloud-logo.png',
 				prefill: {
 					email: this.$team.doc.user
 				},

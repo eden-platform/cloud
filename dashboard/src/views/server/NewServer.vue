@@ -133,7 +133,7 @@ export default {
 		};
 	},
 	async mounted() {
-		this.options = await this.$call('press.api.server.options');
+		this.options = await this.$call('cloud.api.server.options');
 		this.options.app_plans = this.options.app_plans.map(plan => {
 			plan.disabled = !this.$account.hasBillingInfo;
 			return plan;
@@ -146,7 +146,7 @@ export default {
 	resources: {
 		newServer() {
 			return {
-				url: 'press.api.server.new',
+				url: 'cloud.api.server.new',
 				params: {
 					server: {
 						title: this.title,

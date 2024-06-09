@@ -209,7 +209,7 @@ export default {
 	resources: {
 		versions() {
 			return {
-				url: 'press.api.site.get_new_site_options',
+				url: 'cloud.api.site.get_new_site_options',
 				auto: true,
 				params: {
 					group: this.privateBench ? this.bench : ''

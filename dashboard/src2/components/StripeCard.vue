@@ -95,7 +95,7 @@ export default {
 	resources: {
 		setupIntent() {
 			return {
-				url: 'press.api.billing.get_publishable_key_and_setup_intent',
+				url: 'cloud.api.billing.get_publishable_key_and_setup_intent',
 				async onSuccess(data) {
 					//window.posthog.capture('init_client_add_card', 'fc_signup');
 					let { publishable_key, setup_intent } = data;
@@ -137,10 +137,10 @@ export default {
 				}
 			};
 		},
-		countryList: 'press.api.account.country_list',
+		countryList: 'cloud.api.account.country_list',
 		billingAddress() {
 			return {
-				url: 'press.api.account.get_billing_information',
+				url: 'cloud.api.account.get_billing_information',
 				params: {
 					timezone: this.browserTimezone
 				},
@@ -156,7 +156,7 @@ export default {
 		},
 		setupIntentSuccess() {
 			return {
-				url: 'press.api.billing.setup_intent_success',
+				url: 'cloud.api.billing.setup_intent_success',
 				makeParams({ setupIntent }) {
 					return {
 						setup_intent: setupIntent,
@@ -167,7 +167,7 @@ export default {
 		},
 		verifyCardWithMicroCharge() {
 			return {
-				url: 'press.api.billing.create_payment_intent_for_micro_debit',
+				url: 'cloud.api.billing.create_payment_intent_for_micro_debit',
 				makeParams({ paymentMethodName }) {
 					return {
 						payment_method_name: paymentMethodName

@@ -143,7 +143,7 @@ export default {
 	resources: {
 		plans() {
 			return {
-				url: 'press.api.site.get_plans',
+				url: 'cloud.api.site.get_plans',
 				params: {
 					name: this.site?.name
 				},
@@ -193,7 +193,7 @@ export default {
 			return {
 				changePlan: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.change_plan'
+					'cloud.api.site.change_plan'
 				)
 			};
 		},

@@ -209,7 +209,7 @@ export default {
 	resources: {
 		allServers() {
 			return {
-				url: 'press.api.server.all',
+				url: 'cloud.api.server.all',
 				params: {
 					server_filter: { server_type: this.server_type, tag: this.server_tag }
 				},
@@ -223,7 +223,7 @@ export default {
 			};
 		},
 		serverTags: {
-			url: 'press.api.server.server_tags',
+			url: 'cloud.api.server.server_tags',
 			auto: true,
 			initialData: []
 		}

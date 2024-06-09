@@ -120,7 +120,7 @@ export default {
 	resources: {
 		changeGroup() {
 			return {
-				url: 'press.api.site.change_group',
+				url: 'cloud.api.site.change_group',
 				onSuccess() {
 					const destinationGroupTitle =
 						this.$resources.changeGroupOptions.data.find(
@@ -140,7 +140,7 @@ export default {
 		},
 		changeGroupOptions() {
 			return {
-				url: 'press.api.site.change_group_options',
+				url: 'cloud.api.site.change_group_options',
 				params: {
 					name: this.site?.name
 				},
@@ -153,7 +153,7 @@ export default {
 		},
 		cloneGroup() {
 			return {
-				url: 'press.api.site.clone_group',
+				url: 'cloud.api.site.clone_group',
 				onSuccess(data) {
 					notify({
 						title: 'Cloned Bench',

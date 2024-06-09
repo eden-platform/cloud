@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 const payout = createResource({
-	url: 'press.api.marketplace.get_payout_details',
+	url: 'cloud.api.marketplace.get_payout_details',
 	auto: true,
 	params: {
 		name: props.payoutOrderName

@@ -88,7 +88,7 @@ export default {
 	resources: {
 		deadlockReport() {
 			return {
-				url: 'press.api.analytics.deadlock_report',
+				url: 'cloud.api.analytics.deadlock_report',
 				params: {
 					site: this.site?.name,
 					start: this.startTime || this.today,
@@ -103,7 +103,7 @@ export default {
 		},
 		getPlan() {
 			return {
-				url: 'press.api.site.current_plan',
+				url: 'cloud.api.site.current_plan',
 				params: {
 					name: this.site?.name
 				},

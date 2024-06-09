@@ -162,10 +162,10 @@ export default {
 		)
 	},
 	resources: {
-		upcomingInvoice: { url: 'press.api.billing.upcoming_invoice', auto: true },
+		upcomingInvoice: { url: 'cloud.api.billing.upcoming_invoice', auto: true },
 		unpaidAmountDue() {
 			return {
-				url: 'press.api.billing.total_unpaid_amount',
+				url: 'cloud.api.billing.total_unpaid_amount',
 				auto: true
 			};
 		}

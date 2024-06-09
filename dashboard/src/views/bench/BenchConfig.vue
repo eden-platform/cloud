@@ -27,7 +27,7 @@ export default {
 	methods: {
 		benchConfig() {
 			return {
-				url: 'press.api.bench.bench_config',
+				url: 'cloud.api.bench.bench_config',
 				params: {
 					name: this.bench?.name
 				},
@@ -37,7 +37,7 @@ export default {
 		},
 		updateBenchConfigMethod(updatedConfig) {
 			return {
-				url: 'press.api.bench.update_config',
+				url: 'cloud.api.bench.update_config',
 				params: {
 					name: this.bench?.name,
 					config: JSON.stringify(updatedConfig)

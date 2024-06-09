@@ -40,7 +40,7 @@ export default {
 	resources: {
 		sshLogs() {
 			return {
-				url: 'press.api.security.fetch_ssh_session_logs',
+				url: 'cloud.api.security.fetch_ssh_session_logs',
 				params: {
 					server: this.server?.name
 				},

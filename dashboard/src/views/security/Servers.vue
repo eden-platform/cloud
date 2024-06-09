@@ -107,7 +107,7 @@ export default {
 	resources: {
 		allServers() {
 			return {
-				url: 'press.api.security.get_servers',
+				url: 'cloud.api.security.get_servers',
 				params: {
 					server_filter: { server_type: this.server_type, tag: '' }
 				},

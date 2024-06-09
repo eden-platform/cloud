@@ -67,7 +67,7 @@ export default {
 			}
 		},
 		async fetchJob() {
-			let jobs = await this.$call('press.api.server.press_jobs', {
+			let jobs = await this.$call('cloud.api.server.press_jobs', {
 				name: this.server.name
 			});
 			jobs.forEach(job => {

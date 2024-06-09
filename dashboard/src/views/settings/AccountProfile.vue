@@ -13,7 +13,7 @@
 					:upload-args="{
 						doctype: 'User',
 						docname: $account.user.name,
-						method: 'press.api.account.update_profile_picture'
+						method: 'cloud.api.account.update_profile_picture'
 					}"
 				>
 					<template v-slot="{ openFileSelector, uploading, progress, error }">
@@ -194,7 +194,7 @@ export default {
 		updateProfile() {
 			let { first_name, last_name, email } = this.$account.user;
 			return {
-				url: 'press.api.account.update_profile',
+				url: 'cloud.api.account.update_profile',
 				params: {
 					first_name,
 					last_name,
@@ -207,7 +207,7 @@ export default {
 			};
 		},
 		disableAccount: {
-			url: 'press.api.account.disable_account',
+			url: 'cloud.api.account.disable_account',
 			onSuccess(data) {
 				this.showDisableAccountDialog = false;
 
@@ -225,7 +225,7 @@ export default {
 			}
 		},
 		enableAccount: {
-			url: 'press.api.account.enable_account',
+			url: 'cloud.api.account.enable_account',
 			onSuccess() {
 				notify({
 					title: 'Account enabled',
@@ -239,7 +239,7 @@ export default {
 		},
 		isDeveloperAccountAllowed() {
 			return {
-				url: 'press.api.marketplace.developer_toggle_allowed',
+				url: 'cloud.api.marketplace.developer_toggle_allowed',
 				auto: true,
 				onSuccess(data) {
 					if (data) {
@@ -250,7 +250,7 @@ export default {
 		},
 		becomePublisher() {
 			return {
-				url: 'press.api.marketplace.become_publisher',
+				url: 'cloud.api.marketplace.become_publisher',
 				onSuccess() {
 					this.$router.push('/marketplace');
 				}

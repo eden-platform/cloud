@@ -22,7 +22,7 @@
 					:upload-args="{
 						doctype: 'Marketplace App',
 						docname: app.name,
-						method: 'press.api.marketplace.add_app_screenshot'
+						method: 'cloud.api.marketplace.add_app_screenshot'
 					}"
 				>
 					<template v-slot="{ openFileSelector, uploading, progress, error }">
@@ -78,7 +78,7 @@ export default {
 	resources: {
 		removeScreenshot(file) {
 			return {
-				url: 'press.api.marketplace.remove_app_screenshot'
+				url: 'cloud.api.marketplace.remove_app_screenshot'
 			};
 		}
 	}

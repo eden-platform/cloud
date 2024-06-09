@@ -12,7 +12,7 @@ const FAKE_BASE_URL = 'http://fc.tests';
 
 const restHandlers = [
 	rest.post(
-		FAKE_BASE_URL + '/api/method/press.api.site.features',
+		FAKE_BASE_URL + '/api/method/cloud.api.site.features',
 		(req, res, ctx) => {
 			return res(ctx.status(200), ctx.json({ message: apps }));
 		}

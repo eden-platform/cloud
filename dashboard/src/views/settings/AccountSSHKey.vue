@@ -70,7 +70,7 @@ export default {
 	resources: {
 		saveKey() {
 			return {
-				url: 'press.api.account.add_key',
+				url: 'cloud.api.account.add_key',
 				params: {
 					key: this.newKey
 				},

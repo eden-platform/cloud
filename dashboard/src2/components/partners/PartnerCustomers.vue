@@ -97,7 +97,7 @@ export default {
 	resources: {
 		getPartnerCustomers() {
 			return {
-				url: 'press.api.account.get_partner_customers',
+				url: 'cloud.api.account.get_partner_customers',
 				onSuccess(data) {
 					this.partnerCustomers = data.map(d => {
 						return {
@@ -114,7 +114,7 @@ export default {
 		},
 		transferCredits() {
 			return {
-				url: 'press.api.account.transfer_credits',
+				url: 'cloud.api.account.transfer_credits',
 				onSuccess(data) {
 					this.amount = data;
 					this.transferCreditsDialog = false;
@@ -124,7 +124,7 @@ export default {
 			};
 		},
 		getBalance: {
-			url: 'press.api.billing.get_balance_credit',
+			url: 'cloud.api.billing.get_balance_credit',
 			auto: true
 		}
 	},

@@ -71,7 +71,7 @@ export default {
 
 			let error = this.validateSubdomain(this.subdomain);
 			if (!error) {
-				let subdomainTaken = await this.$call('press.api.spaces.exists', {
+				let subdomainTaken = await this.$call('cloud.api.spaces.exists', {
 					subdomain: this.subdomain,
 					domain: this.domain
 				});
@@ -103,7 +103,7 @@ export default {
 	resources: {
 		newCodeServer() {
 			return {
-				url: 'press.api.spaces.create_code_server',
+				url: 'cloud.api.spaces.create_code_server',
 				params: {
 					subdomain: this.subdomain,
 					bench: this.version,

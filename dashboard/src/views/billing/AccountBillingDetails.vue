@@ -44,7 +44,7 @@ export default {
 		)
 	},
 	resources: {
-		billingDetails: 'press.api.billing.details'
+		billingDetails: 'cloud.api.billing.details'
 	},
 	data() {
 		return {

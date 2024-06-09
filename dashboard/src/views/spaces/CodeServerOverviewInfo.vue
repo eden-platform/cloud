@@ -113,7 +113,7 @@ export default {
 	resources: {
 		stopCodeServer() {
 			return {
-				url: 'press.api.spaces.stop_code_server',
+				url: 'cloud.api.spaces.stop_code_server',
 				params: {
 					name: this.codeServer.name
 				},
@@ -124,7 +124,7 @@ export default {
 		},
 		startCodeServer() {
 			return {
-				url: 'press.api.spaces.start_code_server',
+				url: 'cloud.api.spaces.start_code_server',
 				params: {
 					name: this.codeServer.name
 				},
@@ -135,7 +135,7 @@ export default {
 		},
 		showPassword() {
 			return {
-				url: 'press.api.spaces.code_server_password',
+				url: 'cloud.api.spaces.code_server_password',
 				params: {
 					name: this.codeServer.name
 				},
@@ -153,7 +153,7 @@ export default {
 		},
 		dropCodeServer() {
 			return {
-				url: 'press.api.spaces.drop_code_server',
+				url: 'cloud.api.spaces.drop_code_server',
 				params: {
 					name: this.codeServer.name
 				},

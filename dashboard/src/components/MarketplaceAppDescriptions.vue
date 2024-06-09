@@ -116,7 +116,7 @@ export default {
 		updateAppSummary() {
 			let { name, description } = this.app;
 			return {
-				url: 'press.api.marketplace.update_app_summary',
+				url: 'cloud.api.marketplace.update_app_summary',
 				params: {
 					name,
 					summary: description
@@ -130,7 +130,7 @@ export default {
 		updateAppDescription() {
 			let { name, long_description } = this.app;
 			return {
-				url: 'press.api.marketplace.update_app_description',
+				url: 'cloud.api.marketplace.update_app_description',
 				params: {
 					name,
 					description: long_description
@@ -143,7 +143,7 @@ export default {
 		},
 		fetchReadme() {
 			return {
-				url: 'press.api.marketplace.fetch_readme',
+				url: 'cloud.api.marketplace.fetch_readme',
 				params: { name: this.app.name },
 				onSuccess() {
 					notify({

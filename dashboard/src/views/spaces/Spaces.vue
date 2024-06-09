@@ -141,7 +141,7 @@ export default {
 	resources: {
 		spaces() {
 			return {
-				url: 'press.api.spaces.spaces',
+				url: 'cloud.api.spaces.spaces',
 				auto: true,
 				params: { space_filter: { status: this.space_status } },
 				cache: ['SpaceList', this.space_status, this.$account.team.name],

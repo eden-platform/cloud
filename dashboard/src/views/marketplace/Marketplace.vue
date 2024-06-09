@@ -103,12 +103,12 @@ export default {
 	resources: {
 		appOptions() {
 			return {
-				url: 'press.api.marketplace.options_for_marketplace_app'
+				url: 'cloud.api.marketplace.options_for_marketplace_app'
 			};
 		},
 		addMarketplaceApp() {
 			return {
-				url: 'press.api.marketplace.add_app',
+				url: 'cloud.api.marketplace.add_app',
 				onSuccess() {
 					this.showAddAppDialog = false;
 					window.location.reload();

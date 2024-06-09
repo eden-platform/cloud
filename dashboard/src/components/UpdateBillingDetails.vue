@@ -62,7 +62,7 @@ export default {
 	},
 	resources: {
 		currentBillingInformation: {
-			url: 'press.api.account.get_billing_information',
+			url: 'cloud.api.account.get_billing_information',
 			auto: true,
 			onSuccess(billingInformation) {
 				if ('country' in (billingInformation || {})) {
@@ -83,7 +83,7 @@ export default {
 		},
 		updateBillingInformation() {
 			return {
-				url: 'press.api.account.update_billing_information',
+				url: 'cloud.api.account.update_billing_information',
 				makeParams() {
 					return {
 						billing_details: this.billingInformation

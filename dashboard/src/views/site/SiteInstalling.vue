@@ -62,7 +62,7 @@ export default {
 			});
 		},
 		async fetchPendingJobs() {
-			let jobs = await this.$call('press.api.site.running_jobs', {
+			let jobs = await this.$call('cloud.api.site.running_jobs', {
 				name: this.site.name
 			});
 			jobs.forEach(job => {

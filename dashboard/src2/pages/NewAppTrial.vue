@@ -260,7 +260,7 @@ export default {
 	resources: {
 		getSiteRequest() {
 			return {
-				url: 'press.api.account.get_site_request',
+				url: 'cloud.api.account.get_site_request',
 				params: { product: this.productId },
 				auto: true
 			};

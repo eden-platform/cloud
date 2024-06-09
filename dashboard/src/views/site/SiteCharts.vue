@@ -169,7 +169,7 @@ export default {
 		analytics() {
 			let localTimezone = DateTime.local().zoneName;
 			return {
-				url: 'press.api.analytics.get',
+				url: 'cloud.api.analytics.get',
 				params: {
 					name: this.siteName,
 					timezone: localTimezone,

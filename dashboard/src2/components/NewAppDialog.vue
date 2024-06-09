@@ -278,7 +278,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.github.options',
+				url: 'cloud.api.github.options',
 				auto: true,
 				onError(error) {
 					if (error.messages.includes('Bad credentials')) {
@@ -289,7 +289,7 @@ export default {
 		},
 		validateApp() {
 			return {
-				url: 'press.api.github.app',
+				url: 'cloud.api.github.app',
 				onSuccess(data) {
 					this.appValidated = true;
 					if (!data) {
@@ -314,7 +314,7 @@ export default {
 		},
 		branches() {
 			return {
-				url: 'press.api.github.branches',
+				url: 'cloud.api.github.branches',
 				onSuccess(branches) {
 					if (this.githubAppLink)
 						this.selectedBranch = {
@@ -341,7 +341,7 @@ export default {
 		},
 		clearAccessToken() {
 			return {
-				url: 'press.api.github.clear_token_and_get_installation_url',
+				url: 'cloud.api.github.clear_token_and_get_installation_url',
 				onSuccess(installation_url) {
 					window.location.href = installation_url + '?state=' + this.state;
 				}

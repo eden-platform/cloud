@@ -41,7 +41,7 @@ export async function switchToTeam(team) {
 	let canSwitch = false;
 	try {
 		canSwitch = await frappeRequest({
-			url: '/api/method/press.api.account.can_switch_to_team',
+			url: '/api/method/cloud.api.account.can_switch_to_team',
 			params: { team }
 		});
 	} catch (error) {

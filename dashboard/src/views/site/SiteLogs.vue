@@ -45,7 +45,7 @@ export default {
 	resources: {
 		logs() {
 			return {
-				url: 'press.api.site.logs',
+				url: 'cloud.api.site.logs',
 				params: { name: this.siteName },
 				auto: true
 			};

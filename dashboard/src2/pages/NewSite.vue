@@ -263,7 +263,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.site.options_for_new',
+				url: 'cloud.api.site.options_for_new',
 				makeParams() {
 					return { for_bench: this.bench };
 				},
@@ -277,7 +277,7 @@ export default {
 		},
 		subdomainExists() {
 			return {
-				url: 'press.api.site.exists',
+				url: 'cloud.api.site.exists',
 				makeParams() {
 					return {
 						domain: this.options?.domain,
@@ -296,7 +296,7 @@ export default {
 			if (!(this.options && this.selectedVersion)) return;
 
 			return {
-				url: 'press.api.client.insert',
+				url: 'cloud.api.client.insert',
 				makeParams() {
 					let appPlans = {};
 					for (let app of this.apps) {

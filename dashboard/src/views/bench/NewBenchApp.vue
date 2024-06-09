@@ -37,7 +37,7 @@ export default {
 	resources: {
 		addApp() {
 			return {
-				url: 'press.api.app.new',
+				url: 'cloud.api.app.new',
 				params: {
 					app: {
 						name: this.app?.name,

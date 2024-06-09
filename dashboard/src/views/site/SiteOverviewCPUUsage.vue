@@ -31,7 +31,7 @@ export default {
 		requestCounter() {
 			let localTimezone = DateTime.local().zoneName;
 			return {
-				url: 'press.api.analytics.daily_usage',
+				url: 'cloud.api.analytics.daily_usage',
 				params: { name: this.site?.name, timezone: localTimezone },
 				auto: true
 			};

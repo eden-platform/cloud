@@ -127,7 +127,7 @@ export default {
 		},
 		oauthLogin() {
 			return {
-				url: 'press.api.oauth.google_login',
+				url: 'cloud.api.oauth.google_login',
 				onSuccess(r) {
 					window.location = r;
 				},
@@ -143,7 +143,7 @@ export default {
 		},
 		guestFeatureFlags() {
 			return {
-				url: 'press.api.account.guest_feature_flags',
+				url: 'cloud.api.account.guest_feature_flags',
 				auto: true
 			};
 		}

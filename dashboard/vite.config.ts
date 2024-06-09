@@ -33,7 +33,7 @@ export default defineConfig({
 		include: ['feather-icons', 'showdown']
 	},
 	build: {
-		outDir: '../press/public/dashboard',
+		outDir: '../cloud/public/dashboard',
 		emptyOutDir: true,
 		sourcemap: true,
 		target: 'es2015',

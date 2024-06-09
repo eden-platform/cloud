@@ -77,7 +77,7 @@ export default {
 	},
 	resources: {
 		getStatus: {
-			url: 'press.api.account.get_partner_request_status',
+			url: 'cloud.api.account.get_partner_request_status',
 			params: {
 				team: $account.team.name
 			},
@@ -88,7 +88,7 @@ export default {
 		},
 		updatePartnershipDate() {
 			return {
-				url: 'press.api.account.update_partnership_date',
+				url: 'cloud.api.account.update_partnership_date',
 				params: {
 					team: $account.team.name,
 					partnership_date: this.partnerDate || this.today

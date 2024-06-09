@@ -52,7 +52,7 @@ export default {
 	resources: {
 		branches() {
 			return {
-				url: 'press.api.bench.branch_list',
+				url: 'cloud.api.bench.branch_list',
 				params: {
 					name: this.bench,
 					app: this.app.name
@@ -66,7 +66,7 @@ export default {
 		},
 		changeBranch() {
 			return {
-				url: 'press.api.bench.change_branch',
+				url: 'cloud.api.bench.change_branch',
 				onSuccess() {
 					this.$emit('branchChange');
 					this.showDialog = false;

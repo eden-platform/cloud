@@ -83,11 +83,11 @@ export default {
 	},
 	resources: {
 		groups: {
-			url: 'press.api.account.groups',
+			url: 'cloud.api.account.groups',
 			auto: true
 		},
 		addMember: {
-			url: 'press.api.account.add_team_member',
+			url: 'cloud.api.account.add_team_member',
 			onSuccess() {
 				this.showManageMemberDialog = false;
 				this.memberEmail = null;
@@ -100,7 +100,7 @@ export default {
 			}
 		},
 		addGroup: {
-			url: 'press.api.account.add_permission_group',
+			url: 'cloud.api.account.add_permission_group',
 			validate() {
 				if (this.groupName.length == 0) {
 					return 'Group name is required.';
@@ -120,7 +120,7 @@ export default {
 			}
 		},
 		removeGroup: {
-			url: 'press.api.account.remove_permission_group',
+			url: 'cloud.api.account.remove_permission_group',
 			onSuccess() {
 				this.$resources.groups.fetch();
 				notify({

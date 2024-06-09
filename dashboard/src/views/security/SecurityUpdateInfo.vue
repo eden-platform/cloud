@@ -64,7 +64,7 @@ export default {
 	resources: {
 		secUpdateInfo() {
 			return {
-				url: 'press.api.security.get_security_update_details',
+				url: 'cloud.api.security.get_security_update_details',
 				params: { update_id: this.updateId },
 				auto: true
 			};

@@ -69,7 +69,7 @@ export default {
 	resources: {
 		processList() {
 			return {
-				url: 'press.api.analytics.mariadb_processlist',
+				url: 'cloud.api.analytics.mariadb_processlist',
 				params: {
 					site: this.site?.name
 				},
@@ -81,7 +81,7 @@ export default {
 		},
 		getPlan() {
 			return {
-				url: 'press.api.site.current_plan',
+				url: 'cloud.api.site.current_plan',
 				params: {
 					name: this.site?.name
 				},

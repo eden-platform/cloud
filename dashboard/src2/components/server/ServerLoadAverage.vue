@@ -45,7 +45,7 @@ export default {
 		loadavg() {
 			let localTimezone = dayjs.tz.guess();
 			return {
-				url: 'press.api.server.analytics',
+				url: 'cloud.api.server.analytics',
 				params: {
 					name: this.server,
 					timezone: localTimezone,

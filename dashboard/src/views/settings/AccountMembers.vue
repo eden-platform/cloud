@@ -86,7 +86,7 @@ export default {
 	},
 	resources: {
 		addMember: {
-			url: 'press.api.account.add_team_member',
+			url: 'cloud.api.account.add_team_member',
 			onSuccess() {
 				this.showManageMemberDialog = false;
 				this.memberEmail = null;
@@ -99,7 +99,7 @@ export default {
 			}
 		},
 		removeMember: {
-			url: 'press.api.account.remove_team_member',
+			url: 'cloud.api.account.remove_team_member',
 			onSuccess() {
 				this.showManageMemberDialog = false;
 				this.$account.fetchAccount();

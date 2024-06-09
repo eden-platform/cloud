@@ -127,7 +127,7 @@ export default {
 	resources: {
 		changeServerOptions() {
 			return {
-				url: 'press.api.site.change_server_options',
+				url: 'cloud.api.site.change_server_options',
 				params: {
 					name: this.site?.name
 				},
@@ -143,13 +143,13 @@ export default {
 		},
 		isServerAddedInGroup() {
 			return {
-				url: 'press.api.site.is_server_added_in_group',
+				url: 'cloud.api.site.is_server_added_in_group',
 				initialData: false
 			};
 		},
 		changeServer() {
 			return {
-				url: 'press.api.site.change_server',
+				url: 'cloud.api.site.change_server',
 				onSuccess() {
 					notify({
 						title: 'Site Change Server',
@@ -163,7 +163,7 @@ export default {
 		},
 		addServerToReleaseGroup() {
 			return {
-				url: 'press.api.site.add_server_to_release_group',
+				url: 'cloud.api.site.add_server_to_release_group',
 				params: {
 					name: this.site?.name,
 					group_name: this.site?.group,

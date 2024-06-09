@@ -143,7 +143,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'App Release',
-				url: 'press.api.marketplace.releases',
+				url: 'cloud.api.marketplace.releases',
 				filters: {
 					app: this.app.app,
 					source: this.selectedSource
@@ -155,7 +155,7 @@ export default {
 		},
 		appSource() {
 			return {
-				url: 'press.api.marketplace.get_app_source',
+				url: 'cloud.api.marketplace.get_app_source',
 				params: {
 					name: this.selectedSource
 				}
@@ -163,7 +163,7 @@ export default {
 		},
 		latestApproved() {
 			return {
-				url: 'press.api.marketplace.latest_approved_release',
+				url: 'cloud.api.marketplace.latest_approved_release',
 				params: {
 					source: this.selectedSource
 				},
@@ -172,7 +172,7 @@ export default {
 		},
 		createApprovalRequest() {
 			return {
-				url: 'press.api.marketplace.create_approval_request',
+				url: 'cloud.api.marketplace.create_approval_request',
 				onSuccess() {
 					this.resetReleaseListState();
 				},
@@ -200,7 +200,7 @@ export default {
 		},
 		cancelApprovalRequest() {
 			return {
-				url: 'press.api.marketplace.cancel_approval_request',
+				url: 'cloud.api.marketplace.cancel_approval_request',
 				onSuccess() {
 					this.resetReleaseListState();
 				}

@@ -277,7 +277,7 @@ export default {
 	resources: {
 		restoreBackup() {
 			return {
-				url: 'press.api.site.restore',
+				url: 'cloud.api.site.restore',
 				params: {
 					name: this.site?.name,
 					files: this.selectedFiles,
@@ -302,7 +302,7 @@ export default {
 		},
 		resetDatabase() {
 			return {
-				url: 'press.api.site.reinstall',
+				url: 'cloud.api.site.reinstall',
 				params: {
 					name: this.site?.name
 				},
@@ -321,7 +321,7 @@ export default {
 		},
 		migrateDatabase() {
 			return {
-				url: 'press.api.site.migrate',
+				url: 'cloud.api.site.migrate',
 				params: {
 					name: this.site?.name
 				},
@@ -343,7 +343,7 @@ export default {
 		},
 		clearCache() {
 			return {
-				url: 'press.api.site.clear_cache',
+				url: 'cloud.api.site.clear_cache',
 				params: {
 					name: this.site?.name
 				},
@@ -387,19 +387,19 @@ export default {
 			return {
 				migrate: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.migrate'
+					'cloud.api.site.migrate'
 				),
 				restore: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.restore'
+					'cloud.api.site.restore'
 				),
 				reset: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.reset'
+					'cloud.api.site.reset'
 				),
 				access: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.enable_database_access'
+					'cloud.api.site.enable_database_access'
 				)
 			};
 		},

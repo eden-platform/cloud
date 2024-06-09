@@ -109,15 +109,15 @@ export default {
 	},
 	resources: {
 		paymentMethods: {
-			url: 'press.api.billing.get_payment_methods',
+			url: 'cloud.api.billing.get_payment_methods',
 			auto: true
 		},
 		setAsDefault: {
-			url: 'press.api.billing.set_as_default'
+			url: 'cloud.api.billing.set_as_default'
 		},
 		remove() {
 			return {
-				url: 'press.api.billing.remove_payment_method',
+				url: 'cloud.api.billing.remove_payment_method',
 				onSuccess: data => {
 					if (data === 'Unpaid Invoices') {
 						this.showFinalizeDialog = true;

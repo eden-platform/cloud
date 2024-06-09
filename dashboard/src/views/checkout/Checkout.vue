@@ -68,7 +68,7 @@ export default {
 	resources: {
 		subscription() {
 			return {
-				url: 'press.api.developer.marketplace.get_subscription',
+				url: 'cloud.api.developer.marketplace.get_subscription',
 				params: {
 					secret_key: this.secretKey
 				},

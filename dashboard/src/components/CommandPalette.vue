@@ -89,7 +89,7 @@ export default {
 			}
 		},
 		async makeFuse() {
-			let list = await this.$call('press.api.account.fuse_list');
+			let list = await this.$call('cloud.api.account.fuse_list');
 			let fuse_list = list;
 			for (let item of fuse_list) {
 				item.route =

@@ -35,7 +35,7 @@ export default {
 	resources: {
 		plans() {
 			return {
-				url: 'press.api.site.get_plans',
+				url: 'cloud.api.site.get_plans',
 				params: {
 					rg: this.bench
 				},

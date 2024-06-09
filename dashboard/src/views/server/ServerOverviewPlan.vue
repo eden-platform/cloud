@@ -91,7 +91,7 @@ export default {
 	resources: {
 		usageResource() {
 			return {
-				url: 'press.api.server.usage',
+				url: 'cloud.api.server.usage',
 				params: {
 					name: this.server?.name
 				},
@@ -101,7 +101,7 @@ export default {
 		},
 		plans() {
 			return {
-				url: 'press.api.server.plans',
+				url: 'cloud.api.server.plans',
 				params: {
 					name: 'Server',
 					cluster: this.server.region_info.name
@@ -111,7 +111,7 @@ export default {
 		},
 		changePlan() {
 			return {
-				url: 'press.api.server.change_plan',
+				url: 'cloud.api.server.change_plan',
 				params: {
 					name: this.server?.name,
 					plan: this.selectedPlan?.name

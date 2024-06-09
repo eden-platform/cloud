@@ -22,7 +22,7 @@ export let session = reactive({
 		}
 	}),
 	roles: createResource({
-		url: 'press.api.account.get_permission_roles',
+		url: 'cloud.api.account.get_permission_roles',
 		cache: ['roles', localStorage.getItem('current_team')],
 		initialData: []
 	}),

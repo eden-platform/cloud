@@ -133,14 +133,14 @@ export default {
 		)
 	},
 	resources: {
-		upcomingInvoice: { url: 'press.api.billing.upcoming_invoice', auto: true },
+		upcomingInvoice: { url: 'cloud.api.billing.upcoming_invoice', auto: true },
 		unpaidAmountDue() {
 			return {
-				url: 'press.api.billing.total_unpaid_amount',
+				url: 'cloud.api.billing.total_unpaid_amount',
 				auto: true
 			};
 		},
-		billingDetails: 'press.api.billing.details'
+		billingDetails: 'cloud.api.billing.details'
 	},
 	data() {
 		return {

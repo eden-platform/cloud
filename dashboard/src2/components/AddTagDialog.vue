@@ -26,7 +26,7 @@
 			<FormControl
 				v-if="selectedTag?.value === '__new__'"
 				v-model="newTag"
-				label="Enter new tag and press enter"
+				label="Enter new tag and cloud enter"
 				placeholder="production, staging, testing"
 				@keydown.enter="e => addNewTag(e.target.value)"
 			/>

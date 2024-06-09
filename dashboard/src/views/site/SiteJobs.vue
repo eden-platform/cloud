@@ -20,7 +20,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Agent Job',
-				url: 'press.api.site.jobs',
+				url: 'cloud.api.site.jobs',
 				filters: { site: this.siteName },
 				orderBy: 'creation desc',
 				start: 0,

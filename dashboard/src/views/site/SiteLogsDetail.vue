@@ -49,7 +49,7 @@ export default {
 	resources: {
 		log() {
 			return {
-				url: 'press.api.site.log',
+				url: 'cloud.api.site.log',
 				params: {
 					name: this.siteName,
 					log: this.logName

@@ -56,7 +56,7 @@ export default {
 	resources: {
 		server() {
 			return {
-				url: 'press.api.server.get',
+				url: 'cloud.api.server.get',
 				params: {
 					name: this.serverName
 				},

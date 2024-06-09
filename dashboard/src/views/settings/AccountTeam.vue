@@ -114,7 +114,7 @@ export default {
 	resources: {
 		leaveTeam() {
 			return {
-				url: 'press.api.account.leave_team',
+				url: 'cloud.api.account.leave_team',
 				onSuccess() {
 					this.$account.fetchAccount();
 					notify({
@@ -134,7 +134,7 @@ export default {
 		},
 		addChildTeam() {
 			return {
-				url: 'press.api.account.create_child_team',
+				url: 'cloud.api.account.create_child_team',
 				onSuccess(data) {
 					this.showManageTeamDialog = false;
 					this.childTeamTitle = null;
@@ -150,7 +150,7 @@ export default {
 		},
 		removeMember() {
 			return {
-				url: 'press.api.account.remove_child_team',
+				url: 'cloud.api.account.remove_child_team',
 				onSuccess() {
 					this.$account.fetchAccount();
 				}

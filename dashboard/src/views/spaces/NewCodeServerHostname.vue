@@ -48,7 +48,7 @@ export default {
 
 			let error = this.validateSubdomain(subdomain);
 			if (!error) {
-				let subdomainTaken = await this.$call('press.api.spaces.exists', {
+				let subdomainTaken = await this.$call('cloud.api.spaces.exists', {
 					subdomain,
 					domain: this.domain
 				});

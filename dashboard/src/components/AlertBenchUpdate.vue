@@ -91,7 +91,7 @@ export default {
 	resources: {
 		deployInformation() {
 			return {
-				url: 'press.api.bench.deploy_information',
+				url: 'cloud.api.bench.deploy_information',
 				params: {
 					name: this.bench?.name
 				},
@@ -100,7 +100,7 @@ export default {
 		},
 		deploy() {
 			return {
-				url: 'press.api.bench.deploy',
+				url: 'cloud.api.bench.deploy',
 				params: {
 					name: this.bench?.name,
 					apps: this.selectedApps
@@ -125,7 +125,7 @@ export default {
 			return {
 				update: this.$account.hasPermission(
 					this.bench.name,
-					'press.api.bench.deploy_and_update'
+					'cloud.api.bench.deploy_and_update'
 				)
 			};
 		},

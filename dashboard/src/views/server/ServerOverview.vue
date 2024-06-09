@@ -6,7 +6,7 @@ import ServerOverviewInfo from './ServerOverviewInfo.vue';
 const props = defineProps({ server: Object, serverName: String });
 
 const overview = createResource({
-	url: 'press.api.server.overview',
+	url: 'cloud.api.server.overview',
 	params: { name: props.serverName },
 	auto: true
 });

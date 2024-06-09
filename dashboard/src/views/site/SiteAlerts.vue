@@ -72,7 +72,7 @@ const siteVersionUpgradeText = computed(() => {
 });
 
 const marketplacePromotionalBanners = createResource({
-	url: 'press.api.marketplace.get_promotional_banners',
+	url: 'cloud.api.marketplace.get_promotional_banners',
 	auto: true
 });
 </script>

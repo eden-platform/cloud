@@ -72,7 +72,7 @@ export default {
 	resources: {
 		availableRegions() {
 			return {
-				url: 'press.api.bench.available_regions',
+				url: 'cloud.api.bench.available_regions',
 				params: {
 					name: this.group
 				},

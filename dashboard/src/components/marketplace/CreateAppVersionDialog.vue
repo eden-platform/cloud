@@ -62,7 +62,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.marketplace.options_for_version',
+				url: 'cloud.api.marketplace.options_for_version',
 				auto: true,
 				params: {
 					name: this.app.name,
@@ -76,7 +76,7 @@ export default {
 		},
 		addVersion() {
 			return {
-				url: 'press.api.marketplace.add_version',
+				url: 'cloud.api.marketplace.add_version',
 				params: {
 					name: this.app.name,
 					branch: this.selectedBranch,

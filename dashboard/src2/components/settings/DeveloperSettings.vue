@@ -91,7 +91,7 @@ const $team = getTeam();
 let showCreateSecretDialog = ref(false);
 
 const createSecret = createResource({
-	url: 'press.api.account.create_api_secret',
+	url: 'cloud.api.account.create_api_secret',
 	onSuccess() {
 		if ($team.doc.user_info.api_key) {
 			toast.success('API Secret regenerated successfully');
@@ -102,7 +102,7 @@ const createSecret = createResource({
 });
 
 const addSSHKey = createResource({
-	url: 'press.api.client.insert',
+	url: 'cloud.api.client.insert',
 	onSuccess() {
 		toast.success('SSH Key added successfully');
 	},
@@ -116,7 +116,7 @@ const addSSHKey = createResource({
 });
 
 const makeKeyDefault = createResource({
-	url: 'press.api.account.mark_key_as_default',
+	url: 'cloud.api.account.mark_key_as_default',
 	onSuccess() {
 		toast.success('SSH Key updated successfully');
 	},
@@ -130,7 +130,7 @@ const makeKeyDefault = createResource({
 });
 
 const deleteSSHKey = createResource({
-	url: 'press.api.client.delete',
+	url: 'cloud.api.client.delete',
 	onSuccess() {
 		toast.success('SSH Key deleted successfully');
 	},

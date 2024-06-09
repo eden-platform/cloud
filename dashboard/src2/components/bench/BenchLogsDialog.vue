@@ -56,7 +56,7 @@ const logName = ref('');
 const showLog = ref(false);
 
 const log = createResource({
-	url: 'press.api.bench.log',
+	url: 'cloud.api.bench.log',
 	makeParams() {
 		return {
 			name: `bench-${props.bench?.split('-')[1]}`,
@@ -69,7 +69,7 @@ const log = createResource({
 const listOptions = ref({
 	resource() {
 		return {
-			url: 'press.api.bench.logs',
+			url: 'cloud.api.bench.logs',
 			makeParams() {
 				return {
 					name: `bench-${props.bench?.split('-')[1]}`,

@@ -59,7 +59,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Site Activity',
-				url: 'press.api.site.activities',
+				url: 'cloud.api.site.activities',
 				filters: {
 					site: this.site?.name
 				},
@@ -70,7 +70,7 @@ export default {
 		},
 		changeNotifyEmail() {
 			return {
-				url: 'press.api.site.change_notify_email',
+				url: 'cloud.api.site.change_notify_email',
 				params: {
 					name: this.site?.name,
 					email: this.site?.notify_email

@@ -45,7 +45,7 @@ export default {
 	resources: {
 		reviewSteps() {
 			return {
-				url: 'press.api.marketplace.review_steps',
+				url: 'cloud.api.marketplace.review_steps',
 				params: {
 					name: this.app
 				},

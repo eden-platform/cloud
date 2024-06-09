@@ -174,7 +174,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.bench.options',
+				url: 'cloud.api.bench.options',
 				initialData: {
 					versions: [],
 					clusters: []
@@ -184,7 +184,7 @@ export default {
 		},
 		createBench() {
 			return {
-				url: 'press.api.bench.new',
+				url: 'cloud.api.bench.new',
 				validate() {
 					if (!this.benchTitle) {
 						return 'Bench Title cannot be blank';

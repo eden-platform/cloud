@@ -98,7 +98,7 @@ export default {
 	resources: {
 		serverPlans() {
 			return {
-				url: 'press.api.server.plans',
+				url: 'cloud.api.server.plans',
 				params: {
 					name: this.serverType,
 					cluster: this.$server.doc.cluster

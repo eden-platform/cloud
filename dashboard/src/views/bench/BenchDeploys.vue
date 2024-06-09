@@ -76,7 +76,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Deploy Candidate',
-				url: 'press.api.bench.candidates',
+				url: 'cloud.api.bench.candidates',
 				filters: {
 					group: this.benchName
 				},
@@ -87,7 +87,7 @@ export default {
 		},
 		selectedCandidate() {
 			return {
-				url: 'press.api.bench.candidate',
+				url: 'cloud.api.bench.candidate',
 				params: {
 					name: this.candidateName
 				},

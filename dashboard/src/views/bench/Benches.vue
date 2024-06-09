@@ -188,12 +188,12 @@ export default {
 	},
 	resources: {
 		paymentMethods: {
-			url: 'press.api.billing.get_payment_methods',
+			url: 'cloud.api.billing.get_payment_methods',
 			auto: true
 		},
 		allBenches() {
 			return {
-				url: 'press.api.bench.all',
+				url: 'cloud.api.bench.all',
 				params: {
 					bench_filter: { status: this.bench_status, tag: this.bench_tag }
 				},
@@ -207,7 +207,7 @@ export default {
 			};
 		},
 		benchTags: {
-			url: 'press.api.bench.bench_tags',
+			url: 'cloud.api.bench.bench_tags',
 			auto: true,
 			initialData: []
 		}

@@ -91,7 +91,7 @@ export default {
 	resources: {
 		slowQueries() {
 			return {
-				url: 'press.api.analytics.mariadb_slow_queries',
+				url: 'cloud.api.analytics.mariadb_slow_queries',
 				params: {
 					site: this.site?.name,
 					start: this.startTime || this.today,
@@ -107,7 +107,7 @@ export default {
 		},
 		getPlan() {
 			return {
-				url: 'press.api.site.current_plan',
+				url: 'cloud.api.site.current_plan',
 				params: {
 					name: this.site?.name
 				},

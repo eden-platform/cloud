@@ -100,12 +100,12 @@ export default {
 		};
 	},
 	async mounted() {
-		this.domain = await this.$call('press.api.spaces.code_server_domain');
+		this.domain = await this.$call('cloud.api.spaces.code_server_domain');
 	},
 	resources: {
 		newCodeServer() {
 			return {
-				url: 'press.api.spaces.create_code_server',
+				url: 'cloud.api.spaces.create_code_server',
 				params: {
 					subdomain: this.subdomain,
 					bench: this.selectedBench,

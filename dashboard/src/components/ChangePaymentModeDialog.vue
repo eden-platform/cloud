@@ -78,7 +78,7 @@ export default {
 	resources: {
 		changePaymentMode() {
 			return {
-				url: 'press.api.billing.change_payment_mode',
+				url: 'cloud.api.billing.change_payment_mode',
 				params: {
 					mode: this.paymentMode
 				},

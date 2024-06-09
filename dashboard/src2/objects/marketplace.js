@@ -253,7 +253,7 @@ export default {
 														],
 														resource() {
 															return {
-																url: 'press.api.marketplace.options_for_version',
+																url: 'cloud.api.marketplace.options_for_version',
 																params: {
 																	name: app.doc.name,
 																	source: versions.data[0].source

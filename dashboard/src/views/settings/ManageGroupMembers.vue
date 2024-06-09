@@ -78,13 +78,13 @@ export default {
 	},
 	resources: {
 		removeGroupUser: {
-			url: 'press.api.account.remove_permission_group_user',
+			url: 'cloud.api.account.remove_permission_group_user',
 			onSuccess() {
 				this.$resources.groupUsers.fetch();
 			}
 		},
 		addGroupUser: {
-			url: 'press.api.account.add_permission_group_user',
+			url: 'cloud.api.account.add_permission_group_user',
 			onSuccess() {
 				this.$resources.groupUsers.fetch();
 				this.member = {};
@@ -92,7 +92,7 @@ export default {
 		},
 		groupUsers() {
 			return {
-				url: 'press.api.account.permission_group_users',
+				url: 'cloud.api.account.permission_group_users',
 				params: {
 					name: this.group.name
 				},

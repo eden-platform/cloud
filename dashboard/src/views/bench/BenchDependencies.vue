@@ -46,7 +46,7 @@ export default {
 	resources: {
 		dependencies() {
 			return {
-				url: 'press.api.bench.dependencies',
+				url: 'cloud.api.bench.dependencies',
 				params: {
 					name: this.benchName
 				},
@@ -56,7 +56,7 @@ export default {
 		},
 		updateDependencies() {
 			return {
-				url: 'press.api.bench.update_dependencies',
+				url: 'cloud.api.bench.update_dependencies',
 				params: {
 					name: this.benchName,
 					dependencies: JSON.stringify(this.dependencies.active_dependencies)

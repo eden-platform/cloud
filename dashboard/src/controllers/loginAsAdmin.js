@@ -2,7 +2,7 @@ import { notify } from '@/utils/toast';
 
 export function loginAsAdmin(siteName) {
 	return {
-		url: 'press.api.site.login',
+		url: 'cloud.api.site.login',
 		params: { name: siteName },
 		onSuccess(data) {
 			if (data?.sid && data?.site) {

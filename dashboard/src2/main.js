@@ -24,12 +24,12 @@ let request = options => {
 	return frappeRequest(_options);
 };
 setConfig('resourceFetcher', request);
-setConfig('defaultListUrl', 'press.api.client.get_list');
-setConfig('defaultDocGetUrl', 'press.api.client.get');
-setConfig('defaultDocInsertUrl', 'press.api.client.insert');
-setConfig('defaultRunDocMethodUrl', 'press.api.client.run_doc_method');
-setConfig('defaultDocUpdateUrl', 'press.api.client.set_value');
-setConfig('defaultDocDeleteUrl', 'press.api.client.delete');
+setConfig('defaultListUrl', 'cloud.api.client.get_list');
+setConfig('defaultDocGetUrl', 'cloud.api.client.get');
+setConfig('defaultDocInsertUrl', 'cloud.api.client.insert');
+setConfig('defaultRunDocMethodUrl', 'cloud.api.client.run_doc_method');
+setConfig('defaultDocUpdateUrl', 'cloud.api.client.set_value');
+setConfig('defaultDocDeleteUrl', 'cloud.api.client.delete');
 
 let app;
 let socket;
@@ -61,7 +61,7 @@ getInitialData().then(() => {
 			],
 			beforeSend(event, hint) {
 				const ignoreErrors = [
-					/api\/method\/press.api.client/,
+					/api\/method\/cloud.api.client/,
 					/dynamically imported module/,
 					/NetworkError when attempting to fetch resource/
 				];
@@ -84,7 +84,7 @@ getInitialData().then(() => {
 function getInitialData() {
 	if (import.meta.env.DEV) {
 		return frappeRequest({
-			url: '/api/method/press.www.dashboard.get_context_for_dev'
+			url: '/api/method/cloud.www.dashboard.get_context_for_dev'
 		}).then(values => Object.assign(window, values));
 	} else {
 		return Promise.resolve();

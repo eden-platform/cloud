@@ -319,7 +319,7 @@ export default {
 	resources: {
 		allSites() {
 			return {
-				url: 'press.api.site.all',
+				url: 'cloud.api.site.all',
 				params: {
 					site_filter: { status: this.site_status, tag: this.site_tag }
 				},
@@ -332,15 +332,15 @@ export default {
 				]
 			};
 		},
-		siteTags: { url: 'press.api.site.site_tags', auto: true, initialData: [] },
+		siteTags: { url: 'cloud.api.site.site_tags', auto: true, initialData: [] },
 		latestUnpaidInvoice: {
-			url: 'press.api.billing.get_latest_unpaid_invoice',
+			url: 'cloud.api.billing.get_latest_unpaid_invoice',
 			auto: true
 		},
 		loginAsAdmin() {
 			return loginAsAdmin('placeholderSite'); // So that RM does not yell at first load
 		},
-		billingDetails: 'press.api.billing.details'
+		billingDetails: 'cloud.api.billing.details'
 	},
 	mounted() {
 		this.$socket.on('agent_job_update', this.onAgentJobUpdate);

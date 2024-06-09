@@ -123,7 +123,7 @@ export default {
 	resources: {
 		appPlans() {
 			return {
-				url: 'press.api.marketplace.get_app_plans',
+				url: 'cloud.api.marketplace.get_app_plans',
 				params: {
 					app: this.app,
 					include_disabled: true
@@ -133,7 +133,7 @@ export default {
 		},
 		updateAppPlan() {
 			return {
-				url: 'press.api.marketplace.update_app_plan',
+				url: 'cloud.api.marketplace.update_app_plan',
 				onSuccess() {
 					this.refreshState();
 				}
@@ -141,7 +141,7 @@ export default {
 		},
 		createAppPlan() {
 			return {
-				url: 'press.api.marketplace.create_app_plan',
+				url: 'cloud.api.marketplace.create_app_plan',
 				validate() {
 					if (!this.currentEditingPlan.title) {
 						return 'Plan name is required';

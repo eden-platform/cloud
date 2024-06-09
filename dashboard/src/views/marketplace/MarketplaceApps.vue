@@ -41,7 +41,7 @@ export default {
 	resources: {
 		apps() {
 			return {
-				url: 'press.api.marketplace.get_apps',
+				url: 'cloud.api.marketplace.get_apps',
 				cache: ['MarketplaceAppList', this.$account.team.name],
 				auto: true
 			};

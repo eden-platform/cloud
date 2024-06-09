@@ -66,7 +66,7 @@ export default {
 	resources: {
 		countryList() {
 			return {
-				url: 'press.api.account.country_list',
+				url: 'cloud.api.account.country_list',
 				auto: true
 			};
 		}
@@ -74,7 +74,7 @@ export default {
 	methods: {
 		async setupCard() {
 			let result = await this.$call(
-				'press.api.developer.marketplace.get_publishable_key_and_setup_intent',
+				'cloud.api.developer.marketplace.get_publishable_key_and_setup_intent',
 				{ secret_key: this.secretKey }
 			);
 			//window.posthog.capture('init_client_add_card', 'fc_signup');
@@ -160,7 +160,7 @@ export default {
 				if (setupIntent.status === 'succeeded') {
 					try {
 						const { payment_method_name } = await this.$call(
-							'press.api.developer.marketplace.setup_intent_success',
+							'cloud.api.developer.marketplace.setup_intent_success',
 							{
 								secret_key: this.secretKey,
 								setup_intent: setupIntent
@@ -170,7 +170,7 @@ export default {
 						this.addingCard = false;
 
 						await this.$call(
-							'press.api.developer.marketplace.change_site_plan',
+							'cloud.api.developer.marketplace.change_site_plan',
 							{
 								secret_key: this.secretKey,
 								plan: this.selectedPlan.name

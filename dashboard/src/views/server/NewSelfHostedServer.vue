@@ -159,18 +159,18 @@ export default {
 		};
 	},
 	async mounted() {
-		const plans = await this.$call('press.api.selfhosted.get_plans');
+		const plans = await this.$call('cloud.api.selfhosted.get_plans');
 		this.options = plans.map(plan => {
 			plan.disabled = !this.$account.hasBillingInfo;
 			plan.vcpu = 'Any';
 			return plan;
 		});
-		this.ssh_key = await this.$call('press.api.selfhosted.sshkey');
+		this.ssh_key = await this.$call('cloud.api.selfhosted.sshkey');
 	},
 	resources: {
 		newServer() {
 			return {
-				url: 'press.api.selfhosted.new',
+				url: 'cloud.api.selfhosted.new',
 				params: {
 					server: {
 						title: this.title,
@@ -188,7 +188,7 @@ export default {
 		},
 		verify() {
 			return {
-				url: 'press.api.selfhosted.verify',
+				url: 'cloud.api.selfhosted.verify',
 				params: {
 					server: this.serverDoc
 				},
@@ -199,7 +199,7 @@ export default {
 		},
 		setupServer() {
 			return {
-				url: 'press.api.selfhosted.setup',
+				url: 'cloud.api.selfhosted.setup',
 				params: {
 					server: this.serverDoc
 				},

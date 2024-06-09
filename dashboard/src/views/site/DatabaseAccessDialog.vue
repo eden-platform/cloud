@@ -184,7 +184,7 @@ export default {
 	resources: {
 		fetchDatabaseAccessInfo() {
 			return {
-				url: 'press.api.site.get_database_access_info',
+				url: 'cloud.api.site.get_database_access_info',
 				params: {
 					name: this.site
 				},
@@ -193,7 +193,7 @@ export default {
 		},
 		enableDatabaseAccess() {
 			return {
-				url: 'press.api.site.enable_database_access',
+				url: 'cloud.api.site.enable_database_access',
 				params: {
 					name: this.site,
 					mode: this.enableReadWriteAccess ? 'read_write' : 'read_only'
@@ -205,7 +205,7 @@ export default {
 		},
 		disableDatabaseAccess() {
 			return {
-				url: 'press.api.site.disable_database_access',
+				url: 'cloud.api.site.disable_database_access',
 				params: {
 					name: this.site
 				},
@@ -216,7 +216,7 @@ export default {
 		},
 		plans() {
 			return {
-				url: 'press.api.site.get_plans',
+				url: 'cloud.api.site.get_plans',
 				params: {
 					name: this.site
 				},
@@ -226,7 +226,7 @@ export default {
 		},
 		changePlan() {
 			return {
-				url: 'press.api.site.change_plan',
+				url: 'cloud.api.site.change_plan',
 				params: {
 					name: this.site,
 					plan: this.selectedPlan?.name
@@ -298,7 +298,7 @@ export default {
 			this.pollingAgentJob = true;
 
 			frappeRequest({
-				url: 'press.api.site.get_job_status',
+				url: 'cloud.api.site.get_job_status',
 				params: {
 					job_name: jobName
 				}

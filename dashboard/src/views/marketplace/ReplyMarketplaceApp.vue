@@ -18,7 +18,7 @@ const reply = reactive({
 });
 
 const submitReply = createResource({
-	url: 'press.api.marketplace.submit_developer_reply',
+	url: 'cloud.api.marketplace.submit_developer_reply',
 	validate() {
 		if (!reply.reply) {
 			return 'Reply cannot be empty';

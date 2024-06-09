@@ -20,7 +20,7 @@ export default {
 			return {
 				type: 'list',
 				doctype: 'Ansible Play',
-				url: 'press.api.server.plays',
+				url: 'cloud.api.server.plays',
 				filters: { server: this.serverName },
 				pageLength: 10,
 				start: 0,

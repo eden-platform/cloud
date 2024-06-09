@@ -15,7 +15,7 @@
 					:upload-args="{
 						doctype: 'Marketplace App',
 						docname: app.name,
-						method: 'press.api.marketplace.update_app_image'
+						method: 'cloud.api.marketplace.update_app_image'
 					}"
 				>
 					<template v-slot="{ openFileSelector, uploading, progress, error }">
@@ -152,7 +152,7 @@ export default {
 			let { name, title } = this.app;
 
 			return {
-				url: 'press.api.marketplace.update_app_title',
+				url: 'cloud.api.marketplace.update_app_title',
 				params: {
 					name,
 					title
@@ -166,7 +166,7 @@ export default {
 		},
 		profileImageUrl() {
 			return {
-				url: 'press.api.marketplace.profile_image_url',
+				url: 'cloud.api.marketplace.profile_image_url',
 				params: {
 					app: this.app.name
 				}
@@ -174,7 +174,7 @@ export default {
 		},
 		removeVersion() {
 			return {
-				url: 'press.api.marketplace.remove_version',
+				url: 'cloud.api.marketplace.remove_version',
 				onSuccess() {
 					window.location.reload();
 				},

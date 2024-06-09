@@ -45,7 +45,7 @@ export default {
 	resources: {
 		partner() {
 			return {
-				url: 'press.api.account.get_partner_details',
+				url: 'cloud.api.account.get_partner_details',
 				auto: true,
 				params: {
 					partner_email: this.$team.doc.partner_email

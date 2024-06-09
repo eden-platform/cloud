@@ -328,7 +328,7 @@ export default {
 	resources: {
 		deploy() {
 			return {
-				url: 'press.api.bench.deploy_and_update',
+				url: 'cloud.api.bench.deploy_and_update',
 				params: {
 					name: this.bench,
 					apps: this.selectedApps,

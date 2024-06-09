@@ -233,7 +233,7 @@ export default {
 	resources: {
 		installAppOptions() {
 			return {
-				url: 'press.api.marketplace.get_install_app_options',
+				url: 'cloud.api.marketplace.get_install_app_options',
 				auto: true,
 				params: {
 					marketplace_app: this.app
@@ -252,7 +252,7 @@ export default {
 		},
 		subdomainExists() {
 			return {
-				url: 'press.api.site.exists',
+				url: 'cloud.api.site.exists',
 				makeParams() {
 					return {
 						domain: this.$resources.options.domain,
@@ -271,7 +271,7 @@ export default {
 			if (!this.options) return;
 
 			return {
-				url: 'press.api.client.insert',
+				url: 'cloud.api.client.insert',
 				makeParams() {
 					return {
 						doc: {

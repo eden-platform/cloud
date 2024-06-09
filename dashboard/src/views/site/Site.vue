@@ -192,7 +192,7 @@ export default {
 	resources: {
 		site() {
 			return {
-				url: 'press.api.site.get',
+				url: 'cloud.api.site.get',
 				params: {
 					name: this.siteName
 				},
@@ -206,7 +206,7 @@ export default {
 					if (this.site.status !== 'Active' || this.site.setup_wizard_complete)
 						return;
 
-					this.$call('press.api.site.setup_wizard_complete', {
+					this.$call('cloud.api.site.setup_wizard_complete', {
 						name: this.siteName
 					})
 						.then(complete => {
@@ -222,7 +222,7 @@ export default {
 		},
 		plan() {
 			return {
-				url: 'press.api.site.current_plan',
+				url: 'cloud.api.site.current_plan',
 				params: {
 					name: this.siteName
 				},
@@ -301,7 +301,7 @@ export default {
 			});
 		},
 		activate() {
-			this.$call('press.api.site.activate', {
+			this.$call('cloud.api.site.activate', {
 				name: this.site.name
 			});
 			notify({

@@ -219,12 +219,12 @@ export default {
 			};
 		},
 		standardConfigKeys: {
-			url: 'press.api.config.standard_keys',
+			url: 'cloud.api.config.standard_keys',
 			cache: 'standardConfigKeys',
 			auto: true
 		},
 		validateKeys: {
-			url: 'press.api.config.is_valid'
+			url: 'cloud.api.config.is_valid'
 		}
 	},
 	computed: {

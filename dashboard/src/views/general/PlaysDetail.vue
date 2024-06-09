@@ -19,7 +19,7 @@ export default {
 	resources: {
 		play() {
 			return {
-				url: 'press.api.server.play',
+				url: 'cloud.api.server.play',
 				params: {
 					play: this.playName
 				},

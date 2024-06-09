@@ -113,7 +113,7 @@ export default {
 	resources: {
 		startReview() {
 			return {
-				url: 'press.api.marketplace.mark_app_ready_for_review',
+				url: 'cloud.api.marketplace.mark_app_ready_for_review',
 				params: {
 					name: this.appName
 				},
@@ -124,7 +124,7 @@ export default {
 		},
 		communication() {
 			return {
-				url: 'press.api.marketplace.communication',
+				url: 'cloud.api.marketplace.communication',
 				params: {
 					name: this.appName
 				}
@@ -132,7 +132,7 @@ export default {
 		},
 		addReply() {
 			return {
-				url: 'press.api.marketplace.add_reply',
+				url: 'cloud.api.marketplace.add_reply',
 				params: {
 					name: this.appName,
 					message: this.message

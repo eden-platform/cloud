@@ -52,12 +52,12 @@ export default {
 	resources: {
 		branches() {
 			return {
-				url: 'press.api.bench.branch_list'
+				url: 'cloud.api.bench.branch_list'
 			};
 		},
 		changeBranch() {
 			return {
-				url: 'press.api.bench.change_branch',
+				url: 'cloud.api.bench.change_branch',
 				onSuccess() {
 					window.location.reload();
 				},

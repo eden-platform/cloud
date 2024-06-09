@@ -35,7 +35,7 @@
 							:upload-args="{
 								doctype: 'Marketplace App',
 								docname: app.doc.name,
-								method: 'press.api.marketplace.update_app_image'
+								method: 'cloud.api.marketplace.update_app_image'
 							}"
 						>
 							<template
@@ -115,7 +115,7 @@
 							:upload-args="{
 								doctype: 'Marketplace App',
 								docname: app.name,
-								method: 'press.api.marketplace.add_app_screenshot'
+								method: 'cloud.api.marketplace.add_app_screenshot'
 							}"
 						>
 							<template
@@ -208,7 +208,7 @@ export default {
 	resources: {
 		updateListing() {
 			return {
-				url: 'press.api.client.run_doc_method',
+				url: 'cloud.api.client.run_doc_method',
 				makeParams() {
 					return {
 						dt: 'Marketplace App',
@@ -225,7 +225,7 @@ export default {
 		},
 		listingData() {
 			return {
-				url: 'press.api.client.run_doc_method',
+				url: 'cloud.api.client.run_doc_method',
 				makeParams() {
 					return {
 						dt: 'Marketplace App',
@@ -244,7 +244,7 @@ export default {
 		},
 		removeScreenshot() {
 			return {
-				url: 'press.api.marketplace.remove_app_screenshot',
+				url: 'cloud.api.marketplace.remove_app_screenshot',
 				onSuccess(response) {
 					toast.success('Removed screenshot');
 					this.$resources.listingData.reload();

@@ -27,7 +27,7 @@ export default {
 	methods: {
 		siteConfig() {
 			return {
-				url: 'press.api.site.site_config',
+				url: 'cloud.api.site.site_config',
 				params: { name: this.site?.name },
 				auto: true,
 				initialData: []
@@ -35,7 +35,7 @@ export default {
 		},
 		updateSiteConfig(updatedConfig) {
 			return {
-				url: 'press.api.site.update_config',
+				url: 'cloud.api.site.update_config',
 				params: {
 					name: this.site?.name,
 					config: JSON.stringify(updatedConfig)

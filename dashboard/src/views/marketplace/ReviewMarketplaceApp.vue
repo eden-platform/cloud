@@ -20,7 +20,7 @@ const review = reactive({
 });
 
 const submitReview = createResource({
-	url: 'press.api.marketplace.submit_user_review',
+	url: 'cloud.api.marketplace.submit_user_review',
 	validate() {
 		if (!review.title) {
 			return 'Please add a title to your review';

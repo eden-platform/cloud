@@ -201,7 +201,7 @@ export default {
 		getBackupLinks() {
 			let { url, email, password } = this.frappeSite;
 			return {
-				url: 'press.api.site.get_backup_links',
+				url: 'cloud.api.site.get_backup_links',
 				params: {
 					url,
 					email,

@@ -60,7 +60,7 @@ export default {
 	resources: {
 		transferSite() {
 			return {
-				url: 'press.api.site.send_change_team_request',
+				url: 'cloud.api.site.send_change_team_request',
 				validate() {
 					if (!this.emailOfTransferTeam) {
 						return 'Please enter email of the team for transfer of site ownership';

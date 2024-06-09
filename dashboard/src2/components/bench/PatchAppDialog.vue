@@ -290,7 +290,7 @@ export default {
 		},
 		applyPatch() {
 			return {
-				url: 'press.api.bench.apply_patch',
+				url: 'cloud.api.bench.apply_patch',
 				onSuccess() {
 					this.close();
 					this.$router.push({

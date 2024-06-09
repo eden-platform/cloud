@@ -75,7 +75,7 @@ export default {
 	resources: {
 		getBackupLinks() {
 			return {
-				url: 'press.api.site.get_backup_links',
+				url: 'cloud.api.site.get_backup_links',
 				params: {
 					url: this.siteURL,
 					email: this.email,
@@ -101,7 +101,7 @@ export default {
 		},
 		restoreBackup() {
 			return {
-				url: 'press.api.site.restore',
+				url: 'cloud.api.site.restore',
 				params: {
 					name: this.site,
 					files: this.selectedFiles,

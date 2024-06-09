@@ -102,7 +102,7 @@ export default {
 	resources: {
 		deployInformation() {
 			return {
-				url: 'press.api.bench.deploy_information',
+				url: 'cloud.api.bench.deploy_information',
 				params: {
 					name: this.bench?.name
 				},
@@ -111,7 +111,7 @@ export default {
 		},
 		deploy() {
 			return {
-				url: 'press.api.bench.deploy_and_update',
+				url: 'cloud.api.bench.deploy_and_update',
 				params: {
 					name: this.bench?.name,
 					apps: this.selectedApps,

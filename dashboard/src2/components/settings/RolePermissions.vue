@@ -61,7 +61,7 @@ const role = createDocumentResource({
 });
 
 const docInsert = createResource({
-	url: 'press.api.client.insert'
+	url: 'cloud.api.client.insert'
 });
 
 const dropdownOptions = [

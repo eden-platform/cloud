@@ -148,13 +148,13 @@ export default {
 	},
 	resources: {
 		checkDNS: {
-			url: 'press.api.site.check_dns',
+			url: 'cloud.api.site.check_dns',
 			validate() {
 				if (!this.newDomain) return 'Domain cannot be empty';
 			}
 		},
 		addDomain: {
-			url: 'press.api.site.add_domain',
+			url: 'cloud.api.site.add_domain',
 			onSuccess() {
 				this.$resources.checkDNS.reset();
 				this.$emit('domainAdded');
@@ -162,7 +162,7 @@ export default {
 			}
 		},
 		retryAddDomain: {
-			url: 'press.api.site.retry_add_domain',
+			url: 'cloud.api.site.retry_add_domain',
 			onSuccess() {
 				this.$emit('domainAdded');
 				// this.$resources.domains.fetch();

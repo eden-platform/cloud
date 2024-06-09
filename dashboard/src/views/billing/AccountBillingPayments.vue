@@ -141,7 +141,7 @@ export default {
 			this.invoiceStatus = this.$route.query.invoiceStatus;
 	},
 	resources: {
-		pastInvoices: 'press.api.billing.invoices_and_payments'
+		pastInvoices: 'cloud.api.billing.invoices_and_payments'
 	},
 	computed: {
 		filteredInvoices() {
@@ -166,7 +166,7 @@ export default {
 	methods: {
 		async refreshLink(invoiceName) {
 			let refreshed_link = await this.$call(
-				'press.api.billing.refresh_invoice_link',
+				'cloud.api.billing.refresh_invoice_link',
 				{
 					invoice: invoiceName
 				}

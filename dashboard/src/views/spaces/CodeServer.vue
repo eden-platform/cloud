@@ -113,7 +113,7 @@ export default {
 	resources: {
 		codeServer() {
 			return {
-				url: 'press.api.spaces.code_server',
+				url: 'cloud.api.spaces.code_server',
 				params: {
 					name: this.serverName
 				},

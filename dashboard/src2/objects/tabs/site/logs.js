@@ -11,12 +11,12 @@ export function logsTab() {
 		list: {
 			resource({ documentResource: site }) {
 				return {
-					url: 'press.api.site.logs',
+					url: 'cloud.api.site.logs',
 					params: {
 						name: site.name
 					},
 					auto: true,
-					cache: ['ObjectList', 'press.api.site.logs', site.name]
+					cache: ['ObjectList', 'cloud.api.site.logs', site.name]
 				};
 			},
 			route(row) {

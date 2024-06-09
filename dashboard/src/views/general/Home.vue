@@ -37,7 +37,7 @@ export default {
 			this.$router.push('/sites');
 		},
 		async fetchAll() {
-			let result = await this.$call('press.api.dashboard.all');
+			let result = await this.$call('cloud.api.dashboard.all');
 			this.sites = result.sites;
 			this.plans = result.plans;
 			if (this.sites.length === 0) {

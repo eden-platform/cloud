@@ -53,7 +53,7 @@ export default {
 	resources: {
 		frappeVersions() {
 			return {
-				url: 'press.api.marketplace.frappe_versions',
+				url: 'cloud.api.marketplace.frappe_versions',
 				auto: true,
 				onSuccess(data) {
 					if (data) {
@@ -64,7 +64,7 @@ export default {
 		},
 		addApp() {
 			return {
-				url: 'press.api.marketplace.new_app',
+				url: 'cloud.api.marketplace.new_app',
 				params: {
 					app: {
 						name: this.app?.name,

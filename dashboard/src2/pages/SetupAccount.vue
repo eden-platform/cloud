@@ -152,7 +152,7 @@ export default {
 	resources: {
 		validateRequestKey() {
 			return {
-				url: 'press.api.account.validate_request_key',
+				url: 'cloud.api.account.validate_request_key',
 				params: {
 					key: this.requestKey,
 					timezone: window.Intl
@@ -180,7 +180,7 @@ export default {
 		},
 		setupAccount() {
 			return {
-				url: 'press.api.account.setup_account',
+				url: 'cloud.api.account.setup_account',
 				params: {
 					key: this.requestKey,
 					password: this.password,

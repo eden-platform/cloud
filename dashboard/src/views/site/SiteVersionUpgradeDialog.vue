@@ -151,7 +151,7 @@ export default {
 	resources: {
 		versionUpgrade() {
 			return {
-				url: 'press.api.site.version_upgrade',
+				url: 'cloud.api.site.version_upgrade',
 				params: {
 					name: this.site?.name,
 					destination_group: this.privateReleaseGroup,
@@ -171,7 +171,7 @@ export default {
 		},
 		getPrivateGroups() {
 			return {
-				url: 'press.api.site.get_private_groups_for_upgrade',
+				url: 'cloud.api.site.get_private_groups_for_upgrade',
 				params: {
 					name: this.site?.name,
 					version: this.site?.frappe_version
@@ -192,7 +192,7 @@ export default {
 		},
 		addServerToReleaseGroup() {
 			return {
-				url: 'press.api.site.add_server_to_release_group',
+				url: 'cloud.api.site.add_server_to_release_group',
 				params: {
 					name: this.site?.name,
 					group_name: this.privateReleaseGroup
@@ -218,7 +218,7 @@ export default {
 		},
 		validateGroupforUpgrade() {
 			return {
-				url: 'press.api.site.validate_group_for_upgrade',
+				url: 'cloud.api.site.validate_group_for_upgrade',
 				onSuccess(data) {
 					this.benchHasCommonServer = data;
 				}

@@ -37,7 +37,7 @@ export default {
 	resources: {
 		options() {
 			return {
-				url: 'press.api.client.search_link',
+				url: 'cloud.api.client.search_link',
 				params: {
 					doctype: this.options.doctype,
 					order_by: this.options.orderBy,

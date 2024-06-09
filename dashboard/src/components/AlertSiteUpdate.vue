@@ -88,7 +88,7 @@ export default {
 	resources: {
 		updateInformation() {
 			return {
-				url: 'press.api.site.check_for_updates',
+				url: 'cloud.api.site.check_for_updates',
 				params: {
 					name: this.site?.name
 				},
@@ -97,7 +97,7 @@ export default {
 		},
 		lastMigrateFailed() {
 			return {
-				url: 'press.api.site.last_migrate_failed',
+				url: 'cloud.api.site.last_migrate_failed',
 				params: {
 					name: this.site?.name
 				},
@@ -106,7 +106,7 @@ export default {
 		},
 		scheduleUpdate() {
 			return {
-				url: 'press.api.site.update',
+				url: 'cloud.api.site.update',
 				params: {
 					name: this.site?.name,
 					skip_failing_patches: this.wantToSkipFailingPatches,
@@ -128,7 +128,7 @@ export default {
 			return {
 				update: this.$account.hasPermission(
 					this.site.name,
-					'press.api.site.update'
+					'cloud.api.site.update'
 				)
 			};
 		},

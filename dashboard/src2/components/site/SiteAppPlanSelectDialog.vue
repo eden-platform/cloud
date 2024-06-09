@@ -24,7 +24,7 @@ export default {
 	},
 	resources: {
 		changeAppPlan: {
-			url: 'press.api.marketplace.change_app_plan'
+			url: 'cloud.api.marketplace.change_app_plan'
 		}
 	},
 	methods: {

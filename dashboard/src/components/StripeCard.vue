@@ -92,10 +92,10 @@ export default {
 		this.billingInformation.cardHolderName = fullname.trimEnd();
 	},
 	resources: {
-		countryList: 'press.api.account.country_list',
+		countryList: 'cloud.api.account.country_list',
 		billingAddress() {
 			return {
-				url: 'press.api.account.get_billing_information',
+				url: 'cloud.api.account.get_billing_information',
 				params: {
 					timezone: this.browserTimezone
 				},
@@ -113,7 +113,7 @@ export default {
 	methods: {
 		async setupCard() {
 			let result = await this.$call(
-				'press.api.billing.get_publishable_key_and_setup_intent'
+				'cloud.api.billing.get_publishable_key_and_setup_intent'
 			);
 			//window.posthog.capture('init_client_add_card', 'fc_signup');
 			let { publishable_key, setup_intent } = result;
@@ -198,7 +198,7 @@ export default {
 				if (setupIntent.status === 'succeeded') {
 					try {
 						const { payment_method_name } = await this.$call(
-							'press.api.billing.setup_intent_success',
+							'cloud.api.billing.setup_intent_success',
 							{
 								setup_intent: setupIntent,
 								address: this.withoutAddress ? null : this.billingInformation
@@ -238,7 +238,7 @@ export default {
 			this.tryingMicroCharge = true;
 
 			const paymentIntent = await this.$call(
-				'press.api.billing.create_payment_intent_for_micro_debit',
+				'cloud.api.billing.create_payment_intent_for_micro_debit',
 				{
 					payment_method_name: paymentMethodName
 				}

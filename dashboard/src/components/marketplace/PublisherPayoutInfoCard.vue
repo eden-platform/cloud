@@ -120,7 +120,7 @@ export default {
 	resources: {
 		updatePublisherProfile() {
 			return {
-				url: 'press.api.marketplace.update_publisher_profile',
+				url: 'cloud.api.marketplace.update_publisher_profile',
 				params: {
 					profile_data: {
 						preferred_payout_method: this.payoutMethod,

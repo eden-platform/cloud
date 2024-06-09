@@ -45,7 +45,7 @@ export default class Auth {
 		window.location.reload();
 	}
 	async resetPassword(email) {
-		return await call('press.api.account.send_reset_password_email', {
+		return await call('cloud.api.account.send_reset_password_email', {
 			email
 		});
 	}

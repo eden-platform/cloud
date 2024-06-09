@@ -80,7 +80,7 @@ export default {
 			return {
 				drop: this.$account.hasPermission(
 					this.server.name,
-					'press.api.server.archive'
+					'cloud.api.server.archive'
 				)
 			};
 		}

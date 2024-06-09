@@ -144,7 +144,7 @@ export default {
 	resources: {
 		subscription() {
 			return {
-				url: 'press.api.saas.subscription',
+				url: 'cloud.api.saas.subscription',
 				params: {
 					site: this.site
 				},
@@ -160,7 +160,7 @@ export default {
 		},
 		setSubscriptionPlan() {
 			return {
-				url: 'press.api.saas.set_subscription_plan',
+				url: 'cloud.api.saas.set_subscription_plan',
 				params: {
 					site: this.site,
 					plan: this.selectedPlan?.name

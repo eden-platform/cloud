@@ -61,7 +61,7 @@ export default {
 	},
 	resources: {
 		countryList: {
-			url: 'press.api.account.country_list',
+			url: 'cloud.api.account.country_list',
 			auto: true,
 			onSuccess() {
 				// TODO: remove this.$account usage after dashboard-beta is merged
@@ -77,7 +77,7 @@ export default {
 		},
 		validateGST() {
 			return {
-				url: 'press.api.billing.validate_gst',
+				url: 'cloud.api.billing.validate_gst',
 				makeParams() {
 					return { address: this.address };
 				}

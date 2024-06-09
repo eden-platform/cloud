@@ -78,7 +78,7 @@ export default {
 	resources: {
 		regions() {
 			return {
-				url: 'press.api.bench.regions',
+				url: 'cloud.api.bench.regions',
 				params: {
 					name: this.benchName
 				},
@@ -87,7 +87,7 @@ export default {
 		},
 		availableRegions() {
 			return {
-				url: 'press.api.bench.available_regions',
+				url: 'cloud.api.bench.available_regions',
 				params: {
 					name: this.benchName
 				},
@@ -100,7 +100,7 @@ export default {
 		},
 		addRegion() {
 			return {
-				url: 'press.api.bench.add_region',
+				url: 'cloud.api.bench.add_region',
 				onSuccess() {
 					window.location.reload();
 				}

@@ -45,7 +45,7 @@ export default {
 	resources: {
 		domain() {
 			return {
-				url: 'press.api.site.get_domain',
+				url: 'cloud.api.site.get_domain',
 				auto: true
 			};
 		}
@@ -63,7 +63,7 @@ export default {
 
 			let error = this.validateSubdomain(subdomain);
 			if (!error) {
-				let subdomainTaken = await this.$call('press.api.site.exists', {
+				let subdomainTaken = await this.$call('cloud.api.site.exists', {
 					subdomain,
 					domain: this.domain
 				});

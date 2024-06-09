@@ -119,7 +119,7 @@ export default {
 	resources: {
 		optionsForQuickInstall() {
 			return {
-				url: 'press.api.marketplace.options_for_quick_install',
+				url: 'cloud.api.marketplace.options_for_quick_install',
 				params: {
 					marketplace_app: this.marketplaceApp
 				},
@@ -128,7 +128,7 @@ export default {
 		},
 		addAppToBench() {
 			return {
-				url: 'press.api.bench.add_app',
+				url: 'cloud.api.bench.add_app',
 				onSuccess() {
 					notify({
 						title: 'App added successfully!',
@@ -142,7 +142,7 @@ export default {
 		},
 		installAppOnSite() {
 			return {
-				url: 'press.api.site.install_app',
+				url: 'cloud.api.site.install_app',
 				validate() {
 					if (this.showPlanSelectionDialog && !this.selectedPlan) {
 						return 'Please select a plan to continue';

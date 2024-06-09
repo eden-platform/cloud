@@ -282,7 +282,7 @@ export default {
 	resources: {
 		versions() {
 			return {
-				url: 'press.api.bench.versions',
+				url: 'cloud.api.bench.versions',
 				params: {
 					name: this.benchName
 				},
@@ -291,7 +291,7 @@ export default {
 		},
 		versionApps() {
 			return {
-				url: 'press.api.bench.get_installed_apps_in_version'
+				url: 'cloud.api.bench.get_installed_apps_in_version'
 			};
 		},
 		loginAsAdmin() {
@@ -299,14 +299,14 @@ export default {
 		},
 		getCertificate() {
 			return {
-				url: 'press.api.bench.certificate',
+				url: 'cloud.api.bench.certificate',
 				params: { name: this.benchName },
 				auto: true
 			};
 		},
 		generateCertificate() {
 			return {
-				url: 'press.api.bench.generate_certificate',
+				url: 'cloud.api.bench.generate_certificate',
 				params: { name: this.bench?.name },
 				onSuccess() {
 					this.$resources.getCertificate.reload();
@@ -315,7 +315,7 @@ export default {
 		},
 		restartBench() {
 			return {
-				url: 'press.api.bench.restart',
+				url: 'cloud.api.bench.restart',
 				params: {
 					name: this.versions[this.selectedVersionIndex]?.name
 				}
@@ -323,7 +323,7 @@ export default {
 		},
 		rebuildBench() {
 			return {
-				url: 'press.api.bench.rebuild',
+				url: 'cloud.api.bench.rebuild',
 				params: {
 					name: this.versions[this.selectedVersionIndex]?.name
 				}
@@ -331,7 +331,7 @@ export default {
 		},
 		updateAllSites() {
 			return {
-				url: 'press.api.bench.update',
+				url: 'cloud.api.bench.update',
 				onSuccess() {
 					notify({
 						title: 'Site update scheduled successfully',
@@ -505,15 +505,15 @@ export default {
 			return {
 				restartBench: this.$account.hasPermission(
 					this.benchName,
-					'press.api.bench.restart'
+					'cloud.api.bench.restart'
 				),
 				rebuildBench: this.$account.hasPermission(
 					this.benchName,
-					'press.api.bench.rebuild'
+					'cloud.api.bench.rebuild'
 				),
 				sshAccess: this.$account.hasPermission(
 					this.benchName,
-					'press.api.bench.generate_certificate'
+					'cloud.api.bench.generate_certificate'
 				)
 			};
 		},

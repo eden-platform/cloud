@@ -16,7 +16,7 @@ export default {
 	resources: {
 		siteData() {
 			return {
-				url: 'press.api.site.get',
+				url: 'cloud.api.site.get',
 				params: {
 					name: this.site
 				},

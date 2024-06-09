@@ -32,7 +32,7 @@ export default {
 	resources: {
 		editTitle() {
 			return {
-				url: 'press.api.server.rename',
+				url: 'cloud.api.server.rename',
 				params: {
 					name: this.server?.name,
 					title: this.serverTitle
