@@ -35,7 +35,7 @@ export default {
 					name: 'Notifications',
 					icon: () => h(Notification),
 					route: '/notifications',
-					isActive: routeName === 'Press Notification List',
+					isActive: routeName === 'Cloud Notification List',
 					condition: this.$team.doc.onboarding.complete,
 					badge: () => {
 						if (unreadNotificationsCount.data > 0) {
@@ -121,15 +121,15 @@ export default {
 		}
 	},
 	mounted() {
-		this.$socket.emit('doctype_subscribe', 'Press Notification');
-		this.$socket.on('press_notification', data => {
+		this.$socket.emit('doctype_subscribe', 'Cloud Notification');
+		this.$socket.on('cloud_notification', data => {
 			if (data.team === this.$team.doc.name) {
 				unreadNotificationsCount.setData(data => data + 1);
 			}
 		});
 	},
 	unmounted() {
-		this.$socket.off('press_notification');
+		this.$socket.off('cloud_notification');
 	}
 };
 </script>

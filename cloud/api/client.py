@@ -34,9 +34,9 @@ ALLOWED_DOCTYPES = [
 	"Release Group App",
 	"Release Group Dependency",
 	"Cluster",
-	"Press Permission Group",
-	"Press Role",
-	"Press Role Permission",
+	"Cloud Permission Group",
+	"Cloud Role",
+	"Cloud Role Permission",
 	"Team",
 	"SaaS Product Site Request",
 	"Deploy Candidate",
@@ -51,7 +51,7 @@ ALLOWED_DOCTYPES = [
 	"Server Plan",
 	"Release Group Variable",
 	"Resource Tag",
-	"Press Tag",
+	"Cloud Tag",
 	"User",
 	"Partner Approval Request",
 	"Marketplace App",
@@ -62,7 +62,7 @@ ALLOWED_DOCTYPES = [
 	"Payout Order",
 	"App Patch",
 	"SaaS Product",
-	"Press Notification",
+	"Cloud Notification",
 	"User SSH Key",
 	"Frappe Version",
 ]
@@ -81,7 +81,7 @@ def get_list(
 	parent=None,
 	debug=False,
 ):
-	from cloud.cloud.doctype.press_role.press_role import check_role_permissions
+	from cloud.cloud.doctype.cloud_role.cloud_role import check_role_permissions
 
 	if filters is None:
 		filters = {}
@@ -125,14 +125,14 @@ def get_list(
 			)
 
 	if roles := check_role_permissions(doctype):
-		PressRolePermission = frappe.qb.DocType("Press Role Permission")
+		CloudRolePermission = frappe.qb.DocType("Cloud Role Permission")
 		QueriedDocType = frappe.qb.DocType(doctype)
 
 		field = doctype.lower().replace(" ", "_")
 
-		query = query.join(PressRolePermission).on(
-			PressRolePermission[field]
-			== QueriedDocType.name & PressRolePermission.role.isin(roles)
+		query = query.join(CloudRolePermission).on(
+			CloudRolePermission[field]
+			== QueriedDocType.name & CloudRolePermission.role.isin(roles)
 		)
 
 	filters = frappe._dict(filters or {})
@@ -156,7 +156,7 @@ def get_list(
 
 @frappe.whitelist()
 def get(doctype, name):
-	from cloud.cloud.doctype.press_role.press_role import check_role_permissions
+	from cloud.cloud.doctype.cloud_role.cloud_role import check_role_permissions
 
 	check_permissions(doctype)
 	try:
@@ -440,7 +440,7 @@ def check_permissions(doctype):
 
 	if not hasattr(frappe.local, "team") or not frappe.local.team():
 		frappe.throw(
-			"current_team is not set. Use X-PRESS-TEAM header in the request to set it."
+			"current_team is not set. Use X-Cloud-TEAM header in the request to set it."
 		)
 
 	return True

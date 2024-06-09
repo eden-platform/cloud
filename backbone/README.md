@@ -4,4 +4,4 @@
 
 ## Installation
 
-Automatically installed with Press
+Automatically installed with Cloud

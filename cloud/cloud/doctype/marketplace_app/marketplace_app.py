@@ -194,7 +194,7 @@ class MarketplaceApp(WebsiteGenerator):
 
 	def validate_number_of_screenshots(self):
 		max_allowed_screenshots = frappe.db.get_single_value(
-			"Press Settings", "max_allowed_screenshots"
+			"Cloud Settings", "max_allowed_screenshots"
 		)
 		if len(self.screenshots) > max_allowed_screenshots:
 			frappe.throw(
@@ -300,7 +300,7 @@ class MarketplaceApp(WebsiteGenerator):
 		if source.github_installation_id:
 			github_access_token = get_access_token(source.github_installation_id)
 		else:
-			github_access_token = frappe.get_value("Press Settings", None, "github_access_token")
+			github_access_token = frappe.get_value("Cloud Settings", None, "github_access_token")
 
 		headers = {
 			"Authorization": f"token {github_access_token}",

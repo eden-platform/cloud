@@ -160,7 +160,7 @@
  "links": [],
  "modified": "2022-01-31 10:46:17.476664",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "SSH Certificate",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
@@ -181,14 +181,14 @@
    "create": 1,
    "if_owner": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "if_owner": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

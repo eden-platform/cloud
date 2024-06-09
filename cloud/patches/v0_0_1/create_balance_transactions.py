@@ -44,7 +44,7 @@ def execute():
 def get_free_credits_left(team):
 	invoices = frappe.db.get_all("Invoice", {"team": team.name, "status": ("!=", "Draft")})
 
-	settings = frappe.get_doc("Press Settings")
+	settings = frappe.get_doc("Cloud Settings")
 	total_free_credits = (
 		settings.free_credits_inr if team.currency == "INR" else settings.free_credits_usd
 	)

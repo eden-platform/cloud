@@ -8,7 +8,7 @@ Server runs benches as well as its own MariaDB database.
 > Note: [Proxy Server Setup](/internal/servers/proxy-server-setup) must be completed before Server setup.
 
 #### Requires
-- Press host must have root SSH access to the target machine.
+- Cloud host must have root SSH access to the target machine.
 
 #### Steps
 

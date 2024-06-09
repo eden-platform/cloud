@@ -11,7 +11,7 @@ DEFAULT_PERMISSIONS = {
 }
 
 
-class PressPermissionGroup(Document):
+class CloudPermissionGroup(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -19,14 +19,14 @@ class PressPermissionGroup(Document):
 
 	if TYPE_CHECKING:
 		from frappe.types import DF
-		from cloud.cloud.doctype.press_permission_group_user.press_permission_group_user import (
-			PressPermissionGroupUser,
+		from cloud.cloud.doctype.cloud_permission_group_user.cloud_permission_group_user import (
+			CloudPermissionGroupUser,
 		)
 
 		permissions: DF.JSON | None
 		team: DF.Link
 		title: DF.Data
-		users: DF.Table[PressPermissionGroupUser]
+		users: DF.Table[CloudPermissionGroupUser]
 	# end: auto-generated types
 
 	dashboard_fields = ["title", "users"]
@@ -259,7 +259,7 @@ def get_permitted_methods(doctype: str, name: str, group_names: list = None) -> 
 
 
 def get_method_perms_for_group(doctype: str, name: str, group_name: str) -> list:
-	permissions = frappe.db.get_value("Press Permission Group", group_name, "permissions")
+	permissions = frappe.db.get_value("Cloud Permission Group", group_name, "permissions")
 
 	if not permissions:
 		# this group allows all methods of all documents
@@ -349,7 +349,7 @@ def get_permission_groups(user: str = None) -> list:
 		user = frappe.session.user
 
 	return frappe.get_all(
-		"Press Permission Group User",
+		"Cloud Permission Group User",
 		filters={"user": user},
 		pluck="parent",
 		distinct=True,

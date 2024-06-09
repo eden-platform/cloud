@@ -21,7 +21,7 @@
  "letterhead": null,
  "modified": "2023-10-20 11:26:37.053554",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Bench Memory Limits",
  "owner": "Administrator",
  "prepared_report": 0,
@@ -32,13 +32,13 @@
  "report_type": "Script Report",
  "roles": [
   {
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "role": "System Manager"
   },
   {
-   "role": "Press Member"
+   "role": "Cloud Member"
   },
   {
    "role": "Site Manager"

@@ -5,16 +5,16 @@ import frappe
 from frappe.tests.utils import FrappeTestCase
 from cloud.cloud.doctype.team.test_team import create_test_team
 
-from cloud.cloud.doctype.press_permission_group.press_permission_group import (
+from cloud.cloud.doctype.cloud_permission_group.cloud_permission_group import (
 	get_all_restrictable_methods,
 	has_method_permission,
 )
 
 
-class TestPressPermissionGroup(FrappeTestCase):
+class TestCloudPermissionGroup(FrappeTestCase):
 	def setUp(self):
 		frappe.set_user("Administrator")
-		frappe.db.delete("Press Permission Group")
+		frappe.db.delete("Cloud Permission Group")
 		self.team_user = create_user("team@example.com")
 		self.team = create_test_team(self.team_user.email)
 		self.team_member = create_user("user123@example.com")
@@ -25,8 +25,8 @@ class TestPressPermissionGroup(FrappeTestCase):
 
 	def tearDown(self):
 		frappe.set_user("Administrator")
-		frappe.delete_doc("Press Permission Group", self.perm_group.name, force=True)
-		frappe.delete_doc("Press Permission Group", self.perm_group2.name, force=True)
+		frappe.delete_doc("Cloud Permission Group", self.perm_group.name, force=True)
+		frappe.delete_doc("Cloud Permission Group", self.perm_group2.name, force=True)
 		frappe.delete_doc("Team", self.team.name, force=True)
 		frappe.delete_doc("User", self.team_member.name, force=True)
 		frappe.delete_doc("User", self.team_user.name, force=True)
@@ -151,7 +151,7 @@ class TestPressPermissionGroup(FrappeTestCase):
 
 # utils
 def create_permission_group(team):
-	doc = frappe.new_doc("Press Permission Group")
+	doc = frappe.new_doc("Cloud Permission Group")
 	doc.title = "Test Group"
 	doc.team = team
 	doc.save()

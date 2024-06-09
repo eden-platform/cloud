@@ -96,7 +96,7 @@
  "links": [],
  "modified": "2023-10-19 11:55:22.183101",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Stripe Payment Method",
  "naming_rule": "Expression",
  "owner": "Administrator",
@@ -117,7 +117,7 @@
    "create": 1,
    "delete": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   }
  ],

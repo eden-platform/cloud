@@ -100,7 +100,7 @@
  "links": [],
  "modified": "2024-05-08 09:43:31.634297",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Site Domain",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
@@ -121,14 +121,14 @@
    "create": 1,
    "delete": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "delete": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

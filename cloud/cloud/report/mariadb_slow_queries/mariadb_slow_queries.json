@@ -11,7 +11,7 @@
  "is_standard": "Yes",
  "modified": "2022-11-08 17:10:41.382656",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "MariaDB Slow Queries",
  "owner": "Administrator",
  "prepared_report": 0,

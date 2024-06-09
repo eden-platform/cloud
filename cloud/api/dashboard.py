@@ -23,11 +23,11 @@ def all():
 @protected(["Site", "Release Group", "Server", "Database Server"])
 def create_new_tag(name, doctype, tag):
 	team = get_current_team()
-	if frappe.db.exists("Press Tag", {"tag": tag, "doctype_name": doctype, "team": team}):
+	if frappe.db.exists("Cloud Tag", {"tag": tag, "doctype_name": doctype, "team": team}):
 		frappe.throw(f"Tag '{tag}' already exists")
 	tag = frappe.get_doc(
 		{
-			"doctype": "Press Tag",
+			"doctype": "Cloud Tag",
 			"doctype_name": doctype,
 			"team": team,
 			"tag": tag,

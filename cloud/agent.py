@@ -34,7 +34,7 @@ class Agent:
 
 	def new_bench(self, bench):
 		settings = frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			["docker_registry_url", "docker_registry_username", "docker_registry_password"],
 			as_dict=True,
@@ -395,7 +395,7 @@ class Agent:
 		data = {"with_files": with_files}
 
 		if offsite:
-			settings = frappe.get_single("Press Settings")
+			settings = frappe.get_single("Cloud Settings")
 			backups_path = os.path.join(site.name, str(date.today()))
 			backup_bucket = get_backup_bucket(site.cluster, region=True)
 			bucket_name = (
@@ -671,7 +671,7 @@ class Agent:
 			password = get_decrypted_password(self.server_type, self.server, "agent_password")
 			headers = {"Authorization": f"bearer {password}", "X-Agent-Job-Id": agent_job_id}
 			intermediate_ca = frappe.db.get_value(
-				"Press Settings", "Press Settings", "backbone_intermediate_ca"
+				"Cloud Settings", "Cloud Settings", "backbone_intermediate_ca"
 			)
 			if frappe.conf.developer_mode and intermediate_ca:
 				root_ca = frappe.db.get_value(
@@ -768,7 +768,7 @@ class Agent:
 		"""
 
 		disable_agent_job_deduplication = frappe.db.get_single_value(
-			"Press Settings", "disable_agent_job_deduplication", cache=True
+			"Cloud Settings", "disable_agent_job_deduplication", cache=True
 		)
 
 		if not disable_agent_job_deduplication:

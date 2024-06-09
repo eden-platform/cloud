@@ -51,7 +51,7 @@ from cloud.cloud.doctype.app_source.test_app_source import create_test_app_sourc
 from cloud.cloud.doctype.marketplace_app.test_marketplace_app import (
 	create_test_marketplace_app,
 )
-from cloud.cloud.doctype.team.test_team import create_test_press_admin_team
+from cloud.cloud.doctype.team.test_team import create_test_cloud_admin_team
 from cloud.cloud.doctype.release_group.test_release_group import (
 	create_test_release_group,
 )
@@ -81,7 +81,7 @@ PAYLOAD = [
 class TestAPIMarketplace(unittest.TestCase):
 	def setUp(self):
 		self.app = create_test_app("erpnext", "ERPNext")
-		self.team = create_test_press_admin_team()
+		self.team = create_test_cloud_admin_team()
 		self.version = "Version 14"
 		self.app_source = create_test_app_source(
 			version=self.version, app=self.app, team=self.team.name

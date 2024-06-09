@@ -92,10 +92,10 @@ class MonitorServer(BaseServer):
 					"monitoring_password": cluster.get_password("monitoring_password"),
 				}
 			)
-		press_url = frappe.utils.get_url()
-		settings = frappe.get_single("Press Settings")
+		cloud_url = frappe.utils.get_url()
+		settings = frappe.get_single("Cloud Settings")
 		monitor_token = settings.monitor_token
-		press_monitoring_password = settings.get_password("press_monitoring_password")
+		cloud_monitoring_password = settings.get_password("cloud_monitoring_password")
 		try:
 			ansible = Ansible(
 				playbook="monitor.yml",
@@ -108,10 +108,10 @@ class MonitorServer(BaseServer):
 					"agent_repository_url": agent_repository_url,
 					"monitor": True,
 					"monitoring_password": monitoring_password,
-					"press_monitoring_password": press_monitoring_password,
-					"press_app_server": frappe.local.site,
-					"press_db_server": f"db.{frappe.local.site}",
-					"press_url": press_url,
+					"cloud_monitoring_password": cloud_monitoring_password,
+					"cloud_app_server": frappe.local.site,
+					"cloud_db_server": f"db.{frappe.local.site}",
+					"cloud_url": cloud_url,
 					"prometheus_data_directory": self.prometheus_data_directory,
 					"monitor_token": monitor_token,
 					"registries_json": json.dumps(registries),
@@ -143,8 +143,8 @@ class MonitorServer(BaseServer):
 		)
 
 	def _reconfigure_monitor_server(self):
-		settings = frappe.get_single("Press Settings")
-		press_monitoring_password = settings.get_password("press_monitoring_password")
+		settings = frappe.get_single("Cloud Settings")
+		cloud_monitoring_password = settings.get_password("cloud_monitoring_password")
 		monitoring_password = self.get_password("monitoring_password")
 
 		registries = []
@@ -184,9 +184,9 @@ class MonitorServer(BaseServer):
 				variables={
 					"server": self.name,
 					"monitoring_password": monitoring_password,
-					"press_monitoring_password": press_monitoring_password,
-					"press_app_server": frappe.local.site,
-					"press_db_server": f"db.{frappe.local.site}",
+					"cloud_monitoring_password": cloud_monitoring_password,
+					"cloud_app_server": frappe.local.site,
+					"cloud_db_server": f"db.{frappe.local.site}",
 					"registries_json": json.dumps(registries),
 					"log_servers_json": json.dumps(log_servers),
 					"clusters_json": json.dumps(clusters),

@@ -77,7 +77,7 @@ def handlers() -> "list[UserAddressableHandlerTuple]":
 	is called.
 
 	`UserAddressableHandler` is used to update the details
-	used to create the Press Notification
+	used to create the Cloud Notification
 
 	`UserAddressableHandler` can return False if it isn't
 	user addressable, in this case the remaining handler
@@ -166,7 +166,7 @@ def create_build_failed_notification(
 
 	details = get_details(dc, exc)
 	doc_dict = {
-		"doctype": "Press Notification",
+		"doctype": "Cloud Notification",
 		"team": dc.team,
 		"type": "Bench Deploy",
 		"document_type": dc.doctype,
@@ -179,7 +179,7 @@ def create_build_failed_notification(
 	frappe.db.commit()
 
 	frappe.publish_realtime(
-		"press_notification", doctype="Press Notification", message={"team": dc.team}
+		"cloud_notification", doctype="Cloud Notification", message={"team": dc.team}
 	)
 
 	return details["is_actionable"]

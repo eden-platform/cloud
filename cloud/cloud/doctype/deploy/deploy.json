@@ -70,7 +70,7 @@
  "links": [],
  "modified": "2021-07-23 10:34:15.747070",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Deploy",
  "owner": "Administrator",
  "permissions": [
@@ -89,13 +89,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

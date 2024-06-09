@@ -7,10 +7,10 @@ from cloud.cloud.doctype.team.test_team import create_test_team
 from cloud.cloud.doctype.site.test_site import create_test_site
 
 
-class TestPressRole(FrappeTestCase):
+class TestCloudRole(FrappeTestCase):
 	def setUp(self):
 		frappe.set_user("Administrator")
-		frappe.db.delete("Press Role")
+		frappe.db.delete("Cloud Role")
 		self.team_user = create_user("team@example.com")
 		self.team = create_test_team(self.team_user.email)
 		self.team_member = create_user("user123@example.com")
@@ -21,8 +21,8 @@ class TestPressRole(FrappeTestCase):
 
 	def tearDown(self):
 		frappe.set_user("Administrator")
-		frappe.delete_doc("Press Role", self.perm_role.name, force=True)
-		frappe.delete_doc("Press Role", self.perm_role2.name, force=True)
+		frappe.delete_doc("Cloud Role", self.perm_role.name, force=True)
+		frappe.delete_doc("Cloud Role", self.perm_role2.name, force=True)
 		frappe.delete_doc("Team", self.team.name, force=True)
 		frappe.delete_doc("User", self.team_member.name, force=True)
 		frappe.delete_doc("User", self.team_user.name, force=True)
@@ -52,29 +52,29 @@ class TestPressRole(FrappeTestCase):
 		)
 
 	def test_delete_role(self):
-		perm = frappe.new_doc("Press Role Permission")
+		perm = frappe.new_doc("Cloud Role Permission")
 		perm.role = self.perm_role.name
 		perm.team = self.team.name
 		perm.save()
 
 		self.perm_role.delete()
-		self.assertFalse(frappe.db.exists("Press Role", self.perm_role.name))
+		self.assertFalse(frappe.db.exists("Cloud Role", self.perm_role.name))
 		self.assertFalse(
-			frappe.db.get_all("Press Role Permission", filters={"role": self.perm_role.name})
+			frappe.db.get_all("Cloud Role Permission", filters={"role": self.perm_role.name})
 		)
 
 	def test_delete_permissions(self):
-		perm = frappe.new_doc("Press Role Permission")
+		perm = frappe.new_doc("Cloud Role Permission")
 		perm.role = self.perm_role.name
 		perm.team = self.team.name
 		perm.save()
 
 		permissions = frappe.get_all(
-			"Press Role Permission", filters={"role": self.perm_role.name}, pluck="name"
+			"Cloud Role Permission", filters={"role": self.perm_role.name}, pluck="name"
 		)
 		self.perm_role.delete_permissions(permissions)
 		self.assertFalse(
-			frappe.db.get_all("Press Role Permission", filters={"role": self.perm_role.name})
+			frappe.db.get_all("Cloud Role Permission", filters={"role": self.perm_role.name})
 		)
 
 	def test_get_list_with_permissions(self):
@@ -90,7 +90,7 @@ class TestPressRole(FrappeTestCase):
 		# no permissions added should show all records
 		self.assertCountEqual(get_list("Site"), [])
 		frappe.set_user("Administrator")
-		perm = frappe.new_doc("Press Role Permission")
+		perm = frappe.new_doc("Cloud Role Permission")
 		perm.role = self.perm_role.name
 		perm.team = self.team.name
 		perm.site = site1.name
@@ -101,7 +101,7 @@ class TestPressRole(FrappeTestCase):
 		self.assertEqual(get_list("Site"), [{"name": site1.name}])
 
 		frappe.set_user("Administrator")
-		perm2 = frappe.new_doc("Press Role Permission")
+		perm2 = frappe.new_doc("Cloud Role Permission")
 		perm2.role = self.perm_role2.name
 		perm2.team = self.team.name
 		perm2.site = site2.name
@@ -125,7 +125,7 @@ class TestPressRole(FrappeTestCase):
 		self.assertRaises(Exception, get, "Site", site2.name)
 
 		frappe.set_user("Administrator")
-		perm = frappe.new_doc("Press Role Permission")
+		perm = frappe.new_doc("Cloud Role Permission")
 		perm.role = self.perm_role.name
 		perm.team = self.team.name
 		perm.site = site.name
@@ -152,18 +152,18 @@ class TestPressRole(FrappeTestCase):
 		frappe.set_user(self.team_user.name)
 
 		self.assertTrue(
-			frappe.db.exists("Press Role Permission", {"site": site.name, "role": role.name})
+			frappe.db.exists("Cloud Role Permission", {"site": site.name, "role": role.name})
 		)
 
 		frappe.set_user("Administrator")
-		frappe.delete_doc("Press Role", role.name, force=1)
+		frappe.delete_doc("Cloud Role", role.name, force=1)
 
 
 # utils
 def create_permission_role(team, allow_site_creation=0):
 	import random
 
-	doc = frappe.new_doc("Press Role")
+	doc = frappe.new_doc("Cloud Role")
 	doc.title = "Test Role" + str(random.randint(1, 1000))
 	doc.team = team
 	doc.allow_site_creation = allow_site_creation

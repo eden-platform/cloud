@@ -12,7 +12,7 @@ from typing import Dict, List
 import frappe
 import pytz
 
-from cloud.cloud.doctype.press_settings.press_settings import PressSettings
+from cloud.cloud.doctype.cloud_settings.cloud_settings import CloudSettings
 from cloud.cloud.doctype.remote_file.remote_file import delete_remote_backup_objects
 from cloud.cloud.doctype.site.site import Site
 from cloud.cloud.doctype.site_backup.site_backup import SiteBackup
@@ -112,7 +112,7 @@ class FIFO(BackupRotationScheme):
 
 	def __init__(self):
 		self.offsite_backups_count = (
-			frappe.db.get_single_value("Press Settings", "offsite_backups_count") or 30
+			frappe.db.get_single_value("Cloud Settings", "offsite_backups_count") or 30
 		)
 
 	def expire_offsite_backups(self) -> List[str]:
@@ -190,16 +190,16 @@ class ScheduledBackupJob:
 
 	def __init__(self):
 		self.interval: int = (
-			frappe.get_cached_value("Press Settings", "Press Settings", "backup_interval") or 6
+			frappe.get_cached_value("Cloud Settings", "Cloud Settings", "backup_interval") or 6
 		)
 		self.offset: int = (
-			frappe.get_cached_value("Press Settings", "Press Settings", "backup_offset") or 0
+			frappe.get_cached_value("Cloud Settings", "Cloud Settings", "backup_offset") or 0
 		)
 		self.limit = (
-			frappe.get_cached_value("Press Settings", "Press Settings", "backup_limit") or 100
+			frappe.get_cached_value("Cloud Settings", "Cloud Settings", "backup_limit") or 100
 		)
 
-		self.offsite_setup = PressSettings.is_offsite_setup()
+		self.offsite_setup = CloudSettings.is_offsite_setup()
 		self.server_time = datetime.now()
 		self.sites = Site.get_sites_for_backup(self.interval)
 		self.sites_without_offsite = Subscription.get_sites_without_offsite_backups()
@@ -309,7 +309,7 @@ def cleanup_offsite():
 
 def _cleanup_offsite():
 	scheme = (
-		frappe.db.get_single_value("Press Settings", "backup_rotation_scheme") or "FIFO"
+		frappe.db.get_single_value("Cloud Settings", "backup_rotation_scheme") or "FIFO"
 	)
 	if scheme == "FIFO":
 		rotation = FIFO()

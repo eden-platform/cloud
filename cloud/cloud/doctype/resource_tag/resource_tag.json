@@ -16,7 +16,7 @@
    "in_list_view": 1,
    "in_preview": 1,
    "label": "Tag",
-   "options": "Press Tag"
+   "options": "Cloud Tag"
   },
   {
    "fetch_from": "tag.tag",
@@ -33,7 +33,7 @@
  "links": [],
  "modified": "2023-07-02 00:37:51.667939",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Resource Tag",
  "owner": "Administrator",
  "permissions": [],

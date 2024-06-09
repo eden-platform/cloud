@@ -214,7 +214,7 @@
  "links": [],
  "modified": "2024-02-06 19:49:46.214758",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Site Plan",
  "naming_rule": "Set by user",
  "owner": "Administrator",
@@ -237,7 +237,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "share": 1
   },
   {
@@ -246,7 +246,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "share": 1
   }
  ],

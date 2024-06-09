@@ -101,7 +101,7 @@ def all(server_filter=None):
 def server_tags():
 	team = get_current_team()
 	return frappe.get_all(
-		"Press Tag", {"team": team, "doctype_name": "Server"}, pluck="tag"
+		"Cloud Tag", {"team": team, "doctype_name": "Server"}, pluck="tag"
 	)
 
 
@@ -122,7 +122,7 @@ def get(name):
 		),
 		"server_tags": [{"name": x.tag, "tag": x.tag_name} for x in server.tags],
 		"tags": frappe.get_all(
-			"Press Tag", {"team": server.team, "doctype_name": "Server"}, ["name", "tag"]
+			"Cloud Tag", {"team": server.team, "doctype_name": "Server"}, ["name", "tag"]
 		),
 		"type": "database-server" if server.meta.name == "Database Server" else "server",
 	}
@@ -318,7 +318,7 @@ def analytics(name, query, timezone, duration):
 
 
 def prometheus_query(query, function, timezone, timespan, timegrain):
-	monitor_server = frappe.db.get_single_value("Press Settings", "monitor_server")
+	monitor_server = frappe.db.get_single_value("Cloud Settings", "monitor_server")
 	if not monitor_server:
 		return {"datasets": [], "labels": []}
 
@@ -435,10 +435,10 @@ def change_plan(name, plan):
 
 @frappe.whitelist()
 @protected(["Server", "Database Server"])
-def press_jobs(name):
+def cloud_jobs(name):
 	jobs = []
-	for job in frappe.get_all("Press Job", {"server": name}, pluck="name"):
-		jobs.append(frappe.get_doc("Press Job", job).detail())
+	for job in frappe.get_all("Cloud Job", {"server": name}, pluck="name"):
+		jobs.append(frappe.get_doc("Cloud Job", job).detail())
 	return jobs
 
 

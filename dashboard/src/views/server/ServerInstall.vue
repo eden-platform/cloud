@@ -43,15 +43,15 @@ export default {
 		};
 	},
 	mounted() {
-		this.$socket.on('press_job_update', this.onPressJobUpdate);
+		this.$socket.on('cloud_job_update', this.onCloudJobUpdate);
 		this.fetchJob();
 	},
 	unmounted() {
-		this.$socket.emit('doc_unsubscribe', 'Press Job', this.creationJob.name);
-		this.$socket.off('press_job_update', this.onPressJobUpdate);
+		this.$socket.emit('doc_unsubscribe', 'Cloud Job', this.creationJob.name);
+		this.$socket.off('cloud_job_update', this.onCloudJobUpdate);
 	},
 	methods: {
-		onPressJobUpdate(data) {
+		onCloudJobUpdate(data) {
 			if (
 				data.server === this.server.name &&
 				data.job_type === 'Create Server'
@@ -67,13 +67,13 @@ export default {
 			}
 		},
 		async fetchJob() {
-			let jobs = await this.$call('cloud.api.server.press_jobs', {
+			let jobs = await this.$call('cloud.api.server.cloud_jobs', {
 				name: this.server.name
 			});
 			jobs.forEach(job => {
 				if (job.job_type === 'Create Server') {
 					this.creationJob = job;
-					this.$socket.emit('doc_subscribe', 'Press Job', job.name);
+					this.$socket.emit('doc_subscribe', 'Cloud Job', job.name);
 				}
 			});
 			if (this.creationJob?.status === 'Success') {

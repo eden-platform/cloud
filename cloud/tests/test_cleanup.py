@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 import frappe
 
 from cloud.cloud.doctype.agent_job.agent_job import AgentJob
-from cloud.cloud.doctype.press_settings.test_press_settings import (
-	create_test_press_settings,
+from cloud.cloud.doctype.cloud_settings.test_cloud_settings import (
+	create_test_cloud_settings,
 )
 from cloud.cloud.doctype.site.backups import FIFO, GFS
 from cloud.cloud.doctype.site.backups import cleanup_offsite
@@ -265,11 +265,11 @@ class TestFIFO(unittest.TestCase):
 		args = mock_del_remote_backup_objects.call_args[0]
 		self.assertEqual(len(args[0]), 3 * 2, msg=mock_del_remote_backup_objects.call_args)
 
-	def test_press_setting_updates_new_object(self):
+	def test_cloud_setting_updates_new_object(self):
 		"""Ensure updating cloud settings updates new FIFO objects."""
-		press_settings = create_test_press_settings()
-		press_settings.offsite_backups_count = 2
-		press_settings.save()
+		cloud_settings = create_test_cloud_settings()
+		cloud_settings.offsite_backups_count = 2
+		cloud_settings.save()
 		fifo = FIFO()
 		self.assertEqual(fifo.offsite_backups_count, 2)
 
@@ -281,11 +281,11 @@ class TestBackupRotationScheme(unittest.TestCase):
 	@patch("cloud.cloud.doctype.site.backups.GFS")
 	@patch("cloud.cloud.doctype.site.backups.FIFO")
 	@patch("cloud.cloud.doctype.site.backups.frappe.enqueue", foreground_enqueue)
-	def test_press_setting_of_rotation_scheme_works(self, mock_FIFO, mock_GFS):
+	def test_cloud_setting_of_rotation_scheme_works(self, mock_FIFO, mock_GFS):
 		"""Ensure setting rotation scheme in cloud settings affect rotation scheme used."""
-		press_settings = create_test_press_settings()
-		press_settings.backup_rotation_scheme = "FIFO"
-		press_settings.save()
+		cloud_settings = create_test_cloud_settings()
+		cloud_settings.backup_rotation_scheme = "FIFO"
+		cloud_settings.save()
 		cleanup_offsite()
 		mock_FIFO.assert_called_once()
 		mock_GFS.assert_not_called()
@@ -293,8 +293,8 @@ class TestBackupRotationScheme(unittest.TestCase):
 		mock_FIFO.reset_mock()
 		mock_GFS.reset_mock()
 
-		press_settings.backup_rotation_scheme = "Grandfather-father-son"
-		press_settings.save()
+		cloud_settings.backup_rotation_scheme = "Grandfather-father-son"
+		cloud_settings.save()
 		cleanup_offsite()
 		mock_GFS.assert_called_once()
 		mock_FIFO.assert_not_called()

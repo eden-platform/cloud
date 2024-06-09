@@ -6,13 +6,13 @@ from frappe import _
 def get_data():
 	return [
 		{
-			"module_name": "Press",
+			"module_name": "Cloud",
 			"category": "Modules",
 			"color": "grey",
 			"description": "Managed Frappe Hosting",
 			"icon": "octicon octicon-rocket",
 			"type": "module",
-			"label": _("Press"),
+			"label": _("Cloud"),
 			"reverse": 1,
 		}
 	]

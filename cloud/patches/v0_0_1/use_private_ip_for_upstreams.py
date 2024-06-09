@@ -8,7 +8,7 @@ from frappe.utils.fixtures import sync_fixtures
 
 
 def execute():
-	settings = frappe.get_doc("Press Settings", "Press Settings")
+	settings = frappe.get_doc("Cloud Settings", "Cloud Settings")
 	settings.agent_repository_owner = "frappe"
 
 	settings.agent_github_access_token = input("GitHub Access Token: ")

@@ -311,7 +311,7 @@
  ],
  "modified": "2023-12-12 12:18:00.680292",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Virtual Machine",
  "owner": "Administrator",
  "permissions": [
@@ -330,13 +330,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

@@ -186,7 +186,7 @@ class ReleaseGroup(Document, TagHelpers):
 		self.set_default_delta_builds_flags()
 
 	def after_insert(self):
-		from cloud.cloud.doctype.press_role.press_role import (
+		from cloud.cloud.doctype.cloud_role.cloud_role import (
 			add_permission_for_newly_created_doc,
 		)
 
@@ -202,7 +202,7 @@ class ReleaseGroup(Document, TagHelpers):
 				self.db_set("last_dependency_update", frappe.utils.now_datetime())
 				break
 		if self.has_value_changed("team"):
-			frappe.db.delete("Press Role Permission", {"release_group": self.name})
+			frappe.db.delete("Cloud Role Permission", {"release_group": self.name})
 
 	def on_trash(self):
 		candidates = frappe.get_all("Deploy Candidate", {"group": self.name})
@@ -1213,13 +1213,13 @@ class ReleaseGroup(Document, TagHelpers):
 		self.enabled = 0
 		self.save()
 
-		frappe.db.delete("Press Role Permission", {"release_group": self.name})
+		frappe.db.delete("Cloud Role Permission", {"release_group": self.name})
 
 	def set_default_app_cache_flags(self):
 		if self.use_app_cache:
 			return
 
-		if not frappe.db.get_single_value("Press Settings", "use_app_cache"):
+		if not frappe.db.get_single_value("Cloud Settings", "use_app_cache"):
 			return
 
 		if not self.can_use_get_app_cache():
@@ -1227,12 +1227,12 @@ class ReleaseGroup(Document, TagHelpers):
 
 		self.use_app_cache = 1
 		self.compress_app_cache = frappe.db.get_single_value(
-			"Press Settings",
+			"Cloud Settings",
 			"compress_app_cache",
 		)
 
 	def set_default_delta_builds_flags(self):
-		if not frappe.db.get_single_value("Press Settings", "use_delta_builds"):
+		if not frappe.db.get_single_value("Cloud Settings", "use_delta_builds"):
 			return
 
 		self.use_delta_builds = 1

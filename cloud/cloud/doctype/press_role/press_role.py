@@ -6,7 +6,7 @@ from frappe.model.document import Document
 from cloud.api.client import dashboard_whitelist
 
 
-class PressRole(Document):
+class CloudRole(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -14,7 +14,7 @@ class PressRole(Document):
 
 	if TYPE_CHECKING:
 		from frappe.types import DF
-		from cloud.cloud.doctype.press_role_user.press_role_user import PressRoleUser
+		from cloud.cloud.doctype.cloud_role_user.cloud_role_user import CloudRoleUser
 
 		allow_apps: DF.Check
 		allow_bench_creation: DF.Check
@@ -23,7 +23,7 @@ class PressRole(Document):
 		allow_site_creation: DF.Check
 		team: DF.Link
 		title: DF.Data
-		users: DF.Table[PressRoleUser]
+		users: DF.Table[CloudRoleUser]
 	# end: auto-generated types
 
 	dashboard_fields = [
@@ -38,7 +38,7 @@ class PressRole(Document):
 	]
 
 	def before_insert(self):
-		if frappe.db.exists("Press Role", {"title": self.title, "team": self.team}):
+		if frappe.db.exists("Cloud Role", {"title": self.title, "team": self.team}):
 			frappe.throw(
 				"Role with title {0} already exists".format(self.title), frappe.DuplicateEntryError
 			)
@@ -72,7 +72,7 @@ class PressRole(Document):
 	@dashboard_whitelist()
 	def delete_permissions(self, permissions: list[str]) -> None:
 		for perm in permissions:
-			perm_doc = frappe.get_doc("Press Role Permission", perm)
+			perm_doc = frappe.get_doc("Cloud Role Permission", perm)
 			if perm_doc.role == self.name:
 				perm_doc.delete()
 
@@ -86,7 +86,7 @@ class PressRole(Document):
 		super().delete()
 
 	def on_trash(self):
-		frappe.db.delete("Press Role Permission", {"role": self.name})
+		frappe.db.delete("Cloud Role Permission", {"role": self.name})
 
 
 def check_role_permissions(doctype: str, name: str | None = None) -> list[str] | None:
@@ -105,20 +105,20 @@ def check_role_permissions(doctype: str, name: str | None = None) -> list[str] |
 	if frappe.local.system_user():
 		return []
 
-	PressRoleUser = frappe.qb.DocType("Press Role User")
-	PressRole = frappe.qb.DocType("Press Role")
+	CloudRoleUser = frappe.qb.DocType("Cloud Role User")
+	CloudRole = frappe.qb.DocType("Cloud Role")
 
 	query = (
-		frappe.qb.from_(PressRole)
-		.select(PressRole.name)
-		.join(PressRoleUser)
-		.on(PressRoleUser.parent == PressRole.name)
-		.where(PressRoleUser.user == frappe.session.user)
-		.where(PressRole.team == frappe.local.team().name)
+		frappe.qb.from_(CloudRole)
+		.select(CloudRole.name)
+		.join(CloudRoleUser)
+		.on(CloudRoleUser.parent == CloudRole.name)
+		.where(CloudRoleUser.user == frappe.session.user)
+		.where(CloudRole.team == frappe.local.team().name)
 	)
 
 	if doctype == "Marketplace App":
-		if roles := query.select(PressRole.allow_apps).run(as_dict=1):
+		if roles := query.select(CloudRole.allow_apps).run(as_dict=1):
 			# throw error if any of the roles don't have permission for apps
 			if not any(perm.allow_apps for perm in roles):
 				frappe.throw("Not permitted", frappe.PermissionError)
@@ -127,7 +127,7 @@ def check_role_permissions(doctype: str, name: str | None = None) -> list[str] |
 		field = doctype.lower().replace(" ", "_")
 		if roles := query.run(as_dict=1, pluck="name"):
 			perms = frappe.db.get_all(
-				"Press Role Permission",
+				"Cloud Role Permission",
 				filters={"role": ["in", roles], field: name},
 			)
 			if not perms and name:
@@ -159,16 +159,16 @@ def add_permission_for_newly_created_doc(doc: Document) -> None:
 		role_fieldname = "allow_bench_creation"
 
 	new_perms = []
-	PressRole = frappe.qb.DocType("Press Role")
-	PressRoleUser = frappe.qb.DocType("Press Role User")
+	CloudRole = frappe.qb.DocType("Cloud Role")
+	CloudRoleUser = frappe.qb.DocType("Cloud Role User")
 	if roles := (
-		frappe.qb.from_(PressRole)
-		.select(PressRole.name)
-		.join(PressRoleUser)
-		.on(PressRoleUser.parent == PressRole.name)
-		.where(PressRoleUser.user == frappe.session.user)
-		.where(PressRole.team == doc.team)
-		.where(PressRole[role_fieldname] == 1)
+		frappe.qb.from_(CloudRole)
+		.select(CloudRole.name)
+		.join(CloudRoleUser)
+		.on(CloudRoleUser.parent == CloudRole.name)
+		.where(CloudRoleUser.user == frappe.session.user)
+		.where(CloudRole.team == doc.team)
+		.where(CloudRole[role_fieldname] == 1)
 		.run(as_dict=1, pluck="name")
 	):
 		for role in roles:
@@ -185,7 +185,7 @@ def add_permission_for_newly_created_doc(doc: Document) -> None:
 
 	if new_perms:
 		frappe.db.bulk_insert(
-			"Press Role Permission",
+			"Cloud Role Permission",
 			fields=["name", "role", fieldname, "team", "creation", "modified"],
 			values=set(new_perms),
 		)

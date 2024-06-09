@@ -17,7 +17,7 @@ from cloud.cloud.doctype.release_group.test_release_group import (
 from cloud.cloud.doctype.site.test_site import create_test_bench, create_test_site
 
 
-class TestPressNotification(FrappeTestCase):
+class TestCloudNotification(FrappeTestCase):
 	def setUp(self):
 		app1 = create_test_app()  # frappe
 		app2 = create_test_app("app2", "App 2")
@@ -38,7 +38,7 @@ class TestPressNotification(FrappeTestCase):
 
 		site = create_test_site(bench=bench1.name)
 
-		self.assertEqual(frappe.db.count("Press Notification"), 0)
+		self.assertEqual(frappe.db.count("Cloud Notification"), 0)
 		with fake_agent_job("Update Site Pull", "Failure",), fake_agent_job(
 			"Recover Failed Site Update",
 			"Success",
@@ -46,7 +46,7 @@ class TestPressNotification(FrappeTestCase):
 			site.schedule_update()
 			poll_pending_jobs()
 
-		notification = frappe.get_last_doc("Press Notification")
+		notification = frappe.get_last_doc("Cloud Notification")
 		self.assertEqual(notification.type, "Site Update")
 		# api test is added here since it's trivial
 		# move to separate file if it gets more complex

@@ -30,7 +30,7 @@
  "links": [],
  "modified": "2021-02-16 11:10:03.427047",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Remote Operation Log",
  "owner": "Administrator",
  "permissions": [
@@ -48,11 +48,11 @@
   },
   {
    "create": 1,
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "create": 1,
-   "role": "Press Member"
+   "role": "Cloud Member"
   }
  ],
  "sort_field": "modified",

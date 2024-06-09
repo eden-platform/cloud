@@ -37,7 +37,7 @@ scrape_configs:
     scheme: https
     basic_auth:
       username: frappe
-      password: '{{ press_monitoring_password }}'
+      password: '{{ cloud_monitoring_password }}'
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance

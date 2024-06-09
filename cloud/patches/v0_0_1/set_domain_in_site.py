@@ -7,7 +7,7 @@ import frappe
 
 def execute():
 	frappe.reload_doc("cloud", "doctype", "site")
-	domain = frappe.db.get_single_value("Press Settings", "domain")
+	domain = frappe.db.get_single_value("Cloud Settings", "domain")
 	frappe.db.sql(
 		"UPDATE tabSite SET domain = %s WHERE IFNULL(domain, '') = ''", (domain,)
 	)

@@ -8,11 +8,11 @@ import frappe
 
 def execute():
 	frappe.reload_doc("cloud", "doctype", "erpnext_app")
-	frappe.reload_doc("cloud", "doctype", "press_settings")
+	frappe.reload_doc("cloud", "doctype", "cloud_settings")
 	frappe.clear_cache()
-	press_settings = frappe.get_doc("Press Settings", "Press Settings")
-	if not press_settings.get("cluster"):
-		press_settings.cluster = frappe.db.get_value(
-			"Root Domain", press_settings.domain, "default_cluster"
+	cloud_settings = frappe.get_doc("Cloud Settings", "Cloud Settings")
+	if not cloud_settings.get("cluster"):
+		cloud_settings.cluster = frappe.db.get_value(
+			"Root Domain", cloud_settings.domain, "default_cluster"
 		)
-		press_settings.save()
+		cloud_settings.save()

@@ -7,7 +7,7 @@ function show_toggle_builds_button(list_view) {
 		return;
 
 	frappe.db
-		.get_single_value('Press Settings', 'suspend_builds')
+		.get_single_value('Cloud Settings', 'suspend_builds')
 		.then((suspend_builds) => {
 			const label = suspend_builds ? __('Resume Builds') : __('Suspend Builds');
 

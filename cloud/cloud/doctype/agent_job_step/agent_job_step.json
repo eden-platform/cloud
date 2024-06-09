@@ -96,7 +96,7 @@
  "links": [],
  "modified": "2023-10-20 11:27:22.573494",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Agent Job Step",
  "owner": "Administrator",
  "permissions": [
@@ -114,11 +114,11 @@
   },
   {
    "create": 1,
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "create": 1,
-   "role": "Press Member"
+   "role": "Cloud Member"
   }
  ],
  "sort_field": "creation",

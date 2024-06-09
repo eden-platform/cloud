@@ -133,7 +133,7 @@ def get_rounded_boundaries(timespan: int, timegrain: int, timezone: str = "UTC")
 
 
 def get_uptime(site, timezone, timespan, timegrain):
-	monitor_server = frappe.db.get_single_value("Press Settings", "monitor_server")
+	monitor_server = frappe.db.get_single_value("Cloud Settings", "monitor_server")
 	if not monitor_server:
 		return []
 
@@ -216,7 +216,7 @@ def get_stacked_histogram_chart_result(
 def get_request_by_path(site, query_type, timezone, timespan, timegrain):
 	MAX_NO_OF_PATHS = 10
 
-	log_server = frappe.db.get_single_value("Press Settings", "log_server")
+	log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 	if not log_server:
 		return {"datasets": [], "labels": []}
 
@@ -297,7 +297,7 @@ def get_request_by_path(site, query_type, timezone, timespan, timegrain):
 def get_background_job_by_method(site, query_type, timezone, timespan, timegrain):
 	MAX_NO_OF_PATHS = 10
 
-	log_server = frappe.db.get_single_value("Press Settings", "log_server")
+	log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 	if not log_server:
 		return {"datasets": [], "labels": []}
 
@@ -378,7 +378,7 @@ def get_slow_logs(site, query_type, timezone, timespan, timegrain):
 	database_name = frappe.db.get_value("Site", site, "database_name")
 	MAX_NO_OF_PATHS = 10
 
-	log_server = frappe.db.get_single_value("Press Settings", "log_server")
+	log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 	if not log_server or not database_name:
 		return {"datasets": [], "labels": []}
 
@@ -447,7 +447,7 @@ def get_slow_logs(site, query_type, timezone, timespan, timegrain):
 
 
 def get_usage(site, type, timezone, timespan, timegrain):
-	log_server = frappe.db.get_single_value("Press Settings", "log_server")
+	log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 	if not log_server:
 		return {"datasets": [], "labels": []}
 
@@ -502,7 +502,7 @@ def get_usage(site, type, timezone, timespan, timegrain):
 
 def get_current_cpu_usage(site):
 	try:
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if not log_server:
 			return 0
 
@@ -533,7 +533,7 @@ def get_current_cpu_usage(site):
 
 def multi_get_current_cpu_usage(sites):
 	try:
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if not log_server:
 			return [0] * len(sites)
 
@@ -587,7 +587,7 @@ def multi_get_current_cpu_usage(sites):
 @frappe.whitelist()
 @protected("Site")
 def request_logs(name, timezone, date, sort=None, start=0):
-	log_server = frappe.db.get_single_value("Press Settings", "log_server")
+	log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 	if not log_server:
 		return []
 
@@ -754,7 +754,7 @@ def deadlock_report(site, start, end, max_lines=20):
 @protected("Marketplace App")
 def plausible_analytics(name):
 	response = {}
-	settings = frappe.get_single("Press Settings")
+	settings = frappe.get_single("Cloud Settings")
 	api_endpoints = {
 		"aggregate": "/api/v1/stats/aggregate",
 		"timeseries": "/api/v1/stats/timeseries",

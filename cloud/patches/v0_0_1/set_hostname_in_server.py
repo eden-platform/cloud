@@ -10,7 +10,7 @@ def execute():
 	for doctype in doctypes:
 		frappe.reload_doc("cloud", "doctype", frappe.scrub(doctype))
 		servers = frappe.get_all(doctype, {"hostname": ("is", "not set")})
-		domain = frappe.db.get_single_value("Press Settings", "domain")
+		domain = frappe.db.get_single_value("Cloud Settings", "domain")
 		for server in servers:
 			hostname = server.name.replace(f".{domain}", "")
 			frappe.db.set_value(doctype, server.name, "hostname", hostname)

@@ -51,7 +51,7 @@ class AppReleaseDifference(Document):
 			except KeyError:
 				frappe.throw("Could not get access token for app source {0}".format(source.name))
 		else:
-			github_access_token = frappe.get_value("Press Settings", None, "github_access_token")
+			github_access_token = frappe.get_value("Cloud Settings", None, "github_access_token")
 
 		client = Github(github_access_token)
 		try:

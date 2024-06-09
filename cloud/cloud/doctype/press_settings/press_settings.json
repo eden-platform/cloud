@@ -172,7 +172,7 @@
   "monitoring_section",
   "monitor_server",
   "monitor_token",
-  "press_monitoring_password",
+  "cloud_monitoring_password",
   "column_break_100",
   "log_server",
   "telegram_alert_chat_id",
@@ -970,9 +970,9 @@
    "label": "Commission USD Rate"
   },
   {
-   "fieldname": "press_monitoring_password",
+   "fieldname": "cloud_monitoring_password",
    "fieldtype": "Password",
-   "label": "Press Monitoring Password"
+   "label": "Cloud Monitoring Password"
   },
   {
    "description": "Adds this script to app_include_js via site config. Used for in-site billing",
@@ -1187,8 +1187,8 @@
  "links": [],
  "modified": "2024-05-23 13:52:31.570272",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Settings",
+ "module": "Cloud",
+ "name": "Cloud Settings",
  "owner": "Administrator",
  "permissions": [
   {

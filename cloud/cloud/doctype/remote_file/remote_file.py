@@ -32,25 +32,25 @@ def poll_file_statuses():
 	available_files = {}
 	doctype = "Remote File"
 	aws_access_key = frappe.db.get_single_value(
-		"Press Settings", "offsite_backups_access_key_id"
+		"Cloud Settings", "offsite_backups_access_key_id"
 	)
 	aws_secret_key = get_decrypted_password(
-		"Press Settings", "Press Settings", "offsite_backups_secret_access_key"
+		"Cloud Settings", "Cloud Settings", "offsite_backups_secret_access_key"
 	)
-	default_region = frappe.db.get_single_value("Press Settings", "backup_region")
+	default_region = frappe.db.get_single_value("Cloud Settings", "backup_region")
 	buckets = {
-		frappe.db.get_single_value("Press Settings", "aws_s3_bucket"): {
+		frappe.db.get_single_value("Cloud Settings", "aws_s3_bucket"): {
 			"region": default_region,
 			"access_key_id": aws_access_key,
 			"secret_access_key": aws_secret_key,
 		},
-		frappe.db.get_single_value("Press Settings", "remote_uploads_bucket"): {
+		frappe.db.get_single_value("Cloud Settings", "remote_uploads_bucket"): {
 			"region": default_region,
 			"access_key_id": frappe.db.get_single_value(
-				"Press Settings", "remote_access_key_id"
+				"Cloud Settings", "remote_access_key_id"
 			),
 			"secret_access_key": get_decrypted_password(
-				"Press Settings", "Press Settings", "remote_secret_access_key"
+				"Cloud Settings", "Cloud Settings", "remote_secret_access_key"
 			),
 		},
 	}
@@ -124,7 +124,7 @@ def delete_remote_backup_objects(remote_files):
 		return
 
 	buckets = {bucket: [] for bucket in frappe.get_all("Backup Bucket", pluck="name")}
-	buckets.update({frappe.db.get_single_value("Press Settings", "aws_s3_bucket"): []})
+	buckets.update({frappe.db.get_single_value("Cloud Settings", "aws_s3_bucket"): []})
 
 	[
 		buckets[bucket].append(file)
@@ -168,19 +168,19 @@ class RemoteFile(Document):
 			return None
 
 		elif self.bucket == frappe.db.get_single_value(
-			"Press Settings", "remote_uploads_bucket"
+			"Cloud Settings", "remote_uploads_bucket"
 		):
-			access_key_id = frappe.db.get_single_value("Press Settings", "remote_access_key_id")
+			access_key_id = frappe.db.get_single_value("Cloud Settings", "remote_access_key_id")
 			secret_access_key = get_decrypted_password(
-				"Press Settings", "Press Settings", "remote_secret_access_key"
+				"Cloud Settings", "Cloud Settings", "remote_secret_access_key"
 			)
 
 		elif self.bucket:
 			access_key_id = frappe.db.get_single_value(
-				"Press Settings", "offsite_backups_access_key_id"
+				"Cloud Settings", "offsite_backups_access_key_id"
 			)
 			secret_access_key = get_decrypted_password(
-				"Press Settings", "Press Settings", "offsite_backups_secret_access_key"
+				"Cloud Settings", "Cloud Settings", "offsite_backups_secret_access_key"
 			)
 
 		else:
@@ -191,7 +191,7 @@ class RemoteFile(Document):
 			aws_access_key_id=access_key_id,
 			aws_secret_access_key=secret_access_key,
 			region_name=frappe.db.get_value("Backup Bucket", self.bucket, "region")
-			or frappe.db.get_single_value("Press Settings", "backup_region"),
+			or frappe.db.get_single_value("Cloud Settings", "backup_region"),
 		)
 
 	@property
@@ -219,7 +219,7 @@ class RemoteFile(Document):
 	def delete_remote_object(self):
 		self.db_set("status", "Unavailable")
 		return self.s3_client.delete_object(
-			Bucket=frappe.db.get_single_value("Press Settings", "remote_uploads_bucket"),
+			Bucket=frappe.db.get_single_value("Cloud Settings", "remote_uploads_bucket"),
 			Key=self.file_path,
 		)
 
@@ -231,7 +231,7 @@ class RemoteFile(Document):
 		return self.url or self.s3_client.generate_presigned_url(
 			"get_object",
 			Params={"Bucket": self.bucket, "Key": self.file_path},
-			ExpiresIn=frappe.db.get_single_value("Press Settings", "remote_link_expiry") or 3600,
+			ExpiresIn=frappe.db.get_single_value("Cloud Settings", "remote_link_expiry") or 3600,
 		)
 
 	def get_content(self):
@@ -262,12 +262,12 @@ def delete_s3_files(buckets):
 	from boto3 import resource
 	from cloud.utils import chunk
 
-	press_settings = frappe.get_single("Press Settings")
+	cloud_settings = frappe.get_single("Cloud Settings")
 	for bucket_name in buckets.keys():
 		s3 = resource(
 			"s3",
-			aws_access_key_id=press_settings.offsite_backups_access_key_id,
-			aws_secret_access_key=press_settings.get_password(
+			aws_access_key_id=cloud_settings.offsite_backups_access_key_id,
+			aws_secret_access_key=cloud_settings.get_password(
 				"offsite_backups_secret_access_key", raise_exception=False
 			),
 			endpoint_url=frappe.db.get_value("Backup Bucket", bucket_name, "endpoint_url")

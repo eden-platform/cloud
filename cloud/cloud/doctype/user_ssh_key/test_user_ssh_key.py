@@ -8,7 +8,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 from frappe.tests.utils import FrappeTestCase
 
-from cloud.cloud.doctype.team.test_team import create_test_press_admin_team
+from cloud.cloud.doctype.team.test_team import create_test_cloud_admin_team
 
 
 def create_rsa_key() -> str:
@@ -57,7 +57,7 @@ class TestUserSSHKey(FrappeTestCase):
 		frappe.db.rollback()
 
 	def test_create_valid_ssh_key_works_with_rsa_key(self):
-		team = create_test_press_admin_team()
+		team = create_test_cloud_admin_team()
 		user = frappe.get_doc("User", team.user)
 		try:
 			create_test_user_ssh_key(user.name)
@@ -66,7 +66,7 @@ class TestUserSSHKey(FrappeTestCase):
 
 	def test_create_valid_ssh_key_works_with_ed25519(self):
 		"""Test that creating a valid SSH key works."""
-		team = create_test_press_admin_team()
+		team = create_test_cloud_admin_team()
 		user = frappe.get_doc("User", team.user)
 		try:
 			create_test_user_ssh_key(user.name, create_ed25519_key())
@@ -75,13 +75,13 @@ class TestUserSSHKey(FrappeTestCase):
 
 	def test_adding_certificate_as_key_fails(self):
 		"""Test that creating an invalid SSH key fails."""
-		team = create_test_press_admin_team()
+		team = create_test_cloud_admin_team()
 		user = frappe.get_doc("User", team.user)
 		with self.assertRaisesRegex(frappe.ValidationError, "Key type has to be one of.*"):
 			create_test_user_ssh_key(user.name, "ssh-ed25519-cert-v01@openssh.com FAKE_KEY")
 
 	def test_adding_single_word_fails(self):
-		team = create_test_press_admin_team()
+		team = create_test_cloud_admin_team()
 		user = frappe.get_doc("User", team.user)
 		with self.assertRaisesRegex(
 			frappe.ValidationError, "You must supply a key in OpenSSH public key format"
@@ -91,7 +91,7 @@ class TestUserSSHKey(FrappeTestCase):
 	def test_adding_partial_of_valid_key_with_valid_number_of_data_characters_fails(
 		self,
 	):
-		team = create_test_press_admin_team()
+		team = create_test_cloud_admin_team()
 		user = frappe.get_doc("User", team.user)
 		with self.assertRaisesRegex(
 			frappe.ValidationError,

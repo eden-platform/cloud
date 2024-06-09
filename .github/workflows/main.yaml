@@ -1,4 +1,4 @@
-name: Press Tests
+name: Cloud Tests
 
 on:
   push:

@@ -60,40 +60,40 @@ def format_stripe_money(amount, currency):
 def get_erpnext_com_connection():
 	from frappe.frappeclient import FrappeClient
 
-	press_settings = frappe.get_single("Press Settings")
-	erpnext_api_secret = press_settings.get_password(
+	cloud_settings = frappe.get_single("Cloud Settings")
+	erpnext_api_secret = cloud_settings.get_password(
 		"erpnext_api_secret", raise_exception=False
 	)
 
 	if not (
-		press_settings.erpnext_api_key and press_settings.erpnext_url and erpnext_api_secret
+		cloud_settings.erpnext_api_key and cloud_settings.erpnext_url and erpnext_api_secret
 	):
-		frappe.throw("ERPNext.com URL not set up in Press Settings", exc=CentralServerNotSet)
+		frappe.throw("ERPNext.com URL not set up in Cloud Settings", exc=CentralServerNotSet)
 
 	return FrappeClient(
-		press_settings.erpnext_url,
-		api_key=press_settings.erpnext_api_key,
+		cloud_settings.erpnext_url,
+		api_key=cloud_settings.erpnext_api_key,
 		api_secret=erpnext_api_secret,
 	)
 
 
 def get_frappe_io_connection():
-	if hasattr(frappe.local, "press_frappeio_conn"):
-		return frappe.local.press_frappeio_conn
+	if hasattr(frappe.local, "cloud_frappeio_conn"):
+		return frappe.local.cloud_frappeio_conn
 
 	from frappe.frappeclient import FrappeClient
 
-	press_settings = frappe.get_single("Press Settings")
-	frappe_api_key = press_settings.frappeio_api_key
-	frappe_api_secret = press_settings.get_password(
+	cloud_settings = frappe.get_single("Cloud Settings")
+	frappe_api_key = cloud_settings.frappeio_api_key
+	frappe_api_secret = cloud_settings.get_password(
 		"frappeio_api_secret", raise_exception=False
 	)
 
-	if not (frappe_api_key and frappe_api_secret and press_settings.frappe_url):
-		frappe.throw("Frappe.io URL not set up in Press Settings", exc=FrappeioServerNotSet)
+	if not (frappe_api_key and frappe_api_secret and cloud_settings.frappe_url):
+		frappe.throw("Frappe.io URL not set up in Cloud Settings", exc=FrappeioServerNotSet)
 
-	frappe.local.press_frappeio_conn = FrappeClient(
-		press_settings.frappe_url, api_key=frappe_api_key, api_secret=frappe_api_secret
+	frappe.local.cloud_frappeio_conn = FrappeClient(
+		cloud_settings.frappe_url, api_key=frappe_api_key, api_secret=frappe_api_secret
 	)
 
 	return get_frappe_io_connection()
@@ -122,7 +122,7 @@ def clear_setup_intent():
 
 
 def get_publishable_key():
-	return frappe.db.get_single_value("Press Settings", "stripe_publishable_key")
+	return frappe.db.get_single_value("Cloud Settings", "stripe_publishable_key")
 
 
 def get_setup_intent(team):
@@ -142,23 +142,23 @@ def get_setup_intent(team):
 def get_stripe():
 	from frappe.utils.password import get_decrypted_password
 
-	if not hasattr(frappe.local, "press_stripe_object"):
+	if not hasattr(frappe.local, "cloud_stripe_object"):
 		secret_key = get_decrypted_password(
-			"Press Settings",
-			"Press Settings",
+			"Cloud Settings",
+			"Cloud Settings",
 			"stripe_secret_key",
 			raise_exception=False,
 		)
 
 		if not secret_key:
 			frappe.throw(
-				"Setup stripe via Press Settings before using cloud.api.billing.get_stripe"
+				"Setup stripe via Cloud Settings before using cloud.api.billing.get_stripe"
 			)
 
 		stripe.api_key = secret_key
-		frappe.local.press_stripe_object = stripe
+		frappe.local.cloud_stripe_object = stripe
 
-	return frappe.local.press_stripe_object
+	return frappe.local.cloud_stripe_object
 
 
 def convert_stripe_money(amount):
@@ -188,21 +188,21 @@ def validate_gstin_check_digit(gstin, label="GSTIN"):
 def get_razorpay_client():
 	from frappe.utils.password import get_decrypted_password
 
-	if not hasattr(frappe.local, "press_razorpay_client_object"):
-		key_id = frappe.db.get_single_value("Press Settings", "razorpay_key_id")
+	if not hasattr(frappe.local, "cloud_razorpay_client_object"):
+		key_id = frappe.db.get_single_value("Cloud Settings", "razorpay_key_id")
 		key_secret = get_decrypted_password(
-			"Press Settings", "Press Settings", "razorpay_key_secret", raise_exception=False
+			"Cloud Settings", "Cloud Settings", "razorpay_key_secret", raise_exception=False
 		)
 
 		if not (key_id and key_secret):
 			frappe.throw(
-				"Setup razorpay via Press Settings before using"
+				"Setup razorpay via Cloud Settings before using"
 				" cloud.api.billing.get_razorpay_client"
 			)
 
-		frappe.local.press_razorpay_client_object = razorpay.Client(auth=(key_id, key_secret))
+		frappe.local.cloud_razorpay_client_object = razorpay.Client(auth=(key_id, key_secret))
 
-	return frappe.local.press_razorpay_client_object
+	return frappe.local.cloud_razorpay_client_object
 
 
 def process_micro_debit_test_charge(stripe_event):

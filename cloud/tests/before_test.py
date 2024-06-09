@@ -20,7 +20,7 @@ def doc_equal(self: Document, other: Document) -> bool:
 
 
 def execute():
-	settings = frappe.get_single("Press Settings")
+	settings = frappe.get_single("Cloud Settings")
 	if not (settings.stripe_secret_key and settings.stripe_publishable_key):
 		create_test_stripe_credentials()
 	import cssutils
@@ -50,6 +50,6 @@ def create_test_stripe_credentials():
 
 	if publishable_key and secret_key:
 		frappe.db.set_single_value(
-			"Press Settings", "stripe_publishable_key", publishable_key
+			"Cloud Settings", "stripe_publishable_key", publishable_key
 		)
-		frappe.db.set_single_value("Press Settings", "stripe_secret_key", secret_key)
+		frappe.db.set_single_value("Cloud Settings", "stripe_secret_key", secret_key)

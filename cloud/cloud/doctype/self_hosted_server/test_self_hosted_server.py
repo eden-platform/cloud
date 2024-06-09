@@ -5,8 +5,8 @@
 from unittest.mock import patch
 from cloud.cloud.doctype.ansible_play.test_ansible_play import create_test_ansible_play
 
-from cloud.cloud.doctype.press_settings.test_press_settings import (
-	create_test_press_settings,
+from cloud.cloud.doctype.cloud_settings.test_cloud_settings import (
+	create_test_cloud_settings,
 )
 from cloud.cloud.doctype.self_hosted_server.self_hosted_server import SelfHostedServer
 import frappe
@@ -18,7 +18,7 @@ from frappe.tests.utils import FrappeTestCase, change_settings
 
 class TestSelfHostedServer(FrappeTestCase):
 	def setUp(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 
 	def tearDown(self):
 		frappe.db.rollback()
@@ -183,7 +183,7 @@ class TestSelfHostedServer(FrappeTestCase):
 		server.reload()
 		self.assertEqual(server.private_ip, "192.168.1.1")
 
-	@change_settings("Press Settings", {"hybrid_domain": "fc.dev"})
+	@change_settings("Cloud Settings", {"hybrid_domain": "fc.dev"})
 	def test_create_server_and_check_total_records(self):
 		from cloud.cloud.doctype.cluster.test_cluster import create_test_cluster
 		from cloud.cloud.doctype.proxy_server.test_proxy_server import (
@@ -204,7 +204,7 @@ class TestSelfHostedServer(FrappeTestCase):
 		self.assertEqual(pre_server_count, post_server_count - 1)
 		self.assertEqual("hybrid-f-00001-default.fc.dev", new_server.name)
 
-	@change_settings("Press Settings", {"hybrid_domain": "fc.dev"})
+	@change_settings("Cloud Settings", {"hybrid_domain": "fc.dev"})
 	def test_create_db_server_and_check_total_records(self):
 		from cloud.cloud.doctype.cluster.test_cluster import create_test_cluster
 		from cloud.cloud.doctype.proxy_server.test_proxy_server import (

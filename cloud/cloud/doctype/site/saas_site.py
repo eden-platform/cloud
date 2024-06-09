@@ -236,7 +236,7 @@ def get_app_subscriptions(apps=None, standby_for=None):
 			{
 				"subscription": {"secret_key": secret_key},
 				"app_include_js": [
-					frappe.db.get_single_value("Press Settings", "app_include_script")
+					frappe.db.get_single_value("Cloud Settings", "app_include_script")
 				],
 			}
 		)

@@ -106,7 +106,7 @@
  "links": [],
  "modified": "2024-01-04 22:28:44.740627",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Balance Transaction",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
@@ -132,7 +132,7 @@
    "create": 1,
    "delete": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "submit": 1,
    "write": 1
   }

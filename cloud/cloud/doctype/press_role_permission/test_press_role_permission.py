@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestPressRolePermission(FrappeTestCase):
+class TestCloudRolePermission(FrappeTestCase):
 	pass

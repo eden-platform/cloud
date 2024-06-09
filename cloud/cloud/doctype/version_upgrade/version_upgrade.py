@@ -6,7 +6,7 @@ from typing import List
 import frappe
 from frappe.model.document import Document
 
-from cloud.cloud.doctype.press_notification.press_notification import (
+from cloud.cloud.doctype.cloud_notification.cloud_notification import (
 	create_new_notification,
 )
 from cloud.utils import log_error

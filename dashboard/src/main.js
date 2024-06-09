@@ -23,7 +23,7 @@ let request = options => {
 	_options.headers = options.headers || {};
 	let currentTeam = localStorage.getItem('current_team');
 	if (currentTeam) {
-		_options.headers['X-Press-Team'] = currentTeam;
+		_options.headers['X-Cloud-Team'] = currentTeam;
 	}
 	return frappeRequest(_options);
 };
@@ -37,10 +37,10 @@ const { auth, account } = registerControllers(app);
 registerRouter(app, auth, account);
 
 // sentry
-if (window.press_frontend_sentry_dsn?.includes('https://')) {
+if (window.cloud_frontend_sentry_dsn?.includes('https://')) {
 	Sentry.init({
 		app,
-		dsn: window.press_frontend_sentry_dsn,
+		dsn: window.cloud_frontend_sentry_dsn,
 		integrations: [
 			new BrowserTracing({
 				routingInstrumentation: Sentry.vueRouterInstrumentation(router),
@@ -64,10 +64,10 @@ if (window.press_frontend_sentry_dsn?.includes('https://')) {
 }
 
 // posthog
-if (window.press_frontend_posthog_host?.includes('https://')) {
+if (window.cloud_frontend_posthog_host?.includes('https://')) {
 	try {
-		posthog.init(window.press_frontend_posthog_project_id, {
-			api_host: window.press_frontend_posthog_host,
+		posthog.init(window.cloud_frontend_posthog_project_id, {
+			api_host: window.cloud_frontend_posthog_host,
 			autocapture: false,
 			capture_pageview: false,
 			capture_pageleave: false,

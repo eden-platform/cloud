@@ -60,7 +60,7 @@
  "links": [],
  "modified": "2021-10-31 15:29:13.658976",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Stripe Payment Event",
  "owner": "Administrator",
  "permissions": [

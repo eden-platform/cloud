@@ -14,7 +14,7 @@
    "fieldname": "steps",
    "fieldtype": "Table",
    "label": "Steps",
-   "options": "Press Job Type Step",
+   "options": "Cloud Job Type Step",
    "reqd": 1
   }
  ],
@@ -22,8 +22,8 @@
  "links": [],
  "modified": "2022-09-28 17:51:52.412510",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Job Type",
+ "module": "Cloud",
+ "name": "Cloud Job Type",
  "naming_rule": "Set by user",
  "owner": "Administrator",
  "permissions": [

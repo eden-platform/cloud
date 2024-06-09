@@ -44,8 +44,8 @@
  "links": [],
  "modified": "2023-09-25 21:33:32.729651",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Method Permission",
+ "module": "Cloud",
+ "name": "Cloud Method Permission",
  "owner": "Administrator",
  "permissions": [
   {

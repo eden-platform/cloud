@@ -7,7 +7,7 @@ from frappe.model.document import Document
 from cloud.api.client import dashboard_whitelist
 
 
-class PressNotification(Document):
+class CloudNotification(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -89,10 +89,10 @@ class PressNotification(Document):
 
 
 def create_new_notification(team, type, document_type, document_name, message):
-	if not frappe.db.exists("Press Notification", {"document_name": document_name}):
+	if not frappe.db.exists("Cloud Notification", {"document_name": document_name}):
 		frappe.get_doc(
 			{
-				"doctype": "Press Notification",
+				"doctype": "Cloud Notification",
 				"team": team,
 				"type": type,
 				"document_type": document_type,
@@ -101,5 +101,5 @@ def create_new_notification(team, type, document_type, document_name, message):
 			}
 		).insert()
 		frappe.publish_realtime(
-			"press_notification", doctype="Press Notification", message={"team": team}
+			"cloud_notification", doctype="Cloud Notification", message={"team": team}
 		)

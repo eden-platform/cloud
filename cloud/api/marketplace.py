@@ -132,7 +132,7 @@ def get_install_app_options(marketplace_app: str):
 		"is_app_featured": is_app_approved,
 		"private_groups": private_groups,
 		"clusters": clusters,
-		"domain": frappe.db.get_single_value("Press Settings", "domain"),
+		"domain": frappe.db.get_single_value("Cloud Settings", "domain"),
 	}
 
 
@@ -233,7 +233,7 @@ def developer_toggle_allowed():
 	if current_team.is_developer:
 		return False
 
-	return frappe.db.get_value("Press Settings", None, "allow_developer_account") == "1"
+	return frappe.db.get_value("Cloud Settings", None, "allow_developer_account") == "1"
 
 
 @frappe.whitelist()

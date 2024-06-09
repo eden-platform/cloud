@@ -114,8 +114,8 @@ export default {
 		errors() {
 			return {
 				type: 'list',
-				cache: ['Press Notification', 'Error', 'Deploy Candidate', this.id],
-				doctype: 'Press Notification',
+				cache: ['Cloud Notification', 'Error', 'Deploy Candidate', this.id],
+				doctype: 'Cloud Notification',
 				auto: true,
 				fields: ['title', 'name'],
 				filters: {

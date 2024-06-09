@@ -40,7 +40,7 @@ MAIL_PASSWORD = ""
 
 def prepare():
 	complete_setup_wizard()
-	settings = frappe.get_single("Press Settings")
+	settings = frappe.get_single("Cloud Settings")
 	setup_certbot(settings)
 	setup_root_domain(settings)
 	setup_stripe(settings)
@@ -165,7 +165,7 @@ def setup_monitoring(settings):
 
 	settings.monitor_server = monitor.name
 	settings.monitor_token = frappe.generate_hash()
-	settings.press_monitoring_password = frappe.generate_hash()
+	settings.cloud_monitoring_password = frappe.generate_hash()
 
 	frappe.get_doc(
 		{
@@ -311,8 +311,8 @@ def setup_plans():
 				"max_storage_usage": 10240 * index,
 				"roles": [
 					{"role": "System Manager"},
-					{"role": "Press Admin"},
-					{"role": "Press Member"},
+					{"role": "Cloud Admin"},
+					{"role": "Cloud Member"},
 				],
 			}
 		).insert()

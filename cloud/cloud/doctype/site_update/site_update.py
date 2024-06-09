@@ -374,7 +374,7 @@ def schedule_updates():
 
 def schedule_updates_server(server):
 	# Prevent flooding the queue
-	queue_size = frappe.db.get_single_value("Press Settings", "auto_update_queue_size")
+	queue_size = frappe.db.get_single_value("Cloud Settings", "auto_update_queue_size")
 	pending_update_count = frappe.db.count(
 		"Site Update",
 		{

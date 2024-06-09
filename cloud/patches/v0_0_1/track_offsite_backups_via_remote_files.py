@@ -10,7 +10,7 @@ from frappe.desk.doctype.tag.tag import add_tag
 
 def execute():
 	frappe.reload_doc("cloud", "doctype", "site_backup")
-	bucket = frappe.db.get_single_value("Press Settings", "aws_s3_bucket")
+	bucket = frappe.db.get_single_value("Cloud Settings", "aws_s3_bucket")
 	offsite_backups = [
 		frappe.get_doc("Site Backup", x["name"])
 		for x in frappe.get_all("Site Backup", {"offsite": 1})

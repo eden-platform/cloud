@@ -115,7 +115,7 @@ class TeamDeletionRequest(PersonalDataDeletionRequest):
 		if (
 			self.team_disabled and self.frappeio_data_deleted and self.stripe_data_deleted
 		) and not self.data_anonymized:
-			self.delete_data_on_press()
+			self.delete_data_on_cloud()
 		self.finish_up()
 
 	def finish_up(self):
@@ -212,7 +212,7 @@ class TeamDeletionRequest(PersonalDataDeletionRequest):
 		self.reload()
 
 	@handle_exc
-	def delete_data_on_press(self):
+	def delete_data_on_cloud(self):
 		if not self.users_anonymized:
 			self.set_users_anonymized()
 

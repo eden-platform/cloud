@@ -18,11 +18,11 @@ class SitePool:
 		self.site_count = frappe.db.count(
 			"Site", filters={"is_standby": True, "status": "Active"}
 		)
-		self.pool_size = frappe.db.get_single_value("Press Settings", "standby_pool_size")
-		self.queue_size = frappe.db.get_single_value("Press Settings", "standby_queue_size")
+		self.pool_size = frappe.db.get_single_value("Cloud Settings", "standby_pool_size")
+		self.queue_size = frappe.db.get_single_value("Cloud Settings", "standby_queue_size")
 
 	def create(self):
-		pooling_enabled = frappe.db.get_single_value("Press Settings", "enable_site_pooling")
+		pooling_enabled = frappe.db.get_single_value("Cloud Settings", "enable_site_pooling")
 		if pooling_enabled and self.site_count < self.pool_size:
 			sites_created = 0
 			while sites_created < self.queue_size:

@@ -516,7 +516,7 @@ class Team(Document):
 		if not self.free_credits_allocated:
 			# allocate free credits on signup
 			credits_field = "free_credits_inr" if self.currency == "INR" else "free_credits_usd"
-			credit_amount = frappe.db.get_single_value("Press Settings", credits_field)
+			credit_amount = frappe.db.get_single_value("Cloud Settings", credits_field)
 			if not credit_amount:
 				return
 			self.allocate_credit_amount(credit_amount, source="Free Credits")
@@ -841,7 +841,7 @@ class Team(Document):
 
 	def billing_info(self):
 		return {
-			"gst_percentage": frappe.db.get_single_value("Press Settings", "gst_percentage"),
+			"gst_percentage": frappe.db.get_single_value("Cloud Settings", "gst_percentage"),
 			"balance": self.get_balance(),
 			"verified_micro_charge": bool(
 				frappe.db.exists(
@@ -904,7 +904,7 @@ class Team(Document):
 		site_created = frappe.db.count("Site", {"team": self.name}) > 0
 
 		if self.via_erpnext:
-			erpnext_domain = frappe.db.get_single_value("Press Settings", "erpnext_domain")
+			erpnext_domain = frappe.db.get_single_value("Cloud Settings", "erpnext_domain")
 			erpnext_site = frappe.db.get_value(
 				"Site",
 				{"domain": erpnext_domain, "team": self.name, "status": ("!=", "Archived")},

@@ -27,12 +27,12 @@ from cloud.cloud.doctype.remote_file.remote_file import RemoteFile
 from cloud.cloud.doctype.remote_file.test_remote_file import create_test_remote_file
 from cloud.cloud.doctype.server.test_server import create_test_server
 from cloud.cloud.doctype.site.test_site import create_test_site
-from cloud.cloud.doctype.team.test_team import create_test_press_admin_team
+from cloud.cloud.doctype.team.test_team import create_test_cloud_admin_team
 
 
 class TestAPISite(FrappeTestCase):
 	def setUp(self):
-		self.team = create_test_press_admin_team()
+		self.team = create_test_cloud_admin_team()
 		self.team.allocate_credit_amount(1000, source="Prepaid Credits", remark="Test")
 		self.team.payment_mode = "Prepaid Credits"
 		self.team.save()
@@ -145,7 +145,7 @@ class TestAPISite(FrappeTestCase):
 				"ip": frappe.get_last_doc("Proxy Server").ip,
 				"site_tags": [{"name": x.tag, "tag": x.tag_name} for x in site.tags],
 				"tags": frappe.get_all(
-					"Press Tag",
+					"Cloud Tag",
 					{"team": self.team.name, "doctype_name": "Site"},
 					["name", "tag"],
 				),
@@ -663,7 +663,7 @@ erpnext 0.8.3	    HEAD
 
 class TestAPISiteList(FrappeTestCase):
 	def setUp(self):
-		from cloud.cloud.doctype.press_tag.test_press_tag import create_and_add_test_tag
+		from cloud.cloud.doctype.cloud_tag.test_cloud_tag import create_and_add_test_tag
 		from cloud.cloud.doctype.site.test_site import create_test_site
 
 		app = create_test_app()

@@ -543,7 +543,7 @@ class SelfHostedServer(Document):
 
 	@property
 	def hybrid_domain(self):
-		return frappe.db.get_single_value("Press Settings", "hybrid_domain")
+		return frappe.db.get_single_value("Cloud Settings", "hybrid_domain")
 
 	@frappe.whitelist()
 	def create_proxy_server(self):
@@ -609,8 +609,8 @@ class SelfHostedServer(Document):
 				port=server.ssh_port or "22",
 				variables={
 					"domain": self.name,
-					"press_domain": frappe.db.get_single_value(
-						"Press Settings", "domain"
+					"cloud_domain": frappe.db.get_single_value(
+						"Cloud Settings", "domain"
 					),  # for ssl renewal
 				},
 			)

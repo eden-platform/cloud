@@ -435,7 +435,7 @@
  "links": [],
  "modified": "2024-03-13 13:15:21.249527",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Self Hosted Server",
  "owner": "Administrator",
  "permissions": [
@@ -454,13 +454,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

@@ -1,8 +1,8 @@
 ---
-title: Press
+title: Cloud
 ---
 
-# Press
+# Cloud
 
 Steps to setup your own production/development cloud installation.
 
@@ -39,12 +39,12 @@ After setting these, click **Obtain TLS Certificate** (Requires **Basic** > **Do
 
 ### GitHub
 
-1. Go To **Press Settings** > **GitHub**
+1. Go To **Cloud Settings** > **GitHub**
 1. Click on **Create GitHub App**
 1. Name your app and click **Create GitHub App for ...**
 
   ![GitHub App Create](/assets/cloud/images/internal/cloud/github/github-app-create.png)
-1. You'll be redirected to Press Settings.
+1. You'll be redirected to Cloud Settings.
 
   ![GitHub App Created](/assets/cloud/images/internal/cloud/github/github-app-created.png)
 

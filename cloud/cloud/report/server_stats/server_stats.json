@@ -34,7 +34,7 @@
  "is_standard": "Yes",
  "modified": "2023-05-17 18:33:39.554734",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Server Stats",
  "owner": "Administrator",
  "prepared_report": 0,
@@ -46,10 +46,10 @@
    "role": "System Manager"
   },
   {
-   "role": "Press Member"
+   "role": "Cloud Member"
   },
   {
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   }
  ]
 }

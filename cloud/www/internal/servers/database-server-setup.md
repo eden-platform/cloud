@@ -8,7 +8,7 @@ Database Server runs MariaDB server listening on a private IP address.
 > Note: See [Server Setup](/internal/servers/server-setup) for detailed explanation.
 
 #### Requires
-- Press host must have root SSH access to the target machine.
+- Cloud host must have root SSH access to the target machine.
 
 #### Steps
 

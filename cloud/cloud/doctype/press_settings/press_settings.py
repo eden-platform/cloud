@@ -15,7 +15,7 @@ from cloud.telegram_utils import Telegram
 from cloud.cloud.doctype.telegram_message.telegram_message import TelegramMessage
 
 
-class PressSettings(Document):
+class CloudSettings(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -99,7 +99,7 @@ class PressSettings(Document):
 		plausible_api_key: DF.Password | None
 		plausible_site_id: DF.Data | None
 		plausible_url: DF.Data | None
-		press_monitoring_password: DF.Password | None
+		cloud_monitoring_password: DF.Password | None
 		print_format: DF.Data | None
 		publish_docs: DF.Check
 		razorpay_key_id: DF.Data | None
@@ -220,8 +220,8 @@ class PressSettings(Document):
 	def is_offsite_setup(cls):
 		return any(
 			frappe.db.get_value(
-				"Press Settings",
-				"Press Settings",
+				"Cloud Settings",
+				"Cloud Settings",
 				["aws_s3_bucket", "offsite_backups_access_key_id"],
 			)
 		)

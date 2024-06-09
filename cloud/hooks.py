@@ -4,7 +4,7 @@ from cloud.api.account import get_frappe_io_auth_url
 from . import __version__ as app_version
 
 app_name = "cloud"
-app_title = "Press"
+app_title = "Cloud"
 app_publisher = "Frappe"
 app_description = "Managed Frappe Hosting"
 app_icon = "octicon octicon-rocket"
@@ -284,13 +284,13 @@ deploy_hours = [1, 2, 3, 4, 5, 21, 22, 23]  # Purposefully avoiding 0
 
 fixtures = [
 	"Agent Job Type",
-	"Press Job Type",
+	"Cloud Job Type",
 	"Frappe Version",
 	"MariaDB Variable",
 	"Cloud Region",
-	{"dt": "Role", "filters": [["role_name", "like", "Press%"]]},
+	{"dt": "Role", "filters": [["role_name", "like", "Cloud%"]]},
 	"Site Config Key Blacklist",
-	"Press Method Permission",
+	"Cloud Method Permission",
 	"Bench Dependency",
 ]
 # Testing

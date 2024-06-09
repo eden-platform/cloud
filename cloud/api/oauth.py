@@ -145,7 +145,7 @@ def create_account_request(email, first_name, last_name, phone_number=""):
 			"last_name": last_name,
 			"phone_number": phone_number,
 			"send_email": False,
-			"role": "Press Admin",
+			"role": "Cloud Admin",
 			"oauth_signup": True,
 		}
 	).insert(ignore_permissions=True)
@@ -188,7 +188,7 @@ def saas_setup(key, app, country, subdomain):
 			"saas": True,
 			"erpnext": False,
 			"saas_app": app,
-			"role": "Press Admin",
+			"role": "Cloud Admin",
 			"country": country,
 			"subdomain": subdomain,
 		}

@@ -7,7 +7,7 @@ from frappe.utils.safe_exec import safe_exec
 import json
 
 
-class PressJobStep(Document):
+class CloudJobStep(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -36,11 +36,11 @@ class PressJobStep(Document):
 			self.start = frappe.utils.now_datetime()
 		self.status = "Running"
 		script = frappe.db.get_value(
-			"Press Job Type Step",
+			"Cloud Job Type Step",
 			{"parent": self.job_type, "step_name": self.step_name},
 			"script",
 		)
-		job = frappe.get_doc("Press Job", self.job)
+		job = frappe.get_doc("Cloud Job", self.job)
 		arguments = json.loads(job.arguments)
 		try:
 			local = {"arguments": frappe._dict(arguments), "result": None, "doc": job}

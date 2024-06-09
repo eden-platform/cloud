@@ -40,7 +40,7 @@ import typing
 
 if typing.TYPE_CHECKING:
 	from cloud.cloud.doctype.server_plan.server_plan import ServerPlan
-	from cloud.cloud.doctype.press_settings.press_settings import PressSettings
+	from cloud.cloud.doctype.cloud_settings.cloud_settings import CloudSettings
 	from cloud.cloud.doctype.virtual_machine.virtual_machine import VirtualMachine
 
 
@@ -117,7 +117,7 @@ class Cluster(Document):
 			self.set_oci_availability_zone()
 
 	def validate_aws_credentials(self):
-		settings: "PressSettings" = frappe.get_single("Press Settings")
+		settings: "CloudSettings" = frappe.get_single("Cloud Settings")
 		if self.public and not self.aws_access_key_id:
 			self.aws_access_key_id = settings.aws_access_key_id
 			self.aws_secret_access_key = settings.get_password("aws_secret_access_key")
@@ -721,7 +721,7 @@ class Cluster(Document):
 		create_subscription=True,
 	):
 		"""Creates a server for the cluster"""
-		domain = domain or frappe.db.get_single_value("Press Settings", "domain")
+		domain = domain or frappe.db.get_single_value("Cloud Settings", "domain")
 		server_series = {**self.base_servers, **self.private_servers}
 		team = team or get_current_team()
 		plan = plan or self.get_or_create_basic_plan(doctype)
@@ -755,7 +755,7 @@ class Cluster(Document):
 			server.plan = plan.name
 			server.save()
 			server.create_subscription(plan.name)
-		job = server.run_press_job("Create Server")
+		job = server.run_cloud_job("Create Server")
 
 		return server, job
 

@@ -321,7 +321,7 @@
  "links": [],
  "modified": "2024-05-22 11:19:35.156633",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Bench",
  "owner": "Administrator",
  "permissions": [
@@ -340,13 +340,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

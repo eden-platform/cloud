@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "creation": "2020-07-02 14:40:15.222405",
- "description": "Tracks S3 uploads made via Press",
+ "description": "Tracks S3 uploads made via Cloud",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -97,7 +97,7 @@
  "links": [],
  "modified": "2024-05-10 15:07:11.179229",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Remote File",
  "owner": "Administrator",
  "permissions": [

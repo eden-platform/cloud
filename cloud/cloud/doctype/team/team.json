@@ -466,7 +466,7 @@
  ],
  "modified": "2024-04-04 22:20:46.667608",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Team",
  "naming_rule": "Random",
  "owner": "Administrator",
@@ -486,7 +486,7 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   }
  ],

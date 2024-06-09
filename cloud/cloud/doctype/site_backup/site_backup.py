@@ -213,7 +213,7 @@ def get_backup_bucket(cluster, region=False):
 	bucket_for_cluster = frappe.get_all(
 		"Backup Bucket", {"cluster": cluster}, ["name", "region"], limit=1
 	)
-	default_bucket = frappe.db.get_single_value("Press Settings", "aws_s3_bucket")
+	default_bucket = frappe.db.get_single_value("Cloud Settings", "aws_s3_bucket")
 
 	if region:
 		return bucket_for_cluster[0] if bucket_for_cluster else default_bucket

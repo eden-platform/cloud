@@ -49,7 +49,7 @@ def code_server_domain():
 	"""
 	Returns the domain for code servers
 	"""
-	return frappe.db.get_single_value("Press Settings", "spaces_domain")
+	return frappe.db.get_single_value("Cloud Settings", "spaces_domain")
 
 
 @frappe.whitelist()

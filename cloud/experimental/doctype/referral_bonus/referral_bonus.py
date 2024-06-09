@@ -22,7 +22,7 @@ class ReferralBonus(Document):
 
 		team = frappe.get_doc("Team", self.referred_by)
 		credits_field = "free_credits_inr" if team.currency == "INR" else "free_credits_usd"
-		credit_amount = frappe.db.get_single_value("Press Settings", credits_field)
+		credit_amount = frappe.db.get_single_value("Cloud Settings", credits_field)
 		if not credit_amount:
 			return
 
@@ -33,7 +33,7 @@ class ReferralBonus(Document):
 		self.reload()
 
 
-# TODO: Remove hardcoded values and add fields in Press Settings
+# TODO: Remove hardcoded values and add fields in Cloud Settings
 def team_has_spent(team, usd_amount=25.0, inr_amount=1800.0):
 	"""Has the team spent atleast the given amount yet (on stripe)"""
 	team_currency = frappe.db.get_value("Team", team, "currency")

@@ -129,7 +129,7 @@ def get_data(filters):
 
 
 def get_slow_query_logs(database, start_datetime, end_datetime, search_pattern, size):
-	log_server = frappe.db.get_single_value("Press Settings", "log_server")
+	log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 	if not log_server:
 		return []
 

@@ -9,8 +9,8 @@ from unittest.mock import Mock, patch
 import frappe
 from frappe.model.naming import make_autoname
 
-from cloud.cloud.doctype.press_settings.test_press_settings import (
-	create_test_press_settings,
+from cloud.cloud.doctype.cloud_settings.test_cloud_settings import (
+	create_test_cloud_settings,
 )
 from cloud.cloud.doctype.proxy_server.proxy_server import ProxyServer
 from cloud.cloud.doctype.server.server import BaseServer
@@ -25,7 +25,7 @@ def create_test_proxy_server(
 	cluster: str = "Default",
 ):
 	"""Create test Proxy Server doc"""
-	create_test_press_settings()
+	create_test_cloud_settings()
 	server = frappe.get_doc(
 		{
 			"doctype": "Proxy Server",

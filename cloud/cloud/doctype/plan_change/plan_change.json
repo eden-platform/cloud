@@ -76,7 +76,7 @@
  "links": [],
  "modified": "2024-02-19 14:03:40.310425",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Plan Change",
  "owner": "Administrator",
  "permissions": [
@@ -94,11 +94,11 @@
   },
   {
    "create": 1,
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "create": 1,
-   "role": "Press Member"
+   "role": "Cloud Member"
   }
  ],
  "quick_entry": 1,

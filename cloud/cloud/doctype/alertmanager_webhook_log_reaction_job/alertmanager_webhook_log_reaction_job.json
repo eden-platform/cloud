@@ -5,21 +5,21 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "press_job_type",
-  "press_job"
+  "cloud_job_type",
+  "cloud_job"
  ],
  "fields": [
   {
-   "fieldname": "press_job_type",
+   "fieldname": "cloud_job_type",
    "fieldtype": "Link",
-   "label": "Press Job Type",
-   "options": "Press Job Type"
+   "label": "Cloud Job Type",
+   "options": "Cloud Job Type"
   },
   {
-   "fieldname": "press_job",
+   "fieldname": "cloud_job",
    "fieldtype": "Link",
-   "label": "Press Job",
-   "options": "Press Job"
+   "label": "Cloud Job",
+   "options": "Cloud Job"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -27,7 +27,7 @@
  "links": [],
  "modified": "2024-04-30 15:38:54.334429",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Alertmanager Webhook Log Reaction Job",
  "owner": "Administrator",
  "permissions": [],

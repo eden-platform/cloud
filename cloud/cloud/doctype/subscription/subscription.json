@@ -93,7 +93,7 @@
  ],
  "modified": "2024-02-19 19:49:40.819033",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Subscription",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
@@ -113,13 +113,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

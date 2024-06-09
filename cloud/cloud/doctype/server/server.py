@@ -24,7 +24,7 @@ from cloud.runner import Ansible
 from cloud.utils import log_error
 
 if typing.TYPE_CHECKING:
-	from cloud.cloud.doctype.press_job.press_job import Bench
+	from cloud.cloud.doctype.cloud_job.cloud_job import Bench
 
 
 class BaseServer(Document, TagHelpers):
@@ -119,7 +119,7 @@ class BaseServer(Document, TagHelpers):
 
 	def autoname(self):
 		if not self.domain:
-			self.domain = frappe.db.get_single_value("Press Settings", "domain")
+			self.domain = frappe.db.get_single_value("Cloud Settings", "domain")
 		self.name = f"{self.hostname}.{self.domain}"
 		if (
 			self.doctype in ["Database Server", "Server", "Proxy Server"] and self.is_self_hosted
@@ -192,7 +192,7 @@ class BaseServer(Document, TagHelpers):
 			self.agent_password = frappe.generate_hash(length=32)
 
 	def get_agent_repository_url(self):
-		settings = frappe.get_single("Press Settings")
+		settings = frappe.get_single("Cloud Settings")
 		repository_owner = settings.agent_repository_owner or "eden-platform"
 		url = f"https://github.com/{repository_owner}/agent"
 		return url
@@ -284,7 +284,7 @@ class BaseServer(Document, TagHelpers):
 		)
 
 	def _install_filebeat(self):
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if log_server:
 			kibana_password = frappe.get_doc("Log Server", log_server).get_password(
 				"kibana_password"
@@ -377,7 +377,7 @@ class BaseServer(Document, TagHelpers):
 		)
 
 	def is_build_server(self) -> bool:
-		name = frappe.db.get_single_value("Press Settings", "remote_build_server")
+		name = frappe.db.get_single_value("Cloud Settings", "remote_build_server")
 		if name == self.name:
 			return True
 
@@ -501,10 +501,10 @@ class BaseServer(Document, TagHelpers):
 			frappe.enqueue_doc(self.doctype, self.name, "_archive", queue="long")
 		self.disable_subscription()
 
-		frappe.db.delete("Press Role Permission", {"server": self.name})
+		frappe.db.delete("Cloud Role Permission", {"server": self.name})
 
 	def _archive(self):
-		self.run_press_job("Archive Server")
+		self.run_cloud_job("Archive Server")
 
 	def disable_subscription(self):
 		subscription = self.subscription
@@ -547,18 +547,18 @@ class BaseServer(Document, TagHelpers):
 				"to_plan": plan.name,
 			}
 		).insert()
-		self.run_press_job("Resize Server", {"machine_type": plan.instance_type})
+		self.run_cloud_job("Resize Server", {"machine_type": plan.instance_type})
 
 	@frappe.whitelist()
 	def create_image(self):
-		self.run_press_job("Create Server Snapshot")
+		self.run_cloud_job("Create Server Snapshot")
 
-	def run_press_job(self, job_name, arguments=None):
+	def run_cloud_job(self, job_name, arguments=None):
 		if arguments is None:
 			arguments = {}
 		return frappe.get_doc(
 			{
-				"doctype": "Press Job",
+				"doctype": "Cloud Job",
 				"job_type": job_name,
 				"server_type": self.doctype,
 				"server": self.name,
@@ -591,7 +591,7 @@ class BaseServer(Document, TagHelpers):
 		return frappe.get_doc("TLS Certificate", certificate_name)
 
 	def get_log_server(self):
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if log_server:
 			kibana_password = frappe.get_doc("Log Server", log_server).get_password(
 				"kibana_password"
@@ -879,10 +879,10 @@ class Server(BaseServer):
 
 		if not self.is_new() and self.has_value_changed("team"):
 			self.update_subscription()
-			frappe.db.delete("Press Role Permission", {"server": self.name})
+			frappe.db.delete("Cloud Role Permission", {"server": self.name})
 
 	def after_insert(self):
-		from cloud.cloud.doctype.press_role.press_role import (
+		from cloud.cloud.doctype.cloud_role.cloud_role import (
 			add_permission_for_newly_created_doc,
 		)
 
@@ -929,7 +929,7 @@ class Server(BaseServer):
 		certificate = self.get_certificate()
 		log_server, kibana_password = self.get_log_server()
 		proxy_ip = frappe.db.get_value("Proxy Server", self.proxy_server, "private_ip")
-		agent_sentry_dsn = frappe.db.get_single_value("Press Settings", "agent_sentry_dsn")
+		agent_sentry_dsn = frappe.db.get_single_value("Cloud Settings", "agent_sentry_dsn")
 
 		try:
 			ansible = Ansible(
@@ -998,7 +998,7 @@ class Server(BaseServer):
 		frappe.enqueue_doc(self.doctype, self.name, "_setup_agent_sentry")
 
 	def _setup_agent_sentry(self):
-		agent_sentry_dsn = frappe.db.get_single_value("Press Settings", "agent_sentry_dsn")
+		agent_sentry_dsn = frappe.db.get_single_value("Cloud Settings", "agent_sentry_dsn")
 		try:
 			ansible = Ansible(
 				playbook="agent_sentry.yml",
@@ -1205,7 +1205,7 @@ class Server(BaseServer):
 		monitoring_password = frappe.get_doc("Cluster", self.cluster).get_password(
 			"monitoring_password"
 		)
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if log_server:
 			kibana_password = frappe.get_doc("Log Server", log_server).get_password(
 				"kibana_password"

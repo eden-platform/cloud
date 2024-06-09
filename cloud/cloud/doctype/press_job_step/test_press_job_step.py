@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestPressJobStep(FrappeTestCase):
+class TestCloudJobStep(FrappeTestCase):
 	pass

@@ -25,14 +25,14 @@ from cloud.cloud.doctype.app.test_app import create_test_app
 from cloud.cloud.doctype.app_release.test_app_release import create_test_app_release
 from cloud.cloud.doctype.bench.test_bench import create_test_bench
 from cloud.cloud.doctype.deploy_candidate.deploy_candidate import DeployCandidate
-from cloud.cloud.doctype.press_settings.test_press_settings import (
-	create_test_press_settings,
+from cloud.cloud.doctype.cloud_settings.test_cloud_settings import (
+	create_test_cloud_settings,
 )
 from cloud.cloud.doctype.release_group.test_release_group import (
 	create_test_release_group,
 )
 from cloud.cloud.doctype.server.test_server import create_test_server
-from cloud.cloud.doctype.team.test_team import create_test_press_admin_team
+from cloud.cloud.doctype.team.test_team import create_test_cloud_admin_team
 from cloud.utils import get_current_team
 from cloud.utils.test import foreground_enqueue_doc
 
@@ -40,7 +40,7 @@ from cloud.utils.test import foreground_enqueue_doc
 @patch.object(AgentJob, "enqueue_http_request", new=Mock())
 class TestAPIBench(FrappeTestCase):
 	def setUp(self):
-		self.team = create_test_press_admin_team()
+		self.team = create_test_cloud_admin_team()
 		self.version = "Version 15"
 		self.app = create_test_app()
 		self.app_source = self.app.add_source(
@@ -57,7 +57,7 @@ class TestAPIBench(FrappeTestCase):
 		frappe.set_user("Administrator")
 		frappe.db.rollback()
 
-	def test_new_fn_creates_release_group_awaiting_deploy_when_called_by_press_admin_team(
+	def test_new_fn_creates_release_group_awaiting_deploy_when_called_by_cloud_admin_team(
 		self,
 	):
 		frappe.set_user(self.team.user)
@@ -92,7 +92,7 @@ class TestAPIBench(FrappeTestCase):
 		release.status = "Approved"
 		release.save()
 
-		set_press_settings_for_docker_build()
+		set_cloud_settings_for_docker_build()
 		frappe.set_user(self.team.user)
 		group = new(
 			{
@@ -557,7 +557,7 @@ class TestAPIBenchConfig(FrappeTestCase):
 
 class TestAPIBenchList(FrappeTestCase):
 	def setUp(self):
-		from cloud.cloud.doctype.press_tag.test_press_tag import create_and_add_test_tag
+		from cloud.cloud.doctype.cloud_tag.test_cloud_tag import create_and_add_test_tag
 
 		app = create_test_app()
 
@@ -627,16 +627,16 @@ class TestAPIBenchList(FrappeTestCase):
 		)
 
 
-def set_press_settings_for_docker_build() -> None:
-	press_settings = create_test_press_settings()
+def set_cloud_settings_for_docker_build() -> None:
+	cloud_settings = create_test_cloud_settings()
 	cwd = os.getcwd()
 	back = os.path.join(cwd, "..")
 	bench_dir = os.path.abspath(back)
 	build_dir = os.path.join(bench_dir, "test_builds")
 	clone_dir = os.path.join(bench_dir, "test_clones")
-	press_settings.db_set("build_directory", build_dir)
-	press_settings.db_set("clone_directory", clone_dir)
-	press_settings.db_set("docker_registry_url", "registry.local.frappe.dev")
+	cloud_settings.db_set("build_directory", build_dir)
+	cloud_settings.db_set("clone_directory", clone_dir)
+	cloud_settings.db_set("docker_registry_url", "registry.local.frappe.dev")
 
 
 def patch_dc_command_for_ci():

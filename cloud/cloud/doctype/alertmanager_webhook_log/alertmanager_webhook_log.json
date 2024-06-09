@@ -138,7 +138,7 @@
  "links": [],
  "modified": "2024-04-30 15:39:21.126637",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Alertmanager Webhook Log",
  "owner": "Administrator",
  "permissions": [

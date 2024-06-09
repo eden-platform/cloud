@@ -121,7 +121,7 @@
  "links": [],
  "modified": "2021-02-16 11:05:32.813726",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "App Release Difference",
  "owner": "Administrator",
  "permissions": [
@@ -139,11 +139,11 @@
   },
   {
    "create": 1,
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "create": 1,
-   "role": "Press Member"
+   "role": "Cloud Member"
   }
  ],
  "sort_field": "modified",

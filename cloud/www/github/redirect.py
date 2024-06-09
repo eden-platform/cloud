@@ -8,7 +8,7 @@ from cloud.utils import log_error
 
 
 def get_context(context):
-	if not frappe.db.get_single_value("Press Settings", "github_app_id"):
+	if not frappe.db.get_single_value("Cloud Settings", "github_app_id"):
 		code = frappe.form_dict.code
 		response = None
 		try:
@@ -19,7 +19,7 @@ def get_context(context):
 				).json()
 			)
 
-			settings = frappe.get_doc("Press Settings", "Press Settings")
+			settings = frappe.get_doc("Cloud Settings", "Cloud Settings")
 			settings.github_app_id = response.id
 			settings.github_app_client_id = response.client_id
 			settings.github_app_client_secret = response.client_secret
@@ -31,6 +31,6 @@ def get_context(context):
 		except Exception:
 			log_error("GitHub App Creation Error", code=code, response=response)
 
-	redirect_url = frappe.utils.get_url("/desk#Form/Press Settings")
+	redirect_url = frappe.utils.get_url("/desk#Form/Cloud Settings")
 	frappe.flags.redirect_location = redirect_url
 	raise frappe.Redirect

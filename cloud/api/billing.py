@@ -239,7 +239,7 @@ def create_payment_intent_for_buying_credits(amount):
 		frappe.throw(f"Amount {amount} is less than the total unpaid amount {total_unpaid}.")
 
 	if team.currency == "INR":
-		gst_amount = amount * frappe.db.get_single_value("Press Settings", "gst_percentage")
+		gst_amount = amount * frappe.db.get_single_value("Cloud Settings", "gst_percentage")
 		amount += gst_amount
 		metadata.update({"gst": round(gst_amount, 2)})
 
@@ -555,7 +555,7 @@ def create_razorpay_order(amount):
 	team = get_current_team(get_doc=True)
 
 	if team.currency == "INR":
-		gst_amount = amount * frappe.db.get_single_value("Press Settings", "gst_percentage")
+		gst_amount = amount * frappe.db.get_single_value("Cloud Settings", "gst_percentage")
 		amount += gst_amount
 
 	amount = round(amount, 2)

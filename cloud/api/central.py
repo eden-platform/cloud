@@ -36,7 +36,7 @@ def account_request(
 			"erpnext": True,
 			"subdomain": subdomain,
 			"email": email,
-			"role": "Press Admin",
+			"role": "Cloud Admin",
 			"first_name": first_name,
 			"last_name": last_name,
 			"phone_number": phone_number,

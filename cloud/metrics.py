@@ -33,41 +33,41 @@ class MetricsRenderer:
 
 	def metrics(self):
 		suspended_builds = Gauge(
-			"press_builds_suspended", "Are docker builds suspended", registry=self.registry
+			"cloud_builds_suspended", "Are docker builds suspended", registry=self.registry
 		)
 		suspended_builds.set(
-			cint(frappe.db.get_value("Press Settings", None, "suspend_builds"))
+			cint(frappe.db.get_value("Cloud Settings", None, "suspend_builds"))
 		)
 		self.get_status(
-			"press_deploy_candidate_total",
+			"cloud_deploy_candidate_total",
 			"Deploy Candidate",
 			filters={"status": ("!=", "Success")},
 		)
 
 		self.get_status(
-			"press_site_total", "Site", filters={"status": ("not in", ("Archived", "Active"))}
+			"cloud_site_total", "Site", filters={"status": ("not in", ("Archived", "Active"))}
 		)
-		self.get_status("press_bench_total", "Bench", filters={"status": ("!=", "Archived")})
-		self.get_status("press_server_total", "Server")
+		self.get_status("cloud_bench_total", "Bench", filters={"status": ("!=", "Archived")})
+		self.get_status("cloud_server_total", "Server")
 
-		self.get_status("press_database_server_total", "Database Server")
-		self.get_status("press_virtual_machine_total", "Virtual Machine")
+		self.get_status("cloud_database_server_total", "Database Server")
+		self.get_status("cloud_virtual_machine_total", "Virtual Machine")
 
 		self.get_status(
-			"press_site_backup_total", "Site Backup", filters={"status": ("!=", "Success")}
+			"cloud_site_backup_total", "Site Backup", filters={"status": ("!=", "Success")}
 		)
 		self.get_status(
-			"press_site_update_total", "Site Update", filters={"status": ("!=", "Success")}
+			"cloud_site_update_total", "Site Update", filters={"status": ("!=", "Success")}
 		)
-		self.get_status("press_site_migration_total", "Site Migration")
-		self.get_status("press_site_upgrade_total", "Version Upgrade")
+		self.get_status("cloud_site_migration_total", "Site Migration")
+		self.get_status("cloud_site_upgrade_total", "Version Upgrade")
 
-		self.get_status("press_press_job_total", "Press Job")
+		self.get_status("cloud_cloud_job_total", "Cloud Job")
 		self.get_status(
-			"press_ansible_play_total", "Ansible Play", filters={"status": ("!=", "Success")}
+			"cloud_ansible_play_total", "Ansible Play", filters={"status": ("!=", "Success")}
 		)
 		self.get_status(
-			"press_agent_job_total", "Agent Job", filters={"status": ("!=", "Success")}
+			"cloud_agent_job_total", "Agent Job", filters={"status": ("!=", "Success")}
 		)
 
 		return generate_latest(self.registry).decode("utf-8")

@@ -17,8 +17,8 @@ class AlertmanagerWebhookLogReactionJob(Document):
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
-		press_job: DF.Link | None
-		press_job_type: DF.Link | None
+		cloud_job: DF.Link | None
+		cloud_job_type: DF.Link | None
 	# end: auto-generated types
 
 	pass

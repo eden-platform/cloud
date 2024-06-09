@@ -9,7 +9,7 @@ import unittest
 from cloud.cloud.doctype.cluster.test_cluster import create_test_cluster
 
 
-def create_test_press_settings():
+def create_test_cloud_settings():
 	"""Create test cloud settings doc"""
 	create_test_cluster()
 	if not frappe.db.exists("TLS Certificate", "*.fc.dev"):
@@ -35,7 +35,7 @@ def create_test_press_settings():
 		}
 	).insert(ignore_if_duplicate=True)
 
-	settings = frappe.get_single("Press Settings")
+	settings = frappe.get_single("Cloud Settings")
 	settings.domain = "fc.dev"
 	settings.bench_configuration = "{}"
 	settings.rsa_key_size = 2048
@@ -45,5 +45,5 @@ def create_test_press_settings():
 	return settings
 
 
-class TestPressSettings(unittest.TestCase):
+class TestCloudSettings(unittest.TestCase):
 	pass

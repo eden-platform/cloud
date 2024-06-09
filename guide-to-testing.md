@@ -5,7 +5,7 @@ styling tools setup so CI won't fail from these
 
 Instructions [here](https://github.com/eden-platform/cloud/issues/424#issuecomment-1193375098)
 
-# Writing Tests for Press
+# Writing Tests for Cloud
 
 Writing tests involve running tests locally (duh). So let's get that setup. (You'll only have to do this once)
 
@@ -38,13 +38,13 @@ bench --site test_site reinstall --yes
 
 ## Writing tests
 
-This is the hard part. Because of Press's dependency with outside world, it's
+This is the hard part. Because of Cloud's dependency with outside world, it's
 hard to isolate unit tests to this project. Regardless it's still possible with
 plain old python's built in libraries.
 
 Majority of this is done with the help of python's `unittest.mock` library. We
 use this library to mock parts of code when referencing things that are out of
-Press's control.
+Cloud's control.
 
 Eg: We can mock all Agent Job creation calls by decorating the TestCase class like so
 
@@ -178,7 +178,7 @@ https://github.com/eden-platform/cloud/blob/23711e2799f2d24dfd7bbe2b6cd148f54f4b
 
 Here, we check what args was Ansible constructor was called with.
 
-That's pretty much all you need to write safe, rerunnable tests for Press. You
+That's pretty much all you need to write safe, rerunnable tests for Cloud. You
 can checkout https://docs.python.org/3/library/unittest.mock.html for more
 things you can do with the standard python libraries. If your editor and
 plugins are setup configured nicely, you can even do TDD with ease.

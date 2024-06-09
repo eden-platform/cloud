@@ -156,7 +156,7 @@
  "links": [],
  "modified": "2023-11-09 22:47:54.999079",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Site Migration",
  "owner": "Administrator",
  "permissions": [
@@ -189,7 +189,7 @@
    "export": 1,
    "print": 1,
    "report": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "share": 1,
    "write": 1
   },
@@ -199,7 +199,7 @@
    "export": 1,
    "print": 1,
    "report": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "share": 1,
    "write": 1
   }

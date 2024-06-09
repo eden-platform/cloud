@@ -10,7 +10,7 @@ from cloud.cloud.doctype.team.test_team import create_test_team
 def create_and_add_test_tag(name: str, doctype: str, tag: str = "test_tag"):
 	test_tag = frappe.get_doc(
 		{
-			"doctype": "Press Tag",
+			"doctype": "Cloud Tag",
 			"doctype_name": doctype,
 			"team": create_test_team(),
 			"tag": tag,
@@ -21,5 +21,5 @@ def create_and_add_test_tag(name: str, doctype: str, tag: str = "test_tag"):
 	return test_tag
 
 
-class TestPressTag(FrappeTestCase):
+class TestCloudTag(FrappeTestCase):
 	pass

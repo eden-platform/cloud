@@ -107,7 +107,7 @@ export default {
 		},
 		showManageTeamButton() {
 			const team = this.$account.team;
-			let show = this.$account.hasRole('Press Admin');
+			let show = this.$account.hasRole('Cloud Admin');
 			return show && !this.$account.parent_team;
 		}
 	},

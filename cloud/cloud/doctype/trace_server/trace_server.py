@@ -63,7 +63,7 @@ class TraceServer(BaseServer):
 		)
 		certificate = frappe.get_doc("TLS Certificate", certificate_name)
 
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if log_server:
 			kibana_password = frappe.get_doc("Log Server", log_server).get_password(
 				"kibana_password"

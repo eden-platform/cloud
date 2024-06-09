@@ -35,8 +35,8 @@
  "links": [],
  "modified": "2021-02-16 11:00:09.510599",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Feedback",
+ "module": "Cloud",
+ "name": "Cloud Feedback",
  "owner": "Administrator",
  "permissions": [
   {
@@ -53,11 +53,11 @@
   },
   {
    "create": 1,
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "create": 1,
-   "role": "Press Member"
+   "role": "Cloud Member"
   }
  ],
  "quick_entry": 1,

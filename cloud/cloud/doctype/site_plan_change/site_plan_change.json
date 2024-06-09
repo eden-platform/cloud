@@ -65,7 +65,7 @@
  "links": [],
  "modified": "2024-02-05 23:05:20.377096",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Site Plan Change",
  "owner": "Administrator",
  "permissions": [
@@ -83,11 +83,11 @@
   },
   {
    "create": 1,
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "create": 1,
-   "role": "Press Member"
+   "role": "Cloud Member"
   },
   {
    "create": 1,

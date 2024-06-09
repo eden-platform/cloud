@@ -68,7 +68,7 @@ def account_request(
 				"subdomain": subdomain,
 				"email": email,
 				"password": password,
-				"role": "Press Admin",
+				"role": "Cloud Admin",
 				"first_name": first_name,
 				"last_name": last_name,
 				"country": country,

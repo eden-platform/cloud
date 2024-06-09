@@ -6,14 +6,14 @@ import { icon } from '../utils/components';
 import { getTeam } from '../data/team';
 
 export default {
-	doctype: 'Press Notification',
+	doctype: 'Cloud Notification',
 	whitelistedMethods: {},
 	list: {
 		resource() {
 			let $team = getTeam();
 			return {
 				type: 'list',
-				doctype: 'Press Notification',
+				doctype: 'Cloud Notification',
 				url: 'cloud.api.notifications.get_notifications',
 				auto: true,
 				filters: {
@@ -38,7 +38,7 @@ export default {
 		},
 		onRowClick(row) {
 			let notification = getDocResource({
-				doctype: 'Press Notification',
+				doctype: 'Cloud Notification',
 				name: row.name,
 				whitelistedMethods: {
 					markNotificationAsRead: 'mark_as_read'

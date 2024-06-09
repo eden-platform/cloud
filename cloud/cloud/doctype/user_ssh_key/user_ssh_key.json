@@ -54,7 +54,7 @@
  "links": [],
  "modified": "2022-10-11 15:57:00.071186",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "User SSH Key",
  "owner": "Administrator",
  "permissions": [
@@ -75,7 +75,7 @@
    "delete": 1,
    "if_owner": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
@@ -83,7 +83,7 @@
    "delete": 1,
    "if_owner": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

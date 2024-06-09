@@ -57,7 +57,7 @@ export default {
 		existingTags() {
 			return {
 				type: 'list',
-				doctype: 'Press Tag',
+				doctype: 'Cloud Tag',
 				filters: { doctype_name: this.doctype },
 				fields: ['tag'],
 				pageLength: 1000,

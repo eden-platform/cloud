@@ -15,7 +15,7 @@ from cloud.exceptions import (
 	MissingAppsInBench,
 	OngoingAgentJob,
 )
-from cloud.cloud.doctype.press_notification.press_notification import (
+from cloud.cloud.doctype.cloud_notification.cloud_notification import (
 	create_new_notification,
 )
 from cloud.cloud.doctype.server.server import Server

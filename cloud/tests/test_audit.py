@@ -6,8 +6,8 @@ from frappe.tests.utils import FrappeTestCase
 
 from cloud.cloud.audit import BackupRecordCheck, OffsiteBackupCheck
 from cloud.cloud.doctype.agent_job.agent_job import AgentJob
-from cloud.cloud.doctype.press_settings.test_press_settings import (
-	create_test_press_settings,
+from cloud.cloud.doctype.cloud_settings.test_cloud_settings import (
+	create_test_cloud_settings,
 )
 from cloud.cloud.doctype.site.test_site import create_test_site
 from cloud.cloud.doctype.site_backup.test_site_backup import create_test_site_backup
@@ -25,7 +25,7 @@ class TestBackupRecordCheck(FrappeTestCase):
 	)
 
 	def test_audit_will_fail_if_backup_older_than_interval(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		site = create_test_site(creation=self.older_than_interval)
 		create_test_site_backup(
 			site.name, creation=datetime.now() - timedelta(hours=BackupRecordCheck.interval + 1)
@@ -37,7 +37,7 @@ class TestBackupRecordCheck(FrappeTestCase):
 		self.assertEqual(audit_log.status, "Failure")
 
 	def test_audit_succeeds_when_backup_in_interval_exists(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		site = create_test_site(creation=self.older_than_interval)
 
 		create_test_site_backup(
@@ -52,7 +52,7 @@ class TestBackupRecordCheck(FrappeTestCase):
 		self.assertEqual(audit_log.status, "Success")
 
 	def test_audit_log_is_created(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		site = create_test_site(creation=self.older_than_interval)
 		create_test_site_backup(
 			site.name, creation=datetime.now() - timedelta(hours=BackupRecordCheck.interval + 0)
@@ -67,7 +67,7 @@ class TestBackupRecordCheck(FrappeTestCase):
 		self.assertGreater(audit_logs_after, audit_logs_before)
 
 	def test_sites_created_within_interval_are_ignored(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		create_test_site()
 		# no backup
 		BackupRecordCheck()
@@ -85,7 +85,7 @@ class TestOffsiteBackupCheck(FrappeTestCase):
 		frappe.db.rollback()
 
 	def test_audit_succeeds_when_all_remote_files_are_in_remote(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		site = create_test_site()
 		site_backup = create_test_site_backup(site.name)
 		frappe.db.set_value(
@@ -109,7 +109,7 @@ class TestOffsiteBackupCheck(FrappeTestCase):
 		self.assertEqual(audit_log.status, "Success")
 
 	def test_audit_fails_when_all_remote_files_not_in_remote(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		site = create_test_site()
 		# 3 remote files are created here
 		site_backup = create_test_site_backup(site.name)

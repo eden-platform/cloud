@@ -93,7 +93,7 @@ class DeployCandidate(Document):
 		build_output: DF.Code | None
 		build_start: DF.Datetime | None
 		build_steps: DF.Table[DeployCandidateBuildStep]
-		compress_app_cache: DF.Check
+		comcloud_app_cache: DF.Check
 		dependencies: DF.Table[DeployCandidateDependency]
 		docker_image: DF.Data | None
 		docker_image_id: DF.Data | None
@@ -150,7 +150,7 @@ class DeployCandidate(Document):
 		results = query.run(as_dict=True)
 		names = [r.name for r in results if r.status and r.status != "Success"]
 		notifications = frappe.get_all(
-			"Press Notification",
+			"Cloud Notification",
 			fields=["name", "document_name"],
 			filters={
 				"document_type": "Deploy Candidate",
@@ -195,7 +195,7 @@ class DeployCandidate(Document):
 
 	def on_trash(self):
 		frappe.db.delete(
-			"Press Notification",
+			"Cloud Notification",
 			{"document_type": self.doctype, "document_name": self.name},
 		)
 
@@ -319,7 +319,7 @@ class DeployCandidate(Document):
 	@frappe.whitelist()
 	def schedule_build_and_deploy(self, is_running_scheduled=False):
 		"""
-		If Builds are suspended (Press Settings > Suspend Builds) then this
+		If Builds are suspended (Cloud Settings > Suspend Builds) then this
 		puts the build into scheduled mode.
 
 		Execution will be retried on scheduler tick from `run_scheduled_builds`
@@ -610,7 +610,7 @@ class DeployCandidate(Document):
 
 	def _fetch_registry_settings(self):
 		return frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			[
 				"domain",
@@ -771,7 +771,7 @@ class DeployCandidate(Document):
 			app.use_cached = bool(self.use_app_cache)
 
 	def _prepare_build_directory(self):
-		build_directory = frappe.get_value("Press Settings", None, "build_directory")
+		build_directory = frappe.get_value("Cloud Settings", None, "build_directory")
 		if not os.path.exists(build_directory):
 			os.mkdir(build_directory)
 
@@ -1233,7 +1233,7 @@ class DeployCandidate(Document):
 
 	def _push_docker_image(self):
 		settings = frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			[
 				"docker_registry_url",
@@ -1267,7 +1267,7 @@ class DeployCandidate(Document):
 		self.upload_step_updater.end("Success")
 
 	def generate_ssh_keys(self):
-		ca = frappe.get_value("Press Settings", None, "ssh_certificate_authority")
+		ca = frappe.get_value("Cloud Settings", None, "ssh_certificate_authority")
 		if ca is None:
 			return
 
@@ -1480,7 +1480,7 @@ class DeployCandidate(Document):
 	def _get_remote_build_server(self):
 		server = frappe.get_value("Release Group", self.group, "remote_build_server")
 		if not server:
-			server = frappe.get_value("Press Settings", None, "remote_build_server")
+			server = frappe.get_value("Cloud Settings", None, "remote_build_server")
 		return server
 
 	def get_first_step(
@@ -1676,7 +1676,7 @@ get_permission_query_conditions = get_permission_query_conditions_for_doctype(
 @frappe.whitelist()
 def toggle_builds(suspend):
 	frappe.only_for("System Manager")
-	frappe.db.set_single_value("Press Settings", "suspend_builds", suspend)
+	frappe.db.set_single_value("Cloud Settings", "suspend_builds", suspend)
 
 
 def run_scheduled_builds(max_builds: int = 5):
@@ -1745,7 +1745,7 @@ def get_build_stage_and_step(
 
 
 def is_suspended() -> bool:
-	return bool(frappe.db.get_single_value("Press Settings", "suspend_builds"))
+	return bool(frappe.db.get_single_value("Cloud Settings", "suspend_builds"))
 
 
 def get_remote_step_output(

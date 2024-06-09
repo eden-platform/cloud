@@ -77,7 +77,7 @@ def get(name):
 		"no_sites": frappe.db.count("Site", {"group": group.name, "status": "Active"}),
 		"bench_tags": [{"name": x.tag, "tag": x.tag_name} for x in group.tags],
 		"tags": frappe.get_all(
-			"Press Tag", {"team": group.team, "doctype_name": "Release Group"}, ["name", "tag"]
+			"Cloud Tag", {"team": group.team, "doctype_name": "Release Group"}, ["name", "tag"]
 		),
 	}
 
@@ -127,9 +127,9 @@ def all(server=None, bench_filter=None):
 		)
 		query = query.inner_join(bench).on(group.name.notin(group_names))
 	if bench_filter["tag"]:
-		press_tag = frappe.qb.DocType("Resource Tag")
-		query = query.inner_join(press_tag).on(
-			(press_tag.tag_name == bench_filter["tag"]) & (press_tag.parent == group.name)
+		cloud_tag = frappe.qb.DocType("Resource Tag")
+		query = query.inner_join(cloud_tag).on(
+			(cloud_tag.tag_name == bench_filter["tag"]) & (cloud_tag.parent == group.name)
 		)
 
 	if server:
@@ -157,7 +157,7 @@ def all(server=None, bench_filter=None):
 def bench_tags():
 	team = get_current_team()
 	return frappe.get_all(
-		"Press Tag", {"team": team, "doctype_name": "Release Group"}, pluck="tag"
+		"Cloud Tag", {"team": team, "doctype_name": "Release Group"}, pluck="tag"
 	)
 
 

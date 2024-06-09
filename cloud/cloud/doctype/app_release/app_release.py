@@ -131,7 +131,7 @@ class AppRelease(Document):
 			raise e
 
 	def set_clone_directory(self):
-		clone_directory = frappe.db.get_single_value("Press Settings", "clone_directory")
+		clone_directory = frappe.db.get_single_value("Cloud Settings", "clone_directory")
 		self.clone_directory = os.path.join(
 			clone_directory, self.app, self.source, self.hash[:10]
 		)
@@ -140,7 +140,7 @@ class AppRelease(Document):
 		self.clone_directory = get_prepared_clone_directory(self.app, self.source, self.hash)
 
 	def _set_code_server_url(self) -> None:
-		code_server = frappe.db.get_single_value("Press Settings", "code_server")
+		code_server = frappe.db.get_single_value("Cloud Settings", "code_server")
 		code_server_url = f"{code_server}/?folder=/home/coder/project/{self.app}/{self.source}/{self.hash[:10]}"
 		self.code_server_url = code_server_url
 
@@ -340,7 +340,7 @@ def has_permission(doc, ptype, user):
 
 
 def get_prepared_clone_directory(app: str, source: str, hash: str) -> str:
-	clone_directory: str = frappe.db.get_single_value("Press Settings", "clone_directory")
+	clone_directory: str = frappe.db.get_single_value("Cloud Settings", "clone_directory")
 	if not os.path.exists(clone_directory):
 		os.mkdir(clone_directory)
 

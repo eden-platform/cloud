@@ -235,7 +235,7 @@ class Site(Document, TagHelpers):
 	def _get_site_name(self, subdomain: str):
 		"""Get full site domain name given subdomain."""
 		if not self.domain:
-			self.domain = frappe.db.get_single_value("Press Settings", "domain")
+			self.domain = frappe.db.get_single_value("Cloud Settings", "domain")
 		return f"{subdomain}.{self.domain}"
 
 	def autoname(self):
@@ -333,7 +333,7 @@ class Site(Document, TagHelpers):
 
 		if self.has_value_changed("team"):
 			frappe.db.set_value("Site Domain", {"site": self.name}, "team", self.team)
-			frappe.db.delete("Press Role Permission", {"site": self.name})
+			frappe.db.delete("Cloud Role Permission", {"site": self.name})
 
 		if self.status not in ["Pending", "Archived", "Suspended"] and self.has_value_changed(
 			"subdomain"
@@ -482,7 +482,7 @@ class Site(Document, TagHelpers):
 		).insert(ignore_if_duplicate=True)
 
 	def after_insert(self):
-		from cloud.cloud.doctype.press_role.press_role import (
+		from cloud.cloud.doctype.cloud_role.cloud_role import (
 			add_permission_for_newly_created_doc,
 		)
 
@@ -951,7 +951,7 @@ class Site(Document, TagHelpers):
 			server=self.server, site=self.name, site_name=site_name, skip_reload=skip_reload
 		)
 
-		frappe.db.delete("Press Role Permission", {"site": self.name})
+		frappe.db.delete("Cloud Role Permission", {"site": self.name})
 
 		self.db_set("host_name", None)
 
@@ -2573,7 +2573,7 @@ def prepare_site(site: str, subdomain: str = None) -> Dict:
 		"private": backup.remote_private_file,
 	}
 	site_dict = {
-		"domain": frappe.db.get_single_value("Press Settings", "domain"),
+		"domain": frappe.db.get_single_value("Cloud Settings", "domain"),
 		"plan": doc.plan,
 		"name": sitename,
 		"group": doc.group,
@@ -2587,7 +2587,7 @@ def prepare_site(site: str, subdomain: str = None) -> Dict:
 
 @frappe.whitelist()
 def options_for_new(group: str = None, selected_values=None) -> Dict:
-	domain = frappe.db.get_single_value("Press Settings", "domain")
+	domain = frappe.db.get_single_value("Cloud Settings", "domain")
 	selected_values = (
 		frappe.parse_json(selected_values) if selected_values else frappe._dict()
 	)

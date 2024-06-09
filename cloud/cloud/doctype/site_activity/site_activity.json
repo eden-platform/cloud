@@ -42,7 +42,7 @@
  "links": [],
  "modified": "2022-02-28 18:55:41.364129",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Site Activity",
  "owner": "Administrator",
  "permissions": [
@@ -60,11 +60,11 @@
   },
   {
    "create": 1,
-   "role": "Press Admin"
+   "role": "Cloud Admin"
   },
   {
    "create": 1,
-   "role": "Press Member"
+   "role": "Cloud Member"
   }
  ],
  "sort_field": "modified",

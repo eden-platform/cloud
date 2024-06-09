@@ -26,7 +26,7 @@ from cloud.cloud.doctype.site.test_site import create_test_site
 from cloud.utils.test import foreground_enqueue_doc
 
 
-from cloud.cloud.doctype.team.test_team import create_test_press_admin_team
+from cloud.cloud.doctype.team.test_team import create_test_cloud_admin_team
 
 
 class MockTwilioCallInstance:
@@ -81,15 +81,15 @@ class MockTwilioClient:
 @patch("cloud.cloud.doctype.incident.incident.frappe.db.commit", new=Mock())
 @patch.object(AgentJob, "enqueue_http_request", new=Mock())
 @patch("cloud.cloud.doctype.site.site._change_dns_record", new=Mock())
-@patch("cloud.cloud.doctype.press_settings.press_settings.Client", new=MockTwilioClient)
+@patch("cloud.cloud.doctype.cloud_settings.cloud_settings.Client", new=MockTwilioClient)
 @patch("cloud.cloud.doctype.incident.incident.enqueue_doc", new=foreground_enqueue_doc)
 class TestIncident(FrappeTestCase):
 	def setUp(self):
 		self.from_ = "+911234567892"
-		frappe.db.set_value("Press Settings", None, "twilio_account_sid", "test")
-		frappe.db.set_value("Press Settings", None, "twilio_api_key_sid", "test")
-		frappe.db.set_value("Press Settings", None, "twilio_api_key_secret", "test")
-		frappe.db.set_value("Press Settings", None, "twilio_phone_number", self.from_)
+		frappe.db.set_value("Cloud Settings", None, "twilio_account_sid", "test")
+		frappe.db.set_value("Cloud Settings", None, "twilio_api_key_sid", "test")
+		frappe.db.set_value("Cloud Settings", None, "twilio_api_key_secret", "test")
+		frappe.db.set_value("Cloud Settings", None, "twilio_phone_number", self.from_)
 
 		self._create_test_incident_settings()
 
@@ -97,8 +97,8 @@ class TestIncident(FrappeTestCase):
 		frappe.db.rollback()
 
 	def _create_test_incident_settings(self):
-		user1 = create_test_press_admin_team().user
-		user2 = create_test_press_admin_team().user
+		user1 = create_test_cloud_admin_team().user
+		user2 = create_test_cloud_admin_team().user
 		self.test_phno_1 = "+911234567890"
 		self.test_phno_2 = "+911234567891"
 		frappe.get_doc(

@@ -255,7 +255,7 @@
  "links": [],
  "modified": "2024-05-17 11:25:24.215362",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Agent Job",
  "owner": "Administrator",
  "permissions": [
@@ -274,13 +274,13 @@
   {
    "create": 1,
    "if_owner": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "if_owner": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   },
   {

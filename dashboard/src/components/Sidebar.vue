@@ -155,8 +155,8 @@ export default {
 			}
 		});
 
-		this.$socket.emit('doctype_subscribe', 'Press Notification');
-		this.$socket.on('press_notification', data => {
+		this.$socket.emit('doctype_subscribe', 'Cloud Notification');
+		this.$socket.on('cloud_notification', data => {
 			if (data.team === this.$account.team.name) {
 				unreadNotificationsCount.setData(data => data + 1);
 			}
@@ -165,8 +165,8 @@ export default {
 		unreadNotificationsCount.fetch();
 	},
 	beforeUnmount() {
-		this.$socket.emit('doctype_unsubscribe', 'Press Notification');
-		this.$socket.off('press_notification');
+		this.$socket.emit('doctype_unsubscribe', 'Cloud Notification');
+		this.$socket.off('cloud_notification');
 	},
 	computed: {
 		unreadNotificationsCount() {

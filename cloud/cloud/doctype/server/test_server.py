@@ -13,8 +13,8 @@ from frappe.model.naming import make_autoname
 from cloud.cloud.doctype.database_server.test_database_server import (
 	create_test_database_server,
 )
-from cloud.cloud.doctype.press_settings.test_press_settings import (
-	create_test_press_settings,
+from cloud.cloud.doctype.cloud_settings.test_cloud_settings import (
+	create_test_cloud_settings,
 )
 from cloud.cloud.doctype.proxy_server.test_proxy_server import create_test_proxy_server
 from cloud.cloud.doctype.server.server import BaseServer
@@ -61,7 +61,7 @@ def create_test_server(
 @patch.object(BaseServer, "after_insert", new=Mock())
 class TestServer(unittest.TestCase):
 	def test_create_generic_server(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		proxy_server = create_test_proxy_server()
 		database_server = create_test_database_server()
 
@@ -82,7 +82,7 @@ class TestServer(unittest.TestCase):
 		self.assertEqual(server.name, f"{server.hostname}.{server.domain}")
 
 	def test_set_agent_password(self):
-		create_test_press_settings()
+		create_test_cloud_settings()
 		proxy_server = create_test_proxy_server()
 		database_server = create_test_database_server()
 

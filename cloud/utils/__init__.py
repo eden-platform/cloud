@@ -85,18 +85,18 @@ def get_current_team(get_doc=False):
 	system_user = frappe.session.data.user_type == "System User"
 
 	# get team passed via request header
-	team = frappe.get_request_header("X-Press-Team")
+	team = frappe.get_request_header("X-Cloud-Team")
 
-	user_is_press_admin = frappe.db.exists(
-		"Has Role", {"parent": frappe.session.user, "role": "Press Admin"}
+	user_is_cloud_admin = frappe.db.exists(
+		"Has Role", {"parent": frappe.session.user, "role": "Cloud Admin"}
 	)
 
 	if (
 		not team
-		and user_is_press_admin
+		and user_is_cloud_admin
 		and frappe.db.exists("Team", {"user": frappe.session.user})
 	):
-		# if user has_role of Press Admin then just return current user as default team
+		# if user has_role of Cloud Admin then just return current user as default team
 		return (
 			frappe.get_doc("Team", {"user": frappe.session.user, "enabled": 1})
 			if get_doc
@@ -395,7 +395,7 @@ class RemoteFrappeSite:
 
 @site_cache(ttl=5 * 60)
 def get_client_blacklisted_keys() -> list:
-	"""Returns list of blacklisted Site Config Keys accessible to Press /dashboard users."""
+	"""Returns list of blacklisted Site Config Keys accessible to Cloud /dashboard users."""
 	return list(
 		set(
 			[
@@ -488,16 +488,16 @@ def group_children_in_result(result, child_field_map):
 	result =
 	[
 	{'name': 'test1', 'full_name': 'Faris Ansari', role: 'System Manager'},
-	{'name': 'test1', 'full_name': 'Faris Ansari', role: 'Press Admin'},
-	{'name': 'test2', 'full_name': 'Aditya Hase', role: 'Press Admin'},
-	{'name': 'test2', 'full_name': 'Aditya Hase', role: 'Press Member'},
+	{'name': 'test1', 'full_name': 'Faris Ansari', role: 'Cloud Admin'},
+	{'name': 'test2', 'full_name': 'Aditya Hase', role: 'Cloud Admin'},
+	{'name': 'test2', 'full_name': 'Aditya Hase', role: 'Cloud Member'},
 	]
 
 	out = group_children_in_result(result, {'role': 'roles'})
 	print(out)
 	[
-	{'name': 'test1', 'full_name': 'Faris Ansari', roles: ['System Manager', 'Press Admin']},
-	{'name': 'test2', 'full_name': 'Aditya Hase', roles: ['Press Admin', 'Press Member']},
+	{'name': 'test1', 'full_name': 'Faris Ansari', roles: ['System Manager', 'Cloud Admin']},
+	{'name': 'test2', 'full_name': 'Aditya Hase', roles: ['Cloud Admin', 'Cloud Member']},
 	]
 	"""
 	out = {}

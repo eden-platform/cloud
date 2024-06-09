@@ -60,7 +60,7 @@ class SilencedAlert(Document):
 	def preview_alerts(self):
 		monitor_server = frappe.get_doc(
 			"Monitor Server", "monitor.athul.fc.frappe.dev"
-		)  # frappe.db.get_single_value("Press Settings","monitor_server"))
+		)  # frappe.db.get_single_value("Cloud Settings","monitor_server"))
 		auth_token = base64.b64encode(
 			f"frappe:{monitor_server.get_password('grafana_password')}".encode("utf-8")
 		).decode("utf-8")
@@ -83,7 +83,7 @@ class SilencedAlert(Document):
 	def create_new_silence(self):
 		monitor_server = frappe.get_doc(
 			"Monitor Server", "monitor.athul.fc.frappe.dev"
-		)  # frappe.db.get_single_value("Press Settings","monitor_server"))
+		)  # frappe.db.get_single_value("Cloud Settings","monitor_server"))
 		auth_token = base64.b64encode(
 			f"frappe:{monitor_server.get_password('grafana_password')}".encode("utf-8")
 		).decode("utf-8")
@@ -118,7 +118,7 @@ class SilencedAlert(Document):
 
 def check_silenced_alerts():
 	"""
-	Checks for silenced alerts in Alertmanager and updates the status of the silenced alert in Press
+	Checks for silenced alerts in Alertmanager and updates the status of the silenced alert in Cloud
 	Runs every hour
 	"""
 	silences = frappe.get_all(
@@ -126,7 +126,7 @@ def check_silenced_alerts():
 	)
 	monitor_server = frappe.get_doc(
 		"Monitor Server", "monitor.athul.fc.frappe.dev"
-	)  # frappe.db.get_single_value("Press Settings","monitor_server"))
+	)  # frappe.db.get_single_value("Cloud Settings","monitor_server"))
 	auth_token = base64.b64encode(
 		f"frappe:{monitor_server.get_password('grafana_password')}".encode("utf-8")
 	).decode("utf-8")

@@ -252,7 +252,7 @@ class DatabaseServer(BaseServer):
 
 	@frappe.whitelist()
 	def run_upgrade_mariadb_job(self):
-		self.run_press_job("Upgrade MariaDB")
+		self.run_cloud_job("Upgrade MariaDB")
 
 	@frappe.whitelist()
 	def upgrade_mariadb(self):
@@ -392,7 +392,7 @@ class DatabaseServer(BaseServer):
 		)
 		certificate = frappe.get_doc("TLS Certificate", certificate_name)
 
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if log_server:
 			kibana_password = frappe.get_doc("Log Server", log_server).get_password(
 				"kibana_password"
@@ -836,7 +836,7 @@ class DatabaseServer(BaseServer):
 		monitoring_password = frappe.get_doc("Cluster", self.cluster).get_password(
 			"monitoring_password"
 		)
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if log_server:
 			kibana_password = frappe.get_doc("Log Server", log_server).get_password(
 				"kibana_password"

@@ -190,7 +190,7 @@ class AppSource(Document):
 		if self.github_installation_id:
 			return get_access_token(self.github_installation_id)
 
-		return frappe.get_value("Press Settings", None, "github_access_token")
+		return frappe.get_value("Cloud Settings", None, "github_access_token")
 
 
 def create_app_source(

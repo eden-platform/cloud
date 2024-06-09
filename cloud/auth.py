@@ -7,8 +7,8 @@ import traceback
 import os
 
 
-PRESS_AUTH_KEY = "cloud-auth-logs"
-PRESS_AUTH_MAX_ENTRIES = 1000000
+CLOUD_AUTH_KEY = "cloud-auth-logs"
+CLOUD_AUTH_MAX_ENTRIES = 1000000
 
 
 ALLOWED_PATHS = [
@@ -93,23 +93,23 @@ def log(path, user_type):
 		"referer": frappe.request.headers.get("Referer", ""),
 	}
 
-	if frappe.cache().llen(PRESS_AUTH_KEY) > PRESS_AUTH_MAX_ENTRIES:
-		frappe.cache().ltrim(PRESS_AUTH_KEY, 1, -1)
+	if frappe.cache().llen(CLOUD_AUTH_KEY) > CLOUD_AUTH_MAX_ENTRIES:
+		frappe.cache().ltrim(CLOUD_AUTH_KEY, 1, -1)
 	serialized = json.dumps(data, sort_keys=True, default=str)
-	frappe.cache().rpush(PRESS_AUTH_KEY, serialized)
+	frappe.cache().rpush(CLOUD_AUTH_KEY, serialized)
 
 
 def flush():
 	log_file = os.path.join(frappe.utils.get_bench_path(), "logs", "cloud.auth.json.log")
 	try:
 		# Fetch all entries without removing from cache
-		logs = frappe.cache().lrange(PRESS_AUTH_KEY, 0, -1)
+		logs = frappe.cache().lrange(CLOUD_AUTH_KEY, 0, -1)
 		if logs:
 			logs = list(map(frappe.safe_decode, logs))
 			with open(log_file, "a", os.O_NONBLOCK) as f:
 				f.write("\n".join(logs))
 				f.write("\n")
 			# Remove fetched entries from cache
-			frappe.cache().ltrim(PRESS_AUTH_KEY, len(logs) - 1, -1)
+			frappe.cache().ltrim(CLOUD_AUTH_KEY, len(logs) - 1, -1)
 	except Exception:
 		traceback.print_exc()

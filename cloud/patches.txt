@@ -65,8 +65,8 @@ cloud.patches.v0_0_1.set_release_group_in_site
 cloud.patches.v0_0_1.set_public_field_in_app_release_based_on_app_source_public
 cloud.patches.v0_0_1.set_team_field_for_permission_checks
 cloud.patches.v0_0_1.set_team_field_in_tls_certificate_based_on_domain_team
-cloud.patches.v0_0_1.create_root_domain_from_press_settings
-cloud.patches.v0_0_1.set_cluster_in_press_settings
+cloud.patches.v0_0_1.create_root_domain_from_cloud_settings
+cloud.patches.v0_0_1.set_cluster_in_cloud_settings
 cloud.patches.v0_0_1.remove_period_from_plan
 cloud.patches.v0_0_1.add_site_index_to_site_migration
 cloud.patches.v0_0_1.set_dependencies_in_release_group
@@ -84,17 +84,17 @@ cloud.cloud.doctype.team.patches.set_partner_email
 cloud.cloud.doctype.proxy_server.patches.generate_proxysql_monitor_password
 cloud.cloud.doctype.virtual_machine.patches.populate_volumes_table
 cloud.cloud.doctype.release_group.patches.set_bench_dependency_in_release_group
-cloud.cloud.doctype.press_settings.patches.move_stripe_credentials_to_press_settings
+cloud.cloud.doctype.cloud_settings.patches.move_stripe_credentials_to_cloud_settings
 cloud.patches.v0_0_4.disable_subscriptions_for_inactive_sites
 cloud.cloud.doctype.virtual_machine.patches.set_naming_fields
 cloud.cloud.doctype.virtual_machine.patches.set_virtual_machine_naming_series
 cloud.cloud.doctype.virtual_machine.patches.rename_virtual_machines
 cloud.cloud.doctype.user_ssh_key.patches.set_existing_keys_as_default
-cloud.cloud.doctype.press_settings.patches.set_press_monitoring_password
+cloud.cloud.doctype.cloud_settings.patches.set_cloud_monitoring_password
 cloud.cloud.doctype.deploy_candidate_app.patches.set_app_name_to_app
 cloud.cloud.doctype.site.patches.set_database_access_credentials
 cloud.cloud.doctype.team.patches.set_team_title
-cloud.cloud.doctype.telegram_group.patches.create_groups_from_press_settings
+cloud.cloud.doctype.telegram_group.patches.create_groups_from_cloud_settings
 cloud.cloud.doctype.app_release.patches.set_clone_directory
 cloud.cloud.doctype.database_server_mariadb_variable.patches.add_unique_constraint
 cloud.cloud.doctype.release_group.patches.sync_common_site_config
@@ -115,5 +115,5 @@ cloud.patches.v0_7_0.rename_plan_to_site_plan
 cloud.patches.v0_7_0.migrate_fields_from_plans_to_server_and_marketplace
 cloud.patches.v0_7_0.set_password_config_type
 cloud.cloud.doctype.agent_job.patches.update_status_for_undelivered_jobs #2024-04-23
-cloud.cloud.doctype.press_role.patches.migrate_permissions
-cloud.cloud.doctype.press_role.patches.change_fields_from_enable_to_allow
+cloud.cloud.doctype.cloud_role.patches.migrate_permissions
+cloud.cloud.doctype.cloud_role.patches.change_fields_from_enable_to_allow

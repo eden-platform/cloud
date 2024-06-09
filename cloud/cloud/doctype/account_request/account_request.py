@@ -117,7 +117,7 @@ class AccountRequest(Document):
 		else:
 			template = "verify_account"
 
-			if self.invited_by and self.role != "Press Admin":
+			if self.invited_by and self.role != "Cloud Admin":
 				subject = f"You are invited by {self.invited_by} to join Eden Cloud"
 				template = "invite_team_member"
 

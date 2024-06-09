@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 frappe.init(site="edencloud.us")
 frappe.connect()
-settings = frappe.get_single("Press Settings")
+settings = frappe.get_single("Cloud Settings")
 
 REGISTRY_URL = settings.docker_registry_url
 

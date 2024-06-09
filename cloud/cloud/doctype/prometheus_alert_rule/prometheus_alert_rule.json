@@ -27,7 +27,7 @@
   "column_break_21",
   "route_preview",
   "reaction_tab",
-  "press_job_type"
+  "cloud_job_type"
  ],
  "fields": [
   {
@@ -157,10 +157,10 @@
    "label": "Reaction"
   },
   {
-   "fieldname": "press_job_type",
+   "fieldname": "cloud_job_type",
    "fieldtype": "Link",
-   "label": "Press Job Type",
-   "options": "Press Job Type"
+   "label": "Cloud Job Type",
+   "options": "Cloud Job Type"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -172,7 +172,7 @@
  ],
  "modified": "2024-04-30 14:16:22.276020",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Prometheus Alert Rule",
  "naming_rule": "Set by user",
  "owner": "Administrator",

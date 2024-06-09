@@ -40,7 +40,7 @@ def execute():
 			account_request.request_key = d.account_key
 			account_request.email = d.user
 			account_request.team = d.user
-			account_request.role = "Press Admin"
+			account_request.role = "Cloud Admin"
 			account_request.creation = d.creation
 			account_request.insert()
 

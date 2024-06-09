@@ -1,4 +1,4 @@
-## Press
+## Cloud
 
 [![codecov](https://codecov.io/gh/frappe/cloud/branch/master/graph/badge.svg?token=0puvH0jUx9)](https://codecov.io/gh/frappe/cloud)
 [![unittests](https://github.com/eden-platform/cloud/actions/workflows/main.yaml/badge.svg)](https://github.com/eden-platform/cloud/actions/workflows/main.yaml)

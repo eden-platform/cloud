@@ -6,7 +6,7 @@ import os
 
 def execute():
 	frappe.reload_doctype("App Release")
-	clone_directory = frappe.db.get_single_value("Press Settings", "clone_directory")
+	clone_directory = frappe.db.get_single_value("Cloud Settings", "clone_directory")
 	releases = frappe.get_all(
 		"App Release",
 		{"clone_directory": ("is", "not set")},

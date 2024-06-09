@@ -372,7 +372,7 @@
  "links": [],
  "modified": "2024-05-23 13:53:01.038192",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Release Group",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
@@ -392,13 +392,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

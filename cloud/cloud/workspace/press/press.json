@@ -12,7 +12,7 @@
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
- "label": "Press",
+ "label": "Cloud",
  "links": [
   {
    "hidden": 0,
@@ -273,8 +273,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Press Settings",
-   "link_to": "Press Settings",
+   "label": "Cloud Settings",
+   "link_to": "Cloud Settings",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -282,8 +282,8 @@
  ],
  "modified": "2021-05-24 12:44:58.237352",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press",
+ "module": "Cloud",
+ "name": "Cloud",
  "owner": "Administrator",
  "pin_to_bottom": 0,
  "pin_to_top": 1,

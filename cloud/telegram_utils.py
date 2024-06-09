@@ -11,7 +11,7 @@ from cloud.utils import log_error
 class Telegram:
 	def __init__(self, topic: str = None, group: str = None):
 		settings = frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			["telegram_bot_token", "telegram_alerts_chat_group"],
 			as_dict=True,

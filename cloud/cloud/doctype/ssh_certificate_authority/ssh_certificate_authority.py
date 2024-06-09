@@ -56,7 +56,7 @@ class SSHCertificateAuthority(Document):
 		if not os.path.exists(self.private_key_file) and not os.path.exists(
 			self.public_key_file
 		):
-			domain = frappe.db.get_value("Press Settings", None, "domain")
+			domain = frappe.db.get_value("Cloud Settings", None, "domain")
 			self.run(
 				f"ssh-keygen -C ca@{domain} -t rsa -b 4096 -f ca -N ''", directory=self.directory
 			)
@@ -139,7 +139,7 @@ class SSHCertificateAuthority(Document):
 
 		host_key_path = os.path.join(self.build_directory, "ssh_host_rsa_key.pub")
 
-		domain = frappe.db.get_value("Press Settings", None, "domain")
+		domain = frappe.db.get_value("Cloud Settings", None, "domain")
 		self.sign(
 			domain, None, "+52w", host_key_path, cint(self.docker_image_tag) + 1, host_key=True
 		)
@@ -151,7 +151,7 @@ class SSHCertificateAuthority(Document):
 		)
 
 		settings = frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			["domain", "docker_registry_url", "docker_registry_namespace"],
 			as_dict=True,
@@ -173,7 +173,7 @@ class SSHCertificateAuthority(Document):
 
 	def _push_docker_image(self):
 		settings = frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			["docker_registry_url", "docker_registry_username", "docker_registry_password"],
 			as_dict=True,

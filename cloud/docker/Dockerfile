@@ -222,7 +222,7 @@ RUN --mount=type=cache,sharing=locked,target=/home/frappe/.cache,uid=1000,gid=10
   bench get-app file:///home/frappe/context/apps/{{ app.app }} \
     {% if app.use_cached %}
     # Bench get-app flags to use get-app cache
-    --cache-key {{ app.hash }} {% if doc.compress_app_cache %}--compress-artifacts{% endif %} \
+    --cache-key {{ app.hash }} {% if doc.comcloud_app_cache %}--compress-artifacts{% endif %} \
     {% endif %}
   `#stage-apps-{{ app.app }}`
 

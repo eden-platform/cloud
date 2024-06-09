@@ -7,7 +7,7 @@ from frappe.model.document import Document
 from cloud.api.client import dashboard_whitelist
 
 
-class PressRolePermission(Document):
+class CloudRolePermission(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -32,7 +32,7 @@ class PressRolePermission(Document):
 			frappe.throw("Only the team owner can create role permissions")
 
 		if frappe.db.exists(
-			"Press Role Permission",
+			"Cloud Role Permission",
 			{
 				"role": self.role,
 				"team": self.team,

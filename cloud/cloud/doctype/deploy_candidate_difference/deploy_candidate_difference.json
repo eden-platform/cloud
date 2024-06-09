@@ -84,7 +84,7 @@
  "links": [],
  "modified": "2021-02-15 11:25:01.985359",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Deploy Candidate Difference",
  "owner": "Administrator",
  "permissions": [
@@ -103,13 +103,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

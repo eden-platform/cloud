@@ -17,7 +17,7 @@ from cloud.cloud.doctype.cluster.test_cluster import create_test_cluster
 from cloud.cloud.doctype.proxy_server.test_proxy_server import create_test_proxy_server
 from cloud.cloud.doctype.server.server import BaseServer
 from cloud.cloud.doctype.database_server.database_server import DatabaseServer
-from cloud.cloud.doctype.team.test_team import create_test_press_admin_team
+from cloud.cloud.doctype.team.test_team import create_test_cloud_admin_team
 from cloud.cloud.doctype.virtual_machine.virtual_machine import VirtualMachine
 from cloud.cloud.doctype.virtual_machine_image.test_virtual_machine_image import (
 	create_test_virtual_machine_image,
@@ -110,7 +110,7 @@ def successful_wait_for_cloud_init(self: BaseServer):
 class TestAPIServer(FrappeTestCase):
 	@patch.object(Cluster, "provision_on_aws_ec2", new=Mock())
 	def setUp(self):
-		self.team = create_test_press_admin_team()
+		self.team = create_test_cloud_admin_team()
 
 		self.app_plan = create_test_server_plan("Server")
 		self.app_plan.db_set("memory", 1024)
@@ -151,12 +151,12 @@ class TestAPIServer(FrappeTestCase):
 		self.assertEqual(db_servers_before + 1, db_servers_after)
 
 	@patch(
-		"cloud.cloud.doctype.press_job.press_job.frappe.enqueue_doc",
+		"cloud.cloud.doctype.cloud_job.cloud_job.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(VirtualMachine, "provision", new=successful_provision)
 	@patch.object(VirtualMachine, "sync", new=successful_sync)
-	def test_new_fn_creates_active_server_and_db_server_once_press_job_succeeds(self):
+	def test_new_fn_creates_active_server_and_db_server_once_cloud_job_succeeds(self):
 		create_test_virtual_machine_image(cluster=self.cluster, series="m")
 		create_test_virtual_machine_image(
 			cluster=self.cluster, series="f"
@@ -182,7 +182,7 @@ class TestAPIServer(FrappeTestCase):
 		self.assertEqual(db_servers_before + 1, db_servers_after)
 
 	@patch(
-		"cloud.cloud.doctype.press_job.press_job.frappe.enqueue_doc",
+		"cloud.cloud.doctype.cloud_job.cloud_job.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(VirtualMachine, "provision", new=successful_provision)
@@ -249,7 +249,7 @@ class TestAPIServer(FrappeTestCase):
 		server = frappe.get_last_doc("Server")
 		db_server = frappe.get_last_doc("Database Server")
 		frappe.db.set_value(
-			"Press Job", {"status": "Running"}, "status", "Success"
+			"Cloud Job", {"status": "Running"}, "status", "Success"
 		)  # Mark running jobs as success as extra steps we don't check
 
 		change_plan(
@@ -266,7 +266,7 @@ class TestAPIServer(FrappeTestCase):
 		self.assertEqual(server.plan, app_plan_2.name)
 		self.assertEqual(server.ram, app_plan_2.memory)
 		frappe.db.set_value(
-			"Press Job", {"status": "Running"}, "status", "Success"
+			"Cloud Job", {"status": "Running"}, "status", "Success"
 		)  # Mark running jobs as success as extra steps we don't check
 
 		change_plan(
@@ -284,7 +284,7 @@ class TestAPIServer(FrappeTestCase):
 		self.assertEqual(db_server.plan, db_plan_2.name)
 
 	@patch(
-		"cloud.cloud.doctype.press_job.press_job.frappe.enqueue_doc",
+		"cloud.cloud.doctype.cloud_job.cloud_job.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(VirtualMachine, "provision", new=successful_provision)
@@ -319,7 +319,7 @@ class TestAPIServerList(FrappeTestCase):
 	def setUp(self):
 		from cloud.utils import get_current_team
 		from cloud.cloud.doctype.server.test_server import create_test_server
-		from cloud.cloud.doctype.press_tag.test_press_tag import create_and_add_test_tag
+		from cloud.cloud.doctype.cloud_tag.test_cloud_tag import create_and_add_test_tag
 		from cloud.cloud.doctype.database_server.test_database_server import (
 			create_test_database_server,
 		)

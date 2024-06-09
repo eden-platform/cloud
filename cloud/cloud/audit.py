@@ -46,19 +46,19 @@ class BenchFieldCheck(Audit):
 
 	audit_type = "Bench Field Check"
 	server_map = {}
-	press_map = {}
+	cloud_map = {}
 
 	def __init__(self):
 		log = {}
 		status = "Success"
 
 		self.generate_server_map()
-		self.generate_press_map()
+		self.generate_cloud_map()
 
 		log = {
 			"Summary": None,
 			"potential_fixes": {},
-			"sites_only_on_press": self.get_sites_only_on_press(),
+			"sites_only_on_cloud": self.get_sites_only_on_cloud(),
 			"sites_only_on_server": self.get_sites_only_on_server(),
 			"sites_on_multiple_benches": self.get_sites_on_multiple_benches(),
 		}
@@ -68,7 +68,7 @@ class BenchFieldCheck(Audit):
 		log["potential_fixes"] = self.get_potential_fixes()
 		log["Summary"] = {
 			"Potential fixes": sum(len(sites) for sites in log["potential_fixes"].values()),
-			"Sites only on cloud": len(log["sites_only_on_press"]),
+			"Sites only on cloud": len(log["sites_only_on_cloud"]),
 			"Sites only on server": len(log["sites_only_on_server"]),
 			"Sites on multiple benches": len(log["sites_on_multiple_benches"]),
 		}
@@ -86,14 +86,14 @@ class BenchFieldCheck(Audit):
 				for site in bench_desc["sites"]:
 					self.server_map.setdefault(site, []).append(bench_name)
 
-	def generate_press_map(self):
+	def generate_cloud_map(self):
 		frappe.db.commit()
 		sites = frappe.get_all("Site", ["name", "bench"], {"status": ("!=", "Archived")})
-		self.press_map = {site.name: site.bench for site in sites}
+		self.cloud_map = {site.name: site.bench for site in sites}
 
-	def get_sites_only_on_press(self):
+	def get_sites_only_on_cloud(self):
 		sites = []
-		for site, bench in self.press_map.items():
+		for site, bench in self.cloud_map.items():
 			if site not in self.server_map:
 				sites.append(site)
 		return sites
@@ -101,7 +101,7 @@ class BenchFieldCheck(Audit):
 	def get_sites_only_on_server(self):
 		sites = {}
 		for site, benches in self.server_map.items():
-			if site not in self.press_map:
+			if site not in self.cloud_map:
 				sites[site] = benches[0] if len(benches) == 1 else benches
 		return sites
 
@@ -115,7 +115,7 @@ class BenchFieldCheck(Audit):
 	def get_potential_fixes(self):
 		def bench_field_updates():
 			fixes = {}
-			for site, bench in self.press_map.items():
+			for site, bench in self.cloud_map.items():
 				server_benches = self.server_map.get(site, [])
 				if len(server_benches) == 1 and server_benches[0] != bench:
 					fixes[site] = (bench, server_benches[0])
@@ -233,7 +233,7 @@ class OffsiteBackupCheck(Audit):
 
 	def _get_all_files_in_s3(self) -> List[str]:
 		all_files = []
-		settings = frappe.get_single("Press Settings")
+		settings = frappe.get_single("Cloud Settings")
 		s3 = settings.boto3_offsite_backup_session.resource("s3")
 		for s3_object in s3.Bucket(settings.aws_s3_bucket).objects.all():
 			all_files.append(s3_object.key)

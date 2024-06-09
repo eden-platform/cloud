@@ -8,7 +8,7 @@ from frappe.model.document import Document
 ALLOWED_CONFIG_PERMS = ["global", "restricted"]
 
 
-class PressUserPermission(Document):
+class CloudUserPermission(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -42,11 +42,11 @@ def has_user_permission(doc: str, name: str, action: str, groups: list = None):
 	allowed = False
 
 	if not groups:
-		groups = frappe.get_all("Press Permission Group User", {"user": user}, pluck="parent")
+		groups = frappe.get_all("Cloud Permission Group User", {"user": user}, pluck="parent")
 
 	# part of a group with access
 	if frappe.db.exists(
-		"Press User Permission",
+		"Cloud User Permission",
 		{
 			"type": "Group",
 			"group": ("in", groups),
@@ -59,7 +59,7 @@ def has_user_permission(doc: str, name: str, action: str, groups: list = None):
 
 	# user has granular perm access
 	if frappe.db.exists(
-		"Press User Permission",
+		"Cloud User Permission",
 		{
 			"type": "User",
 			"user": user,
@@ -72,7 +72,7 @@ def has_user_permission(doc: str, name: str, action: str, groups: list = None):
 
 	# has config perm access
 	config = frappe.db.get_value(
-		"Press User Permission", {"user": user, "type": "Config"}, "config", as_dict=True
+		"Cloud User Permission", {"user": user, "type": "Config"}, "config", as_dict=True
 	)
 	if config:
 		allowed = check_config_perm(

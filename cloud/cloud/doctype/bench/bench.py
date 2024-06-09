@@ -201,11 +201,11 @@ class Bench(Document):
 			"restart_supervisor_on_update": True,
 		}
 
-		press_settings_common_site_config = frappe.db.get_single_value(
-			"Press Settings", "bench_configuration"
+		cloud_settings_common_site_config = frappe.db.get_single_value(
+			"Cloud Settings", "bench_configuration"
 		)
-		if press_settings_common_site_config:
-			config.update(json.loads(press_settings_common_site_config))
+		if cloud_settings_common_site_config:
+			config.update(json.loads(cloud_settings_common_site_config))
 
 		self.update_config_with_rg_config(config)
 
@@ -590,7 +590,7 @@ class Bench(Document):
 
 class StagingSite(Site):
 	def __init__(self, bench: Bench):
-		plan = frappe.db.get_value("Press Settings", None, "staging_plan")
+		plan = frappe.db.get_value("Cloud Settings", None, "staging_plan")
 		if not plan:
 			frappe.throw("Staging plan not set in settings")
 			log_error(title="Staging plan not set in settings")
@@ -608,7 +608,7 @@ class StagingSite(Site):
 
 	@classmethod
 	def archive_expired(cls):
-		expiry = frappe.db.get_single_value("Press Settings", "staging_expiry") or 24
+		expiry = frappe.db.get_single_value("Cloud Settings", "staging_expiry") or 24
 		sites = frappe.get_all(
 			"Site",
 			{"staging": True, "creation": ("<", frappe.utils.add_to_date(None, hours=-expiry))},

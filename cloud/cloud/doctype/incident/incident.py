@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 	from cloud.cloud.doctype.incident_settings_self_hosted_user.incident_settings_self_hosted_user import (
 		IncidentSettingsSelfHostedUser,
 	)
-	from cloud.cloud.doctype.press_settings.press_settings import PressSettings
+	from cloud.cloud.doctype.cloud_settings.cloud_settings import CloudSettings
 
 INCIDENT_ALERT = "Sites Down"  # TODO: make it a field or child table somewhere #
 INCIDENT_SCOPE = "server"  # can be bench, cluster, server, etc. Not site, minor code changes required for that
@@ -73,7 +73,7 @@ class Incident(WebsiteGenerator):
 			"Investigating",
 			"Resolved",
 			"Auto-Resolved",
-			"Press-Resolved",
+			"Cloud-Resolved",
 		]
 		subject: DF.Data | None
 		type: DF.Literal["Site Down", "Bench Down", "Server Down"]
@@ -139,16 +139,16 @@ class Incident(WebsiteGenerator):
 
 	@property
 	def twilio_phone_number(self):
-		press_settings = frappe.get_cached_doc("Press Settings")
-		return press_settings.twilio_phone_number
+		cloud_settings = frappe.get_cached_doc("Cloud Settings")
+		return cloud_settings.twilio_phone_number
 
 	@property
 	def twilio_client(self):
-		press_settings: "PressSettings" = frappe.get_cached_doc("Press Settings")
+		cloud_settings: "CloudSettings" = frappe.get_cached_doc("Cloud Settings")
 		try:
-			return press_settings.twilio_client
+			return cloud_settings.twilio_client
 		except Exception:
-			log_error("Twilio Client not configured in Press Settings")
+			log_error("Twilio Client not configured in Cloud Settings")
 			frappe.db.commit()
 			raise
 
@@ -198,7 +198,7 @@ class Incident(WebsiteGenerator):
 		Sending one SMS to one number
 		Ref: https://support.twilio.com/hc/en-us/articles/223181548-Can-I-set-up-one-API-call-to-send-messages-to-a-list-of-people-
 		"""
-		domain = frappe.db.get_value("Press Settings", None, "domain")
+		domain = frappe.db.get_value("Cloud Settings", None, "domain")
 		incident_link = f"{domain}{self.get_url()}"
 
 		message_body = f"""New Incident {self.name} Reported

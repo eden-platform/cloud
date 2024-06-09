@@ -132,7 +132,7 @@ class ProxyServer(BaseServer):
 			"monitoring_password"
 		)
 
-		log_server = frappe.db.get_single_value("Press Settings", "log_server")
+		log_server = frappe.db.get_single_value("Cloud Settings", "log_server")
 		if log_server:
 			kibana_password = frappe.get_doc("Log Server", log_server).get_password(
 				"kibana_password"
@@ -160,7 +160,7 @@ class ProxyServer(BaseServer):
 					"certificate_private_key": certificate.private_key,
 					"certificate_full_chain": certificate.full_chain,
 					"certificate_intermediate_chain": certificate.intermediate_chain,
-					"press_url": frappe.utils.get_url(),
+					"cloud_url": frappe.utils.get_url(),
 				},
 			)
 			play = ansible.run()
@@ -202,7 +202,7 @@ class ProxyServer(BaseServer):
 
 	def _setup_ssh_proxy(self):
 		settings = frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			["docker_registry_url", "docker_registry_username", "docker_registry_password"],
 			as_dict=True,

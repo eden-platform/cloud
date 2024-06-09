@@ -84,23 +84,23 @@ def get_erpnext_bench():
 
 
 def get_erpnext_domain():
-	return frappe.db.get_single_value("Press Settings", "erpnext_domain")
+	return frappe.db.get_single_value("Cloud Settings", "erpnext_domain")
 
 
 def get_erpnext_plan():
-	return frappe.db.get_single_value("Press Settings", "erpnext_plan")
+	return frappe.db.get_single_value("Cloud Settings", "erpnext_plan")
 
 
 def get_erpnext_group():
-	return frappe.db.get_single_value("Press Settings", "erpnext_group")
+	return frappe.db.get_single_value("Cloud Settings", "erpnext_group")
 
 
 def get_erpnext_cluster():
-	return frappe.db.get_single_value("Press Settings", "erpnext_cluster")
+	return frappe.db.get_single_value("Cloud Settings", "erpnext_cluster")
 
 
 def get_erpnext_apps():
-	return [app.app for app in frappe.get_single("Press Settings").erpnext_apps]
+	return [app.app for app in frappe.get_single("Cloud Settings").erpnext_apps]
 
 
 def process_setup_erpnext_site_job_update(job):

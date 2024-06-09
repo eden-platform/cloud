@@ -486,7 +486,7 @@
  "links": [],
  "modified": "2024-02-08 13:37:28.064067",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Database Server",
  "owner": "Administrator",
  "permissions": [
@@ -505,13 +505,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

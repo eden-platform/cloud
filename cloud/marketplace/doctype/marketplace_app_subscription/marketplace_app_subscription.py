@@ -115,7 +115,7 @@ class MarketplaceAppSubscription(Document):
 			config.append(
 				{
 					"key": "app_include_js",
-					"value": [frappe.db.get_single_value("Press Settings", "app_include_script")],
+					"value": [frappe.db.get_single_value("Cloud Settings", "app_include_script")],
 					"type": "JSON",
 				}
 			)

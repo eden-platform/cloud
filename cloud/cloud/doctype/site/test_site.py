@@ -167,7 +167,7 @@ class TestSite(unittest.TestCase):
 
 	def test_rename_updates_name(self):
 		"""Ensure rename changes name of site."""
-		domain = frappe.db.get_single_value("Press Settings", "domain")
+		domain = frappe.db.get_single_value("Cloud Settings", "domain")
 		site = create_test_site("old-name")
 		new_name = f"new-name.{domain}"
 		site.rename(new_name)
@@ -180,7 +180,7 @@ class TestSite(unittest.TestCase):
 
 	def test_rename_creates_2_agent_jobs(self):
 		"""Ensure rename creates 2 agent jobs (for f & n)."""
-		domain = frappe.db.get_single_value("Press Settings", "domain")
+		domain = frappe.db.get_single_value("Cloud Settings", "domain")
 		site = create_test_site("old-name")
 		new_name = f"new-name.{domain}"
 

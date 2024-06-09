@@ -72,7 +72,7 @@
    "fieldname": "group",
    "fieldtype": "Link",
    "label": "Group",
-   "options": "Press Permission Group"
+   "options": "Cloud Permission Group"
   },
   {
    "depends_on": "eval: doc.type == 'Config';",
@@ -85,8 +85,8 @@
  "links": [],
  "modified": "2023-12-15 15:48:28.325993",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press User Permission",
+ "module": "Cloud",
+ "name": "Cloud User Permission",
  "owner": "Administrator",
  "permissions": [
   {

@@ -43,7 +43,7 @@ def razorpay_webhook_handler():
 		payload = frappe.request.get_data()
 		signature = frappe.get_request_header("X-Razorpay-Signature")
 		webhook_secret = frappe.db.get_single_value(
-			"Press Settings", "razorpay_webhook_secret"
+			"Cloud Settings", "razorpay_webhook_secret"
 		)
 
 		client.utility.verify_webhook_signature(payload.decode(), signature, webhook_secret)

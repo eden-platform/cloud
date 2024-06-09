@@ -20,14 +20,14 @@ def execute():
 
 def migrate_group_permissions(team):
 	groups = frappe.qb.get_query(
-		"Press Permission Group",
+		"Cloud Permission Group",
 		fields=["name", "title", "team", {"users": ["user"]}],
 		filters={"team": team},
 	).run(as_dict=1)
 
 	for group in groups:
 		old_group_permissions = frappe.get_all(
-			"Press User Permission",
+			"Cloud User Permission",
 			filters={"group": group.name, "type": "Group"},
 			fields=["document_type", "document_name"],
 			distinct=True,
@@ -36,10 +36,10 @@ def migrate_group_permissions(team):
 		if not old_group_permissions:
 			continue
 
-		if frappe.db.exists("Press Role", {"title": group.title, "team": group.team}):
+		if frappe.db.exists("Cloud Role", {"title": group.title, "team": group.team}):
 			continue
 
-		role = frappe.new_doc("Press Role")
+		role = frappe.new_doc("Cloud Role")
 		role.title = group.title
 		role.team = team
 		role.enable_billing = 1
@@ -54,7 +54,7 @@ def migrate_group_permissions(team):
 			fieldname = perm.document_type.lower().replace(" ", "_")
 			frappe.get_doc(
 				{
-					"doctype": "Press Role Permission",
+					"doctype": "Cloud Role Permission",
 					"role": role.name,
 					"team": team,
 					fieldname: perm.document_name,

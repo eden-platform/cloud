@@ -190,7 +190,7 @@ def upload_backup_file(file_type, file_name, file_path):
 			handle_request_failure(upload_remote)
 
 	# register remote file to site
-	register_press = session.post(
+	register_cloud = session.post(
 		register_remote_url,
 		{
 			"file": file_name,
@@ -200,10 +200,10 @@ def upload_backup_file(file_type, file_name, file_path):
 		},
 	)
 
-	if register_press.ok:
-		return register_press.json()["message"]
+	if register_cloud.ok:
+		return register_cloud.json()["message"]
 
-	handle_request_failure(register_press)
+	handle_request_failure(register_cloud)
 
 
 def render_actions_table():
@@ -632,7 +632,7 @@ def create_session():
 	if login_sc.ok:
 		print("Authorization Successful! ✅")
 		team = select_team(session)
-		session.headers.update({"X-Press-Team": team, "Connection": "keep-alive"})
+		session.headers.update({"X-Cloud-Team": team, "Connection": "keep-alive"})
 		return session
 	else:
 		handle_request_failure(

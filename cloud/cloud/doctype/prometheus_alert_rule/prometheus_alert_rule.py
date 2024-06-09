@@ -26,7 +26,7 @@ class PrometheusAlertRule(Document):
 		group_interval: DF.Data
 		group_wait: DF.Data
 		labels: DF.Code
-		press_job_type: DF.Link | None
+		cloud_job_type: DF.Link | None
 		repeat_interval: DF.Data
 		route_preview: DF.Code | None
 		severity: DF.Literal["Critical", "Warning", "Information"]
@@ -66,7 +66,7 @@ class PrometheusAlertRule(Document):
 		rules = yaml.dump(self.get_rules())
 		routes = yaml.dump(self.get_routes())
 
-		monitoring_server = frappe.db.get_single_value("Press Settings", "monitor_server")
+		monitoring_server = frappe.db.get_single_value("Cloud Settings", "monitor_server")
 		agent = Agent(monitoring_server, "Monitor Server")
 		agent.update_monitor_rules(rules, routes)
 
@@ -101,16 +101,16 @@ class PrometheusAlertRule(Document):
 		return routes_dict
 
 	def react(self, instance_type: str, instance: str):
-		return self.run_press_job(self.press_job_type, instance_type, instance)
+		return self.run_cloud_job(self.cloud_job_type, instance_type, instance)
 
-	def run_press_job(
+	def run_cloud_job(
 		self, job_name: str, server_type: str, server_name: str, arguments=None
 	):
 		if arguments is None:
 			arguments = {}
 		return frappe.get_doc(
 			{
-				"doctype": "Press Job",
+				"doctype": "Cloud Job",
 				"job_type": job_name,
 				"server_type": server_type,
 				"server": server_name,

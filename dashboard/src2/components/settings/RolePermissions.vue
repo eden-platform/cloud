@@ -52,7 +52,7 @@ const props = defineProps({
 });
 
 const role = createDocumentResource({
-	doctype: 'Press Role',
+	doctype: 'Cloud Role',
 	name: props.roleId,
 	auto: true,
 	whitelistedMethods: {
@@ -100,7 +100,7 @@ function getDropdownOptions(listResource) {
 }
 
 const rolePermissions = ref({
-	doctype: 'Press Role Permission',
+	doctype: 'Cloud Role Permission',
 	fields: [
 		'site',
 		'site.host_name as site_host_name',
@@ -199,7 +199,7 @@ const rolePermissions = ref({
 								toast.promise(
 									docInsert.submit({
 										doc: {
-											doctype: 'Press Role Permission',
+											doctype: 'Cloud Role Permission',
 											role: props.roleId,
 											[key]: values.document_name
 										}

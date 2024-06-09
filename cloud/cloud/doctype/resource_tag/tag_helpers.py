@@ -15,14 +15,14 @@ class TagHelpers:
 			return
 
 		if not frappe.db.exists(
-			"Press Tag", {"tag": tag, "doctype_name": self.doctype, "team": team}
+			"Cloud Tag", {"tag": tag, "doctype_name": self.doctype, "team": team}
 		):
 			tag_doc = frappe.new_doc(
-				"Press Tag", tag=tag, doctype_name=self.doctype, team=team
+				"Cloud Tag", tag=tag, doctype_name=self.doctype, team=team
 			).insert()
 		else:
 			tag_doc = frappe.get_doc(
-				"Press Tag",
+				"Cloud Tag",
 				{"tag": tag, "doctype_name": self.doctype, "team": team},
 			)
 

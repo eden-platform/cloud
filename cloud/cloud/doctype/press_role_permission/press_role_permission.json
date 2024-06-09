@@ -30,7 +30,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Role",
-   "options": "Press Role",
+   "options": "Cloud Role",
    "reqd": 1
   },
   {
@@ -56,8 +56,8 @@
  "links": [],
  "modified": "2024-05-20 13:03:39.066144",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Role Permission",
+ "module": "Cloud",
+ "name": "Cloud Role Permission",
  "owner": "Administrator",
  "permissions": [
   {
@@ -80,7 +80,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "share": 1,
    "write": 1
   },
@@ -92,7 +92,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "share": 1,
    "write": 1
   }

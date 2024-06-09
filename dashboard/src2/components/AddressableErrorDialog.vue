@@ -78,7 +78,7 @@ export default {
 		notification() {
 			return {
 				type: 'document',
-				doctype: 'Press Notification',
+				doctype: 'Cloud Notification',
 				name: this.name,
 				whitelistedMethods: {
 					markAsAddressed: 'mark_as_addressed'

@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 	from cloud.cloud.doctype.prometheus_alert_rule.prometheus_alert_rule import (
 		PrometheusAlertRule,
 	)
-	from cloud.cloud.doctype.press_job.press_job import PressJob
+	from cloud.cloud.doctype.cloud_job.cloud_job import CloudJob
 
 TELEGRAM_NOTIFICATION_TEMPLATE = """
 *{{ status }}* - *{{ severity }}*: {{ rule.name }} on {{ combined_alerts }} instances
@@ -109,7 +109,7 @@ class AlertmanagerWebhookLog(Document):
 				self.doctype, self.name, "send_telegram_notification", enqueue_after_commit=True
 			)
 		if self.status == "Firing" and frappe.get_cached_value(
-			"Prometheus Alert Rule", self.alert, "press_job_type"
+			"Prometheus Alert Rule", self.alert, "cloud_job_type"
 		):
 			enqueue_doc(
 				self.doctype,
@@ -133,7 +133,7 @@ class AlertmanagerWebhookLog(Document):
 		)
 		return bool(ongoing_incident_status)
 
-	def react_for_instance(self, instance) -> "PressJob":
+	def react_for_instance(self, instance) -> "CloudJob":
 		instance_type = self.guess_doctype(instance)
 		rule: "PrometheusAlertRule" = frappe.get_doc("Prometheus Alert Rule", self.alert)
 		rule.react(instance_type, instance)

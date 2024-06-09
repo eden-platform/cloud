@@ -50,7 +50,7 @@ def signup(email, product=None, referrer=None, new_signup_flow=False):
 			{
 				"doctype": "Account Request",
 				"email": email,
-				"role": "Press Admin",
+				"role": "Cloud Admin",
 				"referrer_id": referrer,
 				"saas_product": product,
 				"send_email": True,
@@ -518,7 +518,7 @@ def _get():
 		"saas_site_request": team_doc.get_pending_saas_site_request(),
 		"feature_flags": {
 			"verify_cards_with_micro_charge": frappe.db.get_single_value(
-				"Press Settings", "verify_cards_with_micro_charge"
+				"Cloud Settings", "verify_cards_with_micro_charge"
 			)
 		},
 		"partner_email": team_doc.partner_email or "",
@@ -543,13 +543,13 @@ def current_team():
 def get_permissions():
 	user = frappe.session.user
 	groups = tuple(
-		frappe.get_all("Press Permission Group User", {"user": user}, pluck="parent")
+		frappe.get_all("Cloud Permission Group User", {"user": user}, pluck="parent")
 		+ ["1", "2"]
 	)  # [1, 2] is for avoiding singleton tuples
 	docperms = frappe.db.sql(
 		f"""
 			SELECT `document_name`, GROUP_CONCAT(`action`) as `actions`
-			FROM `tabPress User Permission`
+			FROM `tabCloud User Permission`
 			WHERE user='{user}' or `group` in {groups}
 			GROUP BY `document_name`
 		""",
@@ -562,7 +562,7 @@ def get_permissions():
 
 @frappe.whitelist()
 def has_method_permission(doctype, docname, method) -> bool:
-	from cloud.cloud.doctype.press_permission_group.press_permission_group import (
+	from cloud.cloud.doctype.cloud_permission_group.cloud_permission_group import (
 		has_method_permission,
 	)
 
@@ -571,7 +571,7 @@ def has_method_permission(doctype, docname, method) -> bool:
 
 @frappe.whitelist(allow_guest=True)
 def signup_settings(product=None):
-	settings = frappe.get_single("Press Settings")
+	settings = frappe.get_single("Cloud Settings")
 
 	product = frappe.utils.cstr(product)
 	saas_product = None
@@ -596,7 +596,7 @@ def signup_settings(product=None):
 def guest_feature_flags():
 	return {
 		"enable_google_oauth": frappe.db.get_single_value(
-			"Press Settings", "enable_google_oauth"
+			"Cloud Settings", "enable_google_oauth"
 		),
 	}
 
@@ -640,7 +640,7 @@ def new_team(email, current_team):
 		{
 			"doctype": "Account Request",
 			"email": email,
-			"role": "Press Member",
+			"role": "Cloud Member",
 			"send_email": True,
 			"team": email,
 			"invited_by": current_team,
@@ -695,7 +695,7 @@ def update_profile_picture():
 
 @frappe.whitelist()
 def update_feature_flags(values=None):
-	frappe.only_for("Press Admin")
+	frappe.only_for("Cloud Admin")
 	team = get_current_team(get_doc=True)
 	values = frappe.parse_json(values)
 	fields = [
@@ -768,7 +768,7 @@ def add_team_member(email, new_dashboard=False):
 			"doctype": "Account Request",
 			"team": team.name,
 			"email": email,
-			"role": "Press Member",
+			"role": "Cloud Member",
 			"invited_by": team.user,
 			"new_signup_flow": new_dashboard,
 			"send_email": True,
@@ -1087,18 +1087,18 @@ def get_permission_options(name, ptype):
 	"""
 	[{'doctype': 'Site', 'name': 'ccc.edencloud.us', title: '', 'perms': 'cloud.api.site.get'}, ...]
 	"""
-	from cloud.cloud.doctype.press_method_permission.press_method_permission import (
+	from cloud.cloud.doctype.cloud_method_permission.cloud_method_permission import (
 		available_actions,
 	)
 
 	doctypes = frappe.get_all(
-		"Press Method Permission", pluck="document_type", distinct=True
+		"Cloud Method Permission", pluck="document_type", distinct=True
 	)
 
 	options = []
 	for doctype in doctypes:
 		doc = frappe.qb.DocType(doctype)
-		perm_doc = frappe.qb.DocType("Press User Permission")
+		perm_doc = frappe.qb.DocType("Cloud User Permission")
 		subtable = (
 			frappe.qb.from_(perm_doc)
 			.select("*")
@@ -1135,7 +1135,7 @@ def update_permissions(user, ptype, updated):
 		for doc, updated_perms in docs.items():
 			ptype_cap = ptype.capitalize()
 			old_perms = frappe.get_all(
-				"Press User Permission",
+				"Cloud User Permission",
 				filters={
 					"type": ptype_cap,
 					ptype: user,
@@ -1151,7 +1151,7 @@ def update_permissions(user, ptype, updated):
 			# perms to remove
 			remove = set(old_perms).difference(set(updated_perms))
 			drop += frappe.get_all(
-				"Press User Permission",
+				"Cloud User Permission",
 				filters={
 					"type": ptype_cap,
 					ptype: user,
@@ -1164,58 +1164,58 @@ def update_permissions(user, ptype, updated):
 
 	if values:
 		frappe.db.bulk_insert(
-			"Press User Permission",
+			"Cloud User Permission",
 			fields=["name", "type", "document_type", "document_name", ptype, "action"],
 			values=set(values),
 			ignore_duplicates=True,
 		)
 	if drop:
-		frappe.db.delete("Press User Permission", {"name": ("in", drop)})
+		frappe.db.delete("Cloud User Permission", {"name": ("in", drop)})
 	frappe.db.commit()
 
 
 @frappe.whitelist()
 def groups():
 	return frappe.get_all(
-		"Press Permission Group", {"team": get_current_team()}, ["name", "title"]
+		"Cloud Permission Group", {"team": get_current_team()}, ["name", "title"]
 	)
 
 
 @frappe.whitelist()
 def permission_group_users(name):
-	if get_current_team() != frappe.db.get_value("Press Permission Group", name, "team"):
+	if get_current_team() != frappe.db.get_value("Cloud Permission Group", name, "team"):
 		frappe.throw("You are not allowed to view this group")
 
-	return frappe.get_all("Press Permission Group User", {"parent": name}, pluck="user")
+	return frappe.get_all("Cloud Permission Group User", {"parent": name}, pluck="user")
 
 
 @frappe.whitelist()
 def add_permission_group(title):
 	doc = frappe.get_doc(
-		{"doctype": "Press Permission Group", "team": get_current_team(), "title": title}
+		{"doctype": "Cloud Permission Group", "team": get_current_team(), "title": title}
 	).insert(ignore_permissions=True)
 	return {"name": doc.name, "title": doc.title}
 
 
 @frappe.whitelist()
-@protected("Press Permission Group")
+@protected("Cloud Permission Group")
 def remove_permission_group(name):
-	frappe.db.delete("Press User Permission", {"group": name})
-	frappe.delete_doc("Press Permission Group", name)
+	frappe.db.delete("Cloud User Permission", {"group": name})
+	frappe.delete_doc("Cloud Permission Group", name)
 
 
 @frappe.whitelist()
-@protected("Press Permission Group")
+@protected("Cloud Permission Group")
 def add_permission_group_user(name, user):
-	doc = frappe.get_doc("Press Permission Group", name)
+	doc = frappe.get_doc("Cloud Permission Group", name)
 	doc.append("users", {"user": user})
 	doc.save(ignore_permissions=True)
 
 
 @frappe.whitelist()
-@protected("Press Permission Group")
+@protected("Cloud Permission Group")
 def remove_permission_group_user(name, user):
-	doc = frappe.get_doc("Press Permission Group", name)
+	doc = frappe.get_doc("Cloud Permission Group", name)
 	for group_user in doc.users:
 		if group_user.user == user:
 			doc.remove(group_user)
@@ -1225,24 +1225,24 @@ def remove_permission_group_user(name, user):
 
 @frappe.whitelist()
 def get_permission_roles():
-	PressRole = frappe.qb.DocType("Press Role")
-	PressRoleUser = frappe.qb.DocType("Press Role User")
+	CloudRole = frappe.qb.DocType("Cloud Role")
+	CloudRoleUser = frappe.qb.DocType("Cloud Role User")
 
 	return (
-		frappe.qb.from_(PressRole)
+		frappe.qb.from_(CloudRole)
 		.select(
-			PressRole.name,
-			PressRole.allow_billing,
-			PressRole.allow_apps,
-			PressRole.allow_site_creation,
-			PressRole.allow_bench_creation,
-			PressRole.allow_server_creation,
+			CloudRole.name,
+			CloudRole.allow_billing,
+			CloudRole.allow_apps,
+			CloudRole.allow_site_creation,
+			CloudRole.allow_bench_creation,
+			CloudRole.allow_server_creation,
 		)
-		.join(PressRoleUser)
+		.join(CloudRoleUser)
 		.on(
-			(PressRole.name == PressRoleUser.parent)
-			& (PressRoleUser.user == frappe.session.user)
+			(CloudRole.name == CloudRoleUser.parent)
+			& (CloudRoleUser.user == frappe.session.user)
 		)
-		.where(PressRole.team == get_current_team())
+		.where(CloudRole.team == get_current_team())
 		.run(as_dict=True)
 	)

@@ -13,7 +13,7 @@ def get_notifications(
 	elif filters.get("read") == "Read":
 		filters["read"] = True
 	notifications = frappe.get_all(
-		"Press Notification",
+		"Cloud Notification",
 		filters=filters,
 		fields=[
 			"name",
@@ -51,11 +51,11 @@ def get_notifications(
 
 @frappe.whitelist()
 def mark_notification_as_read(name):
-	frappe.db.set_value("Press Notification", name, "read", True)
+	frappe.db.set_value("Cloud Notification", name, "read", True)
 
 
 @frappe.whitelist()
 def get_unread_count():
 	return frappe.db.count(
-		"Press Notification", {"read": False, "team": get_current_team()}
+		"Cloud Notification", {"read": False, "team": get_current_team()}
 	)

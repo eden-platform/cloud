@@ -42,7 +42,7 @@ class RootDomain(Document):
 	def obtain_root_domain_tls_certificate(self):
 		try:
 			rsa_key_size = frappe.db.get_value(
-				"Press Settings", "Press Settings", "rsa_key_size"
+				"Cloud Settings", "Cloud Settings", "rsa_key_size"
 			)
 			frappe.get_doc(
 				{

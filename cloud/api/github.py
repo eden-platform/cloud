@@ -42,8 +42,8 @@ def hook(*args, **kwargs):
 
 
 def get_jwt_token():
-	key = frappe.db.get_single_value("Press Settings", "github_app_private_key")
-	app_id = frappe.db.get_single_value("Press Settings", "github_app_id")
+	key = frappe.db.get_single_value("Cloud Settings", "github_app_private_key")
+	app_id = frappe.db.get_single_value("Cloud Settings", "github_app_id")
 	now = datetime.now()
 	expiry = now + timedelta(minutes=9)
 	payload = {"iat": int(now.timestamp()), "exp": int(expiry.timestamp()), "iss": app_id}
@@ -54,7 +54,7 @@ def get_jwt_token():
 def get_access_token(installation_id: "Optional[str]" = None):
 	if not installation_id:
 		return frappe.db.get_value(
-			"Press Settings",
+			"Cloud Settings",
 			None,
 			"github_access_token",
 		)
@@ -74,7 +74,7 @@ def get_access_token(installation_id: "Optional[str]" = None):
 @frappe.whitelist()
 def clear_token_and_get_installation_url():
 	clear_current_team_access_token()
-	public_link = frappe.db.get_single_value("Press Settings", "github_app_public_link")
+	public_link = frappe.db.get_single_value("Cloud Settings", "github_app_public_link")
 	return f"{public_link}/installations/new"
 
 
@@ -87,7 +87,7 @@ def clear_current_team_access_token():
 def options():
 	team = get_current_team()
 	token = frappe.db.get_value("Team", team, "github_access_token")
-	public_link = frappe.db.get_single_value("Press Settings", "github_app_public_link")
+	public_link = frappe.db.get_single_value("Cloud Settings", "github_app_public_link")
 
 	versions = frappe.get_all("Frappe Version", filters={"public": True})
 
@@ -160,7 +160,7 @@ def repositories(installation, token):
 def repository(owner, name, installation=None):
 	token = ""
 	if not installation:
-		token = frappe.db.get_value("Press Settings", "github_access_token")
+		token = frappe.db.get_value("Cloud Settings", "github_access_token")
 	else:
 		token = get_access_token(installation)
 	headers = {
@@ -231,7 +231,7 @@ def branches(owner, name, installation=None):
 	if installation:
 		token = get_access_token(installation)
 	else:
-		token = frappe.get_value("Press Settings", None, "github_access_token")
+		token = frappe.get_value("Cloud Settings", None, "github_access_token")
 
 	if token:
 		headers = {

@@ -21,7 +21,7 @@ from cloud.cloud.doctype.marketplace_app.marketplace_app import (
 	get_plans_for_app,
 	get_total_installs_by_app,
 )
-from cloud.cloud.doctype.press_user_permission.press_user_permission import (
+from cloud.cloud.doctype.cloud_user_permission.cloud_user_permission import (
 	has_user_permission,
 )
 from cloud.cloud.doctype.remote_file.remote_file import get_remote_key
@@ -67,14 +67,14 @@ def protected(doctypes):
 		for doctype in doctypes:
 			owner = frappe.db.get_value(doctype, name, "team")
 			has_config_permissions = frappe.db.exists(
-				"Press User Permission", {"type": "Config", "user": frappe.session.user}
+				"Cloud User Permission", {"type": "Config", "user": frappe.session.user}
 			)
 
 			if owner == team or has_config_permissions:
 				is_team_member = frappe.get_value("Team", team, "user") != frappe.session.user
 				if is_team_member and hasattr(frappe.local, "request"):
 					is_method_restrictable = frappe.db.exists(
-						"Press Method Permission", {"method": request_path}
+						"Cloud Method Permission", {"method": request_path}
 					)
 					if not is_method_restrictable:
 						return wrapped(*args, **kwargs)
@@ -110,7 +110,7 @@ def _new(site, server: str = None, ignore_plan_validation: bool = False):
 		frappe.throw("No root domain for site")
 
 	cluster = site.get("cluster") or frappe.db.get_single_value(
-		"Press Settings", "cluster"
+		"Cloud Settings", "cluster"
 	)
 
 	proxy_servers = frappe.get_all(
@@ -224,7 +224,7 @@ def validate_plan(server, plan):
 
 @frappe.whitelist()
 def new(site):
-	site["domain"] = frappe.db.get_single_value("Press Settings", "domain")
+	site["domain"] = frappe.db.get_single_value("Cloud Settings", "domain")
 
 	return _new(site)
 
@@ -318,7 +318,7 @@ def running_jobs(name):
 @protected("Site")
 def backups(name):
 	available_offsite_backups = (
-		frappe.db.get_single_value("Press Settings", "offsite_backups_count") or 30
+		frappe.db.get_single_value("Cloud Settings", "offsite_backups_count") or 30
 	)
 	fields = [
 		"name",
@@ -598,7 +598,7 @@ def options_for_new(for_bench: str = None):
 
 	return {
 		"versions": available_versions,
-		"domain": frappe.db.get_single_value("Press Settings", "domain"),
+		"domain": frappe.db.get_single_value("Cloud Settings", "domain"),
 		"marketplace_details": marketplace_details,
 		"app_source_details": app_source_details_grouped,
 	}
@@ -606,7 +606,7 @@ def options_for_new(for_bench: str = None):
 
 @frappe.whitelist()
 def get_domain():
-	return frappe.db.get_value("Press Settings", "Press Settings", ["domain"])
+	return frappe.db.get_value("Cloud Settings", "Cloud Settings", ["domain"])
 
 
 @frappe.whitelist()
@@ -885,7 +885,7 @@ def all(site_filter=None):
 @frappe.whitelist()
 def site_tags():
 	team = get_current_team()
-	return frappe.get_all("Press Tag", {"team": team, "doctype_name": "Site"}, pluck="tag")
+	return frappe.get_all("Cloud Tag", {"team": team, "doctype_name": "Site"}, pluck="tag")
 
 
 @frappe.whitelist()
@@ -985,7 +985,7 @@ def get(name):
 		"ip": ip,
 		"site_tags": [{"name": x.tag, "tag": x.tag_name} for x in site.tags],
 		"tags": frappe.get_all(
-			"Press Tag", {"team": team, "doctype_name": "Site"}, ["name", "tag"]
+			"Cloud Tag", {"team": team, "doctype_name": "Site"}, ["name", "tag"]
 		),
 		"info": {
 			"owner": frappe.db.get_value(
@@ -1591,18 +1591,18 @@ def update_config(name, config):
 
 @frappe.whitelist()
 def get_upload_link(file, parts=1):
-	bucket_name = frappe.db.get_single_value("Press Settings", "remote_uploads_bucket")
-	expiration = frappe.db.get_single_value("Press Settings", "remote_link_expiry") or 3600
+	bucket_name = frappe.db.get_single_value("Cloud Settings", "remote_uploads_bucket")
+	expiration = frappe.db.get_single_value("Cloud Settings", "remote_link_expiry") or 3600
 	object_name = get_remote_key(file)
 	parts = int(parts)
 
 	s3_client = client(
 		"s3",
 		aws_access_key_id=frappe.db.get_single_value(
-			"Press Settings", "remote_access_key_id"
+			"Cloud Settings", "remote_access_key_id"
 		),
 		aws_secret_access_key=get_decrypted_password(
-			"Press Settings", "Press Settings", "remote_secret_access_key"
+			"Cloud Settings", "Cloud Settings", "remote_secret_access_key"
 		),
 		region_name="ap-south-1",
 	)
@@ -1641,11 +1641,11 @@ def multipart_exit(file, id, action, parts=None):
 	s3_client = client(
 		"s3",
 		aws_access_key_id=frappe.db.get_single_value(
-			"Press Settings", "remote_access_key_id"
+			"Cloud Settings", "remote_access_key_id"
 		),
 		aws_secret_access_key=get_decrypted_password(
-			"Press Settings",
-			"Press Settings",
+			"Cloud Settings",
+			"Cloud Settings",
 			"remote_secret_access_key",
 			raise_exception=False,
 		),
@@ -1677,7 +1677,7 @@ def uploaded_backup_info(file=None, path=None, type=None, size=None, url=None):
 			"file_size": size,
 			"file_path": path,
 			"url": url,
-			"bucket": frappe.db.get_single_value("Press Settings", "remote_uploads_bucket"),
+			"bucket": frappe.db.get_single_value("Cloud Settings", "remote_uploads_bucket"),
 		}
 	).insert()
 	add_tag("Site Upload", doc.doctype, doc.name)

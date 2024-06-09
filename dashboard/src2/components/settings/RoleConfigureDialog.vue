@@ -116,7 +116,7 @@ const show = ref(true);
 const tabIndex = ref(0);
 
 const role = createDocumentResource({
-	doctype: 'Press Role',
+	doctype: 'Cloud Role',
 	name: props.roleId,
 	auto: true,
 	whitelistedMethods: {

@@ -39,7 +39,7 @@ class GitHubWebhookLog(Document):
 	# end: auto-generated types
 
 	def validate(self):
-		secret = frappe.db.get_single_value("Press Settings", "github_webhook_secret")
+		secret = frappe.db.get_single_value("Cloud Settings", "github_webhook_secret")
 		digest = hmac.HMAC(secret.encode(), self.payload.encode(), hashlib.sha1)
 		if not hmac.compare_digest(digest.hexdigest(), self.signature):
 			frappe.throw("Invalid Signature")

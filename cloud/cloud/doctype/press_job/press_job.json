@@ -26,7 +26,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Job Type",
-   "options": "Press Job Type",
+   "options": "Cloud Job Type",
    "read_only": 1,
    "reqd": 1
   },
@@ -110,14 +110,14 @@
  "index_web_pages_for_search": 1,
  "links": [
   {
-   "link_doctype": "Press Job Step",
+   "link_doctype": "Cloud Job Step",
    "link_fieldname": "job"
   }
  ],
  "modified": "2022-11-01 18:37:24.481326",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Job",
+ "module": "Cloud",
+ "name": "Cloud Job",
  "naming_rule": "Autoincrement",
  "owner": "Administrator",
  "permissions": [
@@ -135,12 +135,12 @@
   },
   {
    "create": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

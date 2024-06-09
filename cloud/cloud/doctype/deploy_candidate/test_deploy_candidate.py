@@ -19,7 +19,7 @@ from cloud.cloud.doctype.release_group.test_release_group import (
 	create_test_release_group,
 )
 from cloud.cloud.doctype.team.test_team import (
-	create_test_press_admin_team,
+	create_test_cloud_admin_team,
 	create_test_team,
 )
 from cloud.utils.test import foreground_enqueue_doc
@@ -51,7 +51,7 @@ def create_test_deploy_candidate(group: ReleaseGroup) -> DeployCandidate:
 @patch.object(AgentJob, "enqueue_http_request", new=Mock())
 class TestDeployCandidate(unittest.TestCase):
 	def setUp(self):
-		self.team = create_test_press_admin_team()
+		self.team = create_test_cloud_admin_team()
 		self.user: str = self.team.user
 
 	def tearDown(self):
@@ -59,7 +59,7 @@ class TestDeployCandidate(unittest.TestCase):
 		frappe.set_user("Administrator")
 
 	@patch("cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc")
-	def test_if_new_press_admin_team_can_pre_build(self, mock_enqueue_doc, mock_commit):
+	def test_if_new_cloud_admin_team_can_pre_build(self, mock_enqueue_doc, mock_commit):
 		"""
 		Test if new cloud admin team user can pre build
 
@@ -76,7 +76,7 @@ class TestDeployCandidate(unittest.TestCase):
 			self.fail("PermissionError raised in pre_build")
 
 	@patch("cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc")
-	def test_old_style_press_admin_team_can_pre_build(self, mock_enqueue_doc, mock_commit):
+	def test_old_style_cloud_admin_team_can_pre_build(self, mock_enqueue_doc, mock_commit):
 		"""
 		Test if old style cloud admin team can pre build
 
@@ -233,7 +233,7 @@ class TestDeployCandidate(unittest.TestCase):
 		"""
 		from cloud.api.tests.test_bench import (
 			patch_dc_command_for_ci,
-			set_press_settings_for_docker_build,
+			set_cloud_settings_for_docker_build,
 		)
 		from cloud.cloud.doctype.bench_get_app_cache.bench_get_app_cache import (
 			BenchGetAppCache,
@@ -242,7 +242,7 @@ class TestDeployCandidate(unittest.TestCase):
 		team = create_test_team()
 		apps = create_cache_test_apps(team)
 
-		set_press_settings_for_docker_build()
+		set_cloud_settings_for_docker_build()
 		patch_dc_command_for_ci()
 		BenchGetAppCache.clear_app_cache()
 

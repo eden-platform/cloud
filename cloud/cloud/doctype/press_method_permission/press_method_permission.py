@@ -5,7 +5,7 @@ import frappe
 from frappe.model.document import Document
 
 
-class PressMethodPermission(Document):
+class CloudMethodPermission(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -25,14 +25,14 @@ class PressMethodPermission(Document):
 def available_actions():
 	result = {}
 	doctypes = frappe.get_all(
-		"Press Method Permission", pluck="document_type", distinct=True
+		"Cloud Method Permission", pluck="document_type", distinct=True
 	)
 
 	for doctype in doctypes:
 		result[doctype] = {
 			perm["checkbox_label"]: perm["method"]
 			for perm in frappe.get_all(
-				"Press Method Permission", {"document_type": doctype}, ["checkbox_label", "method"]
+				"Cloud Method Permission", {"document_type": doctype}, ["checkbox_label", "method"]
 			)
 		}
 

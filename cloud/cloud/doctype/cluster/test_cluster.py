@@ -152,9 +152,9 @@ class TestPrivateCluster(TestCluster):
 		self._setup_fake_vmis(["m", "f", "n", "p", "e"])
 
 		root_domain = create_test_root_domain("local.fc.frappe.dev")
-		frappe.db.set_single_value("Press Settings", "domain", root_domain.name)
-		frappe.db.set_single_value("Press Settings", "aws_access_key_id", "test")
-		frappe.db.set_single_value("Press Settings", "aws_secret_access_key", "test")
+		frappe.db.set_single_value("Cloud Settings", "domain", root_domain.name)
+		frappe.db.set_single_value("Cloud Settings", "aws_access_key_id", "test")
+		frappe.db.set_single_value("Cloud Settings", "aws_secret_access_key", "test")
 
 		server_count_before = frappe.db.count("Server")
 		database_server_count_before = frappe.db.count("Database Server")
@@ -198,7 +198,7 @@ class TestPublicCluster(TestCluster):
 	@patch.object(ProxyServer, "validate", new=MagicMock())
 	def test_create_servers_without_vmis_throws_err(self):
 		root_domain = create_test_root_domain("local.fc.frappe.dev")
-		frappe.db.set_single_value("Press Settings", "domain", root_domain.name)
+		frappe.db.set_single_value("Cloud Settings", "domain", root_domain.name)
 
 		server_count_before = frappe.db.count("Server")
 		database_server_count_before = frappe.db.count("Database Server")
@@ -228,7 +228,7 @@ class TestPublicCluster(TestCluster):
 	def test_creation_of_public_cluster_with_servers_creates_3(self):
 
 		root_domain = create_test_root_domain("local.fc.frappe.dev")
-		frappe.db.set_single_value("Press Settings", "domain", root_domain.name)
+		frappe.db.set_single_value("Cloud Settings", "domain", root_domain.name)
 		self._setup_fake_vmis(["m", "f", "n"])
 
 		server_count_before = frappe.db.count("Server")
@@ -248,12 +248,12 @@ class TestPublicCluster(TestCluster):
 
 	@mock_iam
 	@patch.object(Cluster, "after_insert", new=MagicMock())  # don't create vms/servers
-	def test_creation_of_public_cluster_uses_keys_from_press_settings(self):
-		from cloud.cloud.doctype.press_settings.test_press_settings import (
-			create_test_press_settings,
+	def test_creation_of_public_cluster_uses_keys_from_cloud_settings(self):
+		from cloud.cloud.doctype.cloud_settings.test_cloud_settings import (
+			create_test_cloud_settings,
 		)
 
-		settings = create_test_press_settings()
+		settings = create_test_cloud_settings()
 		client = boto3.client("iam")
 		client.create_user(UserName="test")
 		key_pairs = client.create_access_key(UserName="test")

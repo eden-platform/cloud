@@ -804,7 +804,7 @@ class Invoice(Document):
 			from urllib.parse import urlencode
 
 			client = self.get_frappeio_connection()
-			print_format = frappe.db.get_single_value("Press Settings", "print_format")
+			print_format = frappe.db.get_single_value("Cloud Settings", "print_format")
 			params = urlencode(
 				{
 					"doctype": "Sales Invoice",

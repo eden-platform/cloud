@@ -19,7 +19,7 @@ let request = options => {
 	_options.headers = options.headers || {};
 	let currentTeam = localStorage.getItem('current_team') || window.default_team;
 	if (currentTeam) {
-		_options.headers['X-Press-Team'] = currentTeam;
+		_options.headers['X-Cloud-Team'] = currentTeam;
 	}
 	return frappeRequest(_options);
 };
@@ -49,10 +49,10 @@ getInitialData().then(() => {
 		session.roles.fetch();
 	}
 
-	if (window.press_dashboard_sentry_dsn.includes('https://')) {
+	if (window.cloud_dashboard_sentry_dsn.includes('https://')) {
 		Sentry.init({
 			app,
-			dsn: window.press_dashboard_sentry_dsn,
+			dsn: window.cloud_dashboard_sentry_dsn,
 			integrations: [
 				new BrowserTracing({
 					routingInstrumentation: Sentry.vueRouterInstrumentation(router),

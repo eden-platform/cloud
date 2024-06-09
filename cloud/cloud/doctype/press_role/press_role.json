@@ -45,7 +45,7 @@
    "fieldname": "users",
    "fieldtype": "Table",
    "label": "Users",
-   "options": "Press Role User"
+   "options": "Cloud Role User"
   },
   {
    "fieldname": "section_break_yvqq",
@@ -91,8 +91,8 @@
  "links": [],
  "modified": "2024-05-21 15:31:48.262656",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Role",
+ "module": "Cloud",
+ "name": "Cloud Role",
  "owner": "Administrator",
  "permissions": [
   {
@@ -115,7 +115,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "share": 1,
    "write": 1
   },
@@ -127,7 +127,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "share": 1,
    "write": 1
   }

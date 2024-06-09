@@ -42,7 +42,7 @@ class TestStagingSite(unittest.TestCase):
 	def test_create_staging_site(self):
 		bench = create_test_bench()  # also creates cloud settings
 		frappe.db.set_single_value(
-			"Press Settings", "staging_plan", create_test_plan("Site").name
+			"Cloud Settings", "staging_plan", create_test_plan("Site").name
 		)
 		count_before = frappe.db.count("Site")
 

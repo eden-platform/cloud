@@ -75,7 +75,7 @@ class TLSCertificate(Document):
 	@frappe.whitelist()
 	def _obtain_certificate(self):
 		try:
-			settings = frappe.get_doc("Press Settings", "Press Settings")
+			settings = frappe.get_doc("Cloud Settings", "Cloud Settings")
 			ca = LetsEncrypt(settings)
 			(
 				self.certificate,

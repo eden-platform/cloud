@@ -1,5 +1,5 @@
 <template>
-	<Card title="Advanced features" v-if="$account.hasRole('Press Admin')">
+	<Card title="Advanced features" v-if="$account.hasRole('Cloud Admin')">
 		<div class="flex flex-col space-y-4">
 			<FormControl
 				v-for="field in fields"

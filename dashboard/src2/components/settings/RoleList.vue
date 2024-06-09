@@ -18,7 +18,7 @@ import AlertBanner from '../AlertBanner.vue';
 import { getTeam } from '../../data/team';
 
 const listOptions = ref({
-	doctype: 'Press Role',
+	doctype: 'Cloud Role',
 	fields: [{ users: ['user', 'user.full_name', 'user.user_image'] }],
 	filter: { team: getTeam().doc.name },
 	documentation: 'https://frappecloud.com/docs/role-permissions',

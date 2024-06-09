@@ -1,7 +1,7 @@
 // Copyright (c) 2020, Frappe and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Press Settings', {
+frappe.ui.form.on('Cloud Settings', {
 	create_stripe_webhook(frm) {
 		frm.call('create_stripe_webhook');
 	},

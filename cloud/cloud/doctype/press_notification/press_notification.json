@@ -144,8 +144,8 @@
  "links": [],
  "modified": "2024-03-14 15:53:46.991772",
  "modified_by": "Administrator",
- "module": "Press",
- "name": "Press Notification",
+ "module": "Cloud",
+ "name": "Cloud Notification",
  "owner": "Administrator",
  "permissions": [
   {
@@ -167,7 +167,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "share": 1,
    "write": 1
   },
@@ -178,7 +178,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "share": 1,
    "write": 1
   }

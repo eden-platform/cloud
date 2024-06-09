@@ -1,5 +1,5 @@
 ---
-- name: Configure Prometheus Service Discovery for Press Server
+- name: Configure Prometheus Service Discovery for Cloud Server
   become: yes
   become_user: frappe
   template:

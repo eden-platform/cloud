@@ -21,7 +21,7 @@ class SaasSignupGenerator(WebsiteGenerator):
 			country_name if frappe.db.exists("Country", country_name) else ""
 		)
 		context.enable_google_oauth = frappe.db.get_single_value(
-			"Press Settings", "enable_google_oauth"
+			"Cloud Settings", "enable_google_oauth"
 		)
 
 		return context

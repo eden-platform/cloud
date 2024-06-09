@@ -56,7 +56,7 @@ export default {
 					label: 'Tag',
 					fieldname: 'tags.tag',
 					options: {
-						doctype: 'Press Tag',
+						doctype: 'Cloud Tag',
 						filters: {
 							doctype_name: 'Release Group'
 						}

@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestPressMethodPermission(FrappeTestCase):
+class TestCloudMethodPermission(FrappeTestCase):
 	pass

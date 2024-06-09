@@ -38,7 +38,7 @@ class AuditLog(Document):
 			self.notify()
 
 	def notify(self):
-		domain = frappe.get_value("Press Settings", "Press Settings", "domain")
+		domain = frappe.get_value("Cloud Settings", "Cloud Settings", "domain")
 		message = f"""
 			*FAILED AUDIT*
 			[{self.audit_type}]({domain}{self.get_url()})

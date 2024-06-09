@@ -35,7 +35,7 @@
   "feature_flags_section",
   "is_redisearch_enabled",
   "use_app_cache",
-  "compress_app_cache",
+  "comcloud_app_cache",
   "column_break_tkdd",
   "merge_all_rq_queues",
   "merge_default_and_short_rq_queues",
@@ -297,8 +297,8 @@
   },
   {
    "default": "0",
-   "fetch_from": "group.compress_app_cache",
-   "fieldname": "compress_app_cache",
+   "fetch_from": "group.comcloud_app_cache",
+   "fieldname": "comcloud_app_cache",
    "fieldtype": "Check",
    "label": "Compress App Cache"
   },
@@ -408,13 +408,13 @@
    "link_fieldname": "reference_name"
   },
   {
-   "link_doctype": "Press Notification",
+   "link_doctype": "Cloud Notification",
    "link_fieldname": "document_name"
   }
  ],
  "modified": "2024-05-23 13:53:35.698784",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "Deploy Candidate",
  "owner": "Administrator",
  "permissions": [
@@ -433,13 +433,13 @@
   {
    "create": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

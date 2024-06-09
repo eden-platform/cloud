@@ -32,22 +32,22 @@ def get_context_for_dev():
 def get_boot():
 	return frappe._dict(
 		frappe_version=frappe.__version__,
-		press_frontend_sentry_dsn=frappe.conf.press_frontend_sentry_dsn or "",
-		press_dashboard_sentry_dsn=frappe.conf.press_dashboard_sentry_dsn or "",
-		press_frontend_posthog_host=frappe.conf.posthog_host or "",
-		press_frontend_posthog_project_id=frappe.conf.posthog_project_id or "",
-		press_site_name=frappe.conf.site,
+		cloud_frontend_sentry_dsn=frappe.conf.cloud_frontend_sentry_dsn or "",
+		cloud_dashboard_sentry_dsn=frappe.conf.cloud_dashboard_sentry_dsn or "",
+		cloud_frontend_posthog_host=frappe.conf.posthog_host or "",
+		cloud_frontend_posthog_project_id=frappe.conf.posthog_project_id or "",
+		cloud_site_name=frappe.conf.site,
 		site_name=frappe.local.site,
 		default_team=get_default_team_for_user(frappe.session.user),
 		valid_teams=get_valid_teams_for_user(frappe.session.user),
 		is_system_user=frappe.session.data.user_type == "System User",
 		verify_cards_with_micro_charge=frappe.db.get_single_value(
-			"Press Settings", "verify_cards_with_micro_charge"
+			"Cloud Settings", "verify_cards_with_micro_charge"
 		),
 		**(
 			frappe.db.get_values(
-				"Press Settings",
-				"Press Settings",
+				"Cloud Settings",
+				"Cloud Settings",
 				["free_credits_inr", "free_credits_usd"],
 				as_dict=True,
 			)[0]

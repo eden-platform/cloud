@@ -10,7 +10,7 @@ from cloud.utils import log_error
 
 @frappe.whitelist(allow_guest=True)
 def targets(token):
-	monitor_token = frappe.db.get_single_value("Press Settings", "monitor_token")
+	monitor_token = frappe.db.get_single_value("Cloud Settings", "monitor_token")
 	if token != monitor_token:
 		return
 

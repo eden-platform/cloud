@@ -141,7 +141,7 @@ def send_mime_mail(**data):
 
 	if validate_plan(data["sk_mail"]):
 		api_key, domain = frappe.db.get_value(
-			"Press Settings", None, ["mailgun_api_key", "root_domain"]
+			"Cloud Settings", None, ["mailgun_api_key", "root_domain"]
 		)
 
 		resp = requests.post(

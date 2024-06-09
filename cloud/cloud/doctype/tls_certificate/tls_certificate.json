@@ -132,7 +132,7 @@
  "links": [],
  "modified": "2024-04-25 14:39:24.157575",
  "modified_by": "Administrator",
- "module": "Press",
+ "module": "Cloud",
  "name": "TLS Certificate",
  "owner": "Administrator",
  "permissions": [
@@ -152,14 +152,14 @@
    "create": 1,
    "delete": 1,
    "read": 1,
-   "role": "Press Admin",
+   "role": "Cloud Admin",
    "write": 1
   },
   {
    "create": 1,
    "delete": 1,
    "read": 1,
-   "role": "Press Member",
+   "role": "Cloud Member",
    "write": 1
   }
  ],

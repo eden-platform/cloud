@@ -15,14 +15,14 @@ from cloud.cloud.doctype.account_request.test_account_request import (
 from cloud.cloud.doctype.team.team import Team
 
 
-def create_test_press_admin_team(email: str = None) -> Team:
+def create_test_cloud_admin_team(email: str = None) -> Team:
 	"""Create test cloud admin user."""
 	if not email:
 		email = frappe.mock("email")
 	create_test_user(email)
 	user = frappe.get_doc("User", {"email": email})
 	user.remove_roles(*frappe.get_all("Role", pluck="name"))
-	user.add_roles("Press Admin")
+	user.add_roles("Cloud Admin")
 	return create_test_team(email)
 
 

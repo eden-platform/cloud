@@ -1,7 +1,7 @@
 // Copyright (c) 2022, Frappe and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Press Job', {
+frappe.ui.form.on('Cloud Job', {
 	refresh: function (frm) {
 		[
 			[__('Force Continue'), 'force_continue', frm.doc.status === 'Failure'],

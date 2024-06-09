@@ -22,7 +22,7 @@ from cloud.api.client import is_owned_by_team
 from cloud.cloud.doctype.agent_job_type.agent_job_type import (
 	get_retryable_job_types_and_max_retry_count,
 )
-from cloud.cloud.doctype.press_notification.press_notification import (
+from cloud.cloud.doctype.cloud_notification.cloud_notification import (
 	create_new_notification,
 )
 from cloud.cloud.doctype.site_migration.site_migration import (
@@ -287,7 +287,7 @@ class AgentJob(Document):
 			frappe.delete_doc("Agent Job Step", step.name)
 
 		frappe.db.delete(
-			"Press Notification",
+			"Cloud Notification",
 			{"document_type": self.doctype, "document_name": self.name},
 		)
 
@@ -360,7 +360,7 @@ def publish_update(job):
 def suspend_sites():
 	"""Suspend sites if they have exceeded database or disk limits"""
 
-	if not frappe.db.get_single_value("Press Settings", "enforce_storage_limits"):
+	if not frappe.db.get_single_value("Cloud Settings", "enforce_storage_limits"):
 		return
 
 	free_teams = frappe.get_all(
@@ -463,7 +463,7 @@ def poll_pending_jobs_server(server):
 
 
 def populate_output_cache(polled_job, job):
-	if not cint(frappe.get_cached_value("Press Settings", None, "realtime_job_updates")):
+	if not cint(frappe.get_cached_value("Cloud Settings", None, "realtime_job_updates")):
 		return
 	steps = frappe.get_all(
 		"Agent Job Step",
@@ -733,7 +733,7 @@ def is_auto_retry_disabled(server):
 
 	# Global Config
 	_auto_retry_disabled = frappe.db.get_single_value(
-		"Press Settings", "disable_auto_retry", cache=True
+		"Cloud Settings", "disable_auto_retry", cache=True
 	)
 	if _auto_retry_disabled:
 		return True

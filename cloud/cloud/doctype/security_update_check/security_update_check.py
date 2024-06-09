@@ -64,7 +64,7 @@ class SecurityUpdateCheck(Document):
 
 	def fail(self):
 		self.status = "Failure"
-		domain = frappe.get_value("Press Settings", "Press Settings", "domain")
+		domain = frappe.get_value("Cloud Settings", "Cloud Settings", "domain")
 		message = f"""
 Security Update Check for *{self.server}* failed.
 

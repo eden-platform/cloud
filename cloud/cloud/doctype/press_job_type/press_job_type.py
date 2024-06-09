@@ -5,7 +5,7 @@
 from frappe.model.document import Document
 
 
-class PressJobType(Document):
+class CloudJobType(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -13,11 +13,11 @@ class PressJobType(Document):
 
 	if TYPE_CHECKING:
 		from frappe.types import DF
-		from cloud.cloud.doctype.press_job_type_step.press_job_type_step import (
-			PressJobTypeStep,
+		from cloud.cloud.doctype.cloud_job_type_step.cloud_job_type_step import (
+			CloudJobTypeStep,
 		)
 
-		steps: DF.Table[PressJobTypeStep]
+		steps: DF.Table[CloudJobTypeStep]
 	# end: auto-generated types
 
 	pass
