@@ -3,7 +3,7 @@
 	"auto_update": false,
 	"background_workers": 8,
 	"background_process_niceness": "19",
-	"default_site": "frappe.cloud",
+	"default_site": "edencloud.us",
 	"disable_global_search": true,
 	"dns_multitenant": true,
 	"file_watcher_port": 6787,

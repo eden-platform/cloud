@@ -236,7 +236,7 @@ class Invoice(Document):
 
 			if not self.stripe_invoice_id:
 				# if stripe invoice was created, find it and set it
-				# so that we avoid scenarios where Stripe Invoice was created but not set in Frappe Cloud
+				# so that we avoid scenarios where Stripe Invoice was created but not set in Eden Cloud
 				stripe_invoice_id = self.find_stripe_invoice()
 				if stripe_invoice_id:
 					self.stripe_invoice_id = stripe_invoice_id
@@ -384,7 +384,7 @@ class Invoice(Document):
 		start = getdate(self.period_start)
 		end = getdate(self.period_end)
 		period_string = f"{start.strftime('%b %d')} - {end.strftime('%b %d')} {end.year}"
-		return f"Frappe Cloud Subscription ({period_string})"
+		return f"Eden Cloud Subscription ({period_string})"
 
 	@frappe.whitelist()
 	def finalize_stripe_invoice(self):

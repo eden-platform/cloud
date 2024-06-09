@@ -13,7 +13,7 @@ import frappe.utils
 Used to create notifications if the Deploy error is something that can
 be handled by the user.
 
-Ref: https://github.com/frappe/press/pull/1544
+Ref: https://github.com/eden-platform/cloud/pull/1544
 
 To handle an error:
 1. Create a doc page that helps the user get out of it under: frappecloud.com/docs/common-issues

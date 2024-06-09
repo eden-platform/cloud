@@ -105,7 +105,7 @@ RUN curl -fsSL https://code-server.dev/install.sh | sh `#stage-pre-code-server`
 {% endif %}
 
 # Install Fonts
-RUN git clone --progress --depth 1 https://github.com/frappe/fonts.git /tmp/fonts \
+RUN git clone --progress --depth 1 https://github.com/eden-platform/fonts.git /tmp/fonts \
   && rm -rf /etc/fonts && mv /tmp/fonts/etc_fonts /etc/fonts \
   && rm -rf /usr/share/fonts && mv /tmp/fonts/usr_share_fonts /usr/share/fonts \
   && rm -rf /tmp/fonts \

@@ -4,11 +4,7 @@ from datetime import timedelta
 from itertools import cycle
 
 agents = [
-	"shadrak@erpnext.com",
-	"balamurali@erpnext.com",
-	"aditya@erpnext.com",
-	"athul@erpnext.com",
-	"rutwik@frappe.io",
+	"support@dpcco.me",
 ]
 
 
@@ -38,7 +34,6 @@ def next_weekdays(from_: datetime.date, till: datetime.date):
 def main():
 	agent_cycle = cycle(agents)
 	weekday_cycle = agents
-	# weekday_cycle.remove("aditya@erpnext.com")
 	weekday_cycle = cycle(weekday_cycle)
 
 	from_ = datetime.date.today()

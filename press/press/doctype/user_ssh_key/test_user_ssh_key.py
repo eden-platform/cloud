@@ -86,7 +86,7 @@ class TestUserSSHKey(FrappeTestCase):
 		with self.assertRaisesRegex(
 			frappe.ValidationError, "You must supply a key in OpenSSH public key format"
 		):
-			create_test_user_ssh_key(user.name, "ubuntu@frappe.cloud")
+			create_test_user_ssh_key(user.name, "ubuntu@edencloud.us")
 
 	def test_adding_partial_of_valid_key_with_valid_number_of_data_characters_fails(
 		self,

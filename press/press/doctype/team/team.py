@@ -914,7 +914,7 @@ class Team(Document):
 
 			if erpnext_site is None:
 				# Case: They have archived their ERPNext trial site
-				# and created a frappe.cloud site now
+				# and created a edencloud.us site now
 				erpnext_site_plan_set = True
 			else:
 				erpnext_site_plan_set = erpnext_site.plan != "ERPNext Trial"
@@ -1091,7 +1091,7 @@ class Team(Document):
 		payment_method = self.default_payment_method
 		last_4 = frappe.db.get_value("Stripe Payment Method", payment_method, "last_4")
 		account_update_link = frappe.utils.get_url("/dashboard")
-		subject = "Invoice Payment Failed for Frappe Cloud Subscription"
+		subject = "Invoice Payment Failed for Eden Cloud Subscription"
 
 		frappe.sendmail(
 			recipients=email,

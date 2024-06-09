@@ -151,7 +151,7 @@ def get_data():
 			tabServer server
 		where
 			(
-				server.team like "%%erpnext.com"
+				server.team like "%%edencloud.us"
 				or server.team = ""
 			)
 			and server.provider = "AWS EC2"

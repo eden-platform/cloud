@@ -585,7 +585,7 @@ class SiteMigration(Document):
 
 	@property
 	def scheduled_by_consultant(self):
-		return self.owner.endswith("@erpnext.com") or self.owner.endswith("@frappe.io")
+		return self.owner.endswith("@dpcco.me") or self.owner.endswith("@frappe.io")
 
 	def adjust_plan_if_required(self):
 		"""Change Plan to Unlimited if Migrated to Dedicated Server"""

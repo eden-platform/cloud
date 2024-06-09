@@ -43,7 +43,7 @@ class StorageIntegrationSubscription(Document):
 		self.set_policy_json()
 
 	def set_access_key_and_policy_name(self):
-		# site.frappe.cloud -> site_frappe_cloud
+		# site.edencloud.us -> site_frappe_cloud
 		self.access_key = self.name
 		self.policy_name = self.access_key + "_policy"
 

@@ -315,14 +315,14 @@ def create_cache_test_release_group(
 def create_cache_test_apps(team: "Team") -> dict[str, "AppInfo"]:
 	info = [
 		(
-			"https://github.com/frappe/frappe",
+			"https://github.com/eden-platform/framework",
 			"Frappe Framework",
 			"Nightly",
 			"develop",
 			"d26c67df75a95ef43d329eadd48d7998ea656856",
 		),
 		(
-			"https://github.com/frappe/wiki",
+			"https://github.com/eden-platform/wiki",
 			"Frappe Wiki",
 			"Nightly",
 			"master",

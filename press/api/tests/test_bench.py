@@ -45,7 +45,7 @@ class TestAPIBench(FrappeTestCase):
 		self.app = create_test_app()
 		self.app_source = self.app.add_source(
 			self.version,
-			repository_url="https://github.com/frappe/frappe",
+			repository_url="https://github.com/eden-platform/framework",
 			branch="version-15",
 			team=get_current_team(),
 			public=True,

@@ -68,8 +68,8 @@ class TestTeam(unittest.TestCase):
 		Team.create_user("sys_mgr", email="testuser1@gmail.com", role="System Manager")
 
 		team = create_test_team()
-		email = "testuser@frappe.cloud"
-		team.create_user_for_member("test", "user", "testuser@frappe.cloud")
+		email = "testuser@edencloud.us"
+		team.create_user_for_member("test", "user", "testuser@edencloud.us")
 		self.assertTrue(
 			team.has_member(email)
 		)  # kinda dumb because we assume has_member method is correct

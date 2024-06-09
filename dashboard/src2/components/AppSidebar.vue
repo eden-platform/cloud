@@ -35,7 +35,7 @@
 						<FCLogo class="h-8 w-8 shrink-0 rounded" />
 						<div class="ml-2 flex flex-1 flex-col overflow-hidden">
 							<div class="text-base font-medium leading-none text-gray-900">
-								Frappe Cloud
+								Eden Cloud
 							</div>
 							<Tooltip :text="$team?.doc?.user || null">
 								<div

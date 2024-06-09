@@ -169,7 +169,7 @@ def send_login_link(email):
 		print()
 
 	frappe.sendmail(
-		subject="Login to Frappe Cloud",
+		subject="Login to Eden Cloud",
 		recipients=email,
 		template="one_time_login_link",
 		args={"link": link, "minutes": minutes},
@@ -1085,7 +1085,7 @@ def fuse_list():
 @frappe.whitelist()
 def get_permission_options(name, ptype):
 	"""
-	[{'doctype': 'Site', 'name': 'ccc.frappe.cloud', title: '', 'perms': 'press.api.site.get'}, ...]
+	[{'doctype': 'Site', 'name': 'ccc.edencloud.us', title: '', 'perms': 'press.api.site.get'}, ...]
 	"""
 	from press.press.doctype.press_method_permission.press_method_permission import (
 		available_actions,

@@ -80,7 +80,7 @@ def all(server_filter=None):
 		query = app_server_query + database_server_query
 
 	# union isn't supported in qb for run method
-	# https://github.com/frappe/frappe/issues/15609
+	# https://github.com/eden-platform/framework/issues/15609
 	servers = frappe.db.sql(query.get_sql(), as_dict=True)
 	for server in servers:
 		server_plan_name = frappe.get_value("Server", server.name, "plan")

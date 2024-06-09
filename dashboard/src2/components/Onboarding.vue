@@ -1,9 +1,9 @@
 <template>
 	<div class="mx-auto max-w-2xl rounded-lg border p-8">
 		<div class="prose prose-sm max-w-none">
-			<h1 class="text-2xl font-semibold">Welcome to Frappe Cloud</h1>
+			<h1 class="text-2xl font-semibold">Welcome to Eden Cloud</h1>
 			<p>
-				Frappe Cloud makes it easy to manage sites and apps like ERPNext in an
+				Eden Cloud makes it easy to manage sites and apps like ERPNext in an
 				easy to use dashboard with powerful features like automatic backups,
 				custom domains, SSL certificates, custom apps, automatic updates and
 				more.
@@ -32,7 +32,7 @@
 					</div>
 					<div class="mt-2 pl-7" v-if="pendingSiteRequest.status == 'Error'">
 						<p class="mt-2 text-p-base text-gray-800">
-							Please contact Frappe Cloud support by clicking on the button
+							Please contact Eden Cloud support by clicking on the button
 							below.
 						</p>
 						<Button class="mt-2" link="/support"> Contact Support </Button>

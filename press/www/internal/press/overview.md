@@ -8,7 +8,7 @@ Steps to setup your own production/development press installation.
 
 ### Basic
 
-- **Domain** - Domain to use for Frappe Cloud sites and servers. You should have access to the DNS settings of this domain (See DNS section).
+- **Domain** - Domain to use for Eden Cloud sites and servers. You should have access to the DNS settings of this domain (See DNS section).
 
 ### DNS
 
@@ -18,7 +18,7 @@ Currently only supported provider is AWS Route 53, uses [Route 53 plugin for Cer
 
 ### Let's Encrypt
 
-- **Certbot Directory**: 
+- **Certbot Directory**:
 
   By default Certbot uses `/etc/letsencrypt`, `/var/log/letsencrypt` and `/var/lib/letsencrypt` directories. Writing to these directories requires root access, to avoid this, we use `--logs-dir`, `--work-dir` and `--config-dir` flags to run certbot commands without root privileges.
 
@@ -39,7 +39,7 @@ After setting these, click **Obtain TLS Certificate** (Requires **Basic** > **Do
 
 ### GitHub
 
-1. Go To **Press Settings** > **GitHub** 
+1. Go To **Press Settings** > **GitHub**
 1. Click on **Create GitHub App**
 1. Name your app and click **Create GitHub App for ...**
 
@@ -59,7 +59,7 @@ After setting these, click **Obtain TLS Certificate** (Requires **Basic** > **Do
 **Docker Registry**: Built docker images are pushed here (this can be self hosted service or a managed container registry e.g. Docker Hub, DigitalOcean Container Registry, Amazon ECR etc.).
 
 **Clone Directory**: Custom apps are cloned and kept in this directory to avoid repeated cloning. Directory Structure looks like this
-  
+
 ```bash
 .
 ├── frappe/

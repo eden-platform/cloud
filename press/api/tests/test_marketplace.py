@@ -303,7 +303,7 @@ class TestAPIMarketplace(unittest.TestCase):
 			"name": "email_delivery_service",
 			"title": "Email Delivery Service",
 			"version": "Version 14",
-			"repository_url": "https://github.com/frappe/email_delivery_service",
+			"repository_url": "https://github.com/eden-platform/email_delivery_service",
 			"branch": "develop",
 			"github_installation_id": "",
 		}

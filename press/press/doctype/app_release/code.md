@@ -4,13 +4,13 @@ docker run -it -p 127.0.0.1:8021:8080 \
     --env PASSWORD=3ZRoh4XT7MhscBAn2dcdDMQWt8HoWpZF \
     -d --name codeserver --restart=always \
     codercom/code-server:latest \
-    --disable-telemetry --proxy-domain code.staging.frappe.cloud --verbose /home/coder/project
+    --disable-telemetry --proxy-domain code.staging.edencloud.us --verbose /home/coder/project
 ```
 
 ```
 server {
     listen 80;
-    server_name code.staging.frappe.cloud;
+    server_name code.staging.edencloud.us;
     location / {
         proxy_pass                          http://127.0.0.1:8021;
         proxy_http_version 1.1;

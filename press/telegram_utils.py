@@ -160,11 +160,11 @@ doctype name execute method argument1 argument2 ...
 doctype = site|bench|server|proxy-server|database-server
 
 ```
-server f17.frappe.cloud execute reboot```
+server f17.edencloud.us execute reboot```
 ```
-site docs.frappe.cloud get status```
+site docs.edencloud.us get status```
 ```
-bench docs.frappe.cloud set auto_scale_workers 0```
+bench docs.edencloud.us set auto_scale_workers 0```
 ```
-server f17.frappe.cloud execute increase_disk_size 25```
+server f17.edencloud.us execute increase_disk_size 25```
 """

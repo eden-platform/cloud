@@ -4,15 +4,15 @@ Some adblockers don't seem to like third party domains and "plausible.js"
 
 ```
 location = /js/script.js {
-	proxy_pass https://analytics.frappe.cloud/js/plausible.js;
+	proxy_pass https://analytics.edencloud.us/js/plausible.js;
 	proxy_buffering on;
 
 	proxy_cache jscache;
 	proxy_cache_valid 200 6h;
 	proxy_cache_use_stale updating error timeout invalid_header http_500;
 
-	proxy_set_header Host analytics.frappe.cloud;
-	proxy_ssl_name analytics.frappe.cloud;
+	proxy_set_header Host analytics.edencloud.us;
+	proxy_ssl_name analytics.edencloud.us;
 	proxy_ssl_server_name on;
 	proxy_ssl_session_reuse off;
 
@@ -21,7 +21,7 @@ location = /js/script.js {
 }
 
 location = /api/event {
-	proxy_pass https://analytics.frappe.cloud/api/event;
+	proxy_pass https://analytics.edencloud.us/api/event;
 	proxy_buffering on;
 	proxy_http_version 1.1;
 
@@ -29,8 +29,8 @@ location = /api/event {
 	proxy_set_header X-Forwarded-Proto	$scheme;
 	proxy_set_header X-Forwarded-Host	$host;
 
-	proxy_set_header Host analytics.frappe.cloud;
-	proxy_ssl_name analytics.frappe.cloud;
+	proxy_set_header Host analytics.edencloud.us;
+	proxy_ssl_name analytics.edencloud.us;
 	proxy_ssl_server_name on;
 	proxy_ssl_session_reuse off;
 

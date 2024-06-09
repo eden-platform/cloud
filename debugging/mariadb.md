@@ -27,7 +27,7 @@ This has the latest MariaDB 10.6 with all the debug symbols necessary to generat
 Copy the coredump locally for debugging.
 
 ```
-scp -C -oProxyCommand="ssh -o 'ForwardAgent yes' frappe@frappe.cloud 'ssh-add && nc %h %p'" root@m<y>-mumbai.frappe.cloud:/root/core.<x>.gz .
+scp -C -oProxyCommand="ssh -o 'ForwardAgent yes' frappe@edencloud.us 'ssh-add && nc %h %p'" root@m<y>-mumbai.edencloud.us:/root/core.<x>.gz .
 ```
 
 Extract the compressed core file.

@@ -6,7 +6,7 @@ We need to build this on Ubuntu 20.04 itself. But to host the repository we need
 
 We'll use [Reprepro](https://wikitech.wikimedia.org/wiki/Reprepro) to create a Ubuntu repository. Older releases of reprepro do not work well with ddeb packages (debug symbols).
 
-At the end, we'll have our MariaDB 10.6.16+ packages for Ubuntu 20.04 hosted on packages.frappe.cloud.
+At the end, we'll have our MariaDB 10.6.16+ packages for Ubuntu 20.04 hosted on packages.edencloud.us.
 
 ---
 
@@ -104,7 +104,7 @@ gpg --armor --output /home/frappe/repository/frappe.gpg.key --export-options exp
 
 ### Setup Reprepro
 
-Create the directory structure that looks like our urls (https://packages.frappe.cloud/mariadb/10.6)
+Create the directory structure that looks like our urls (https://packages.edencloud.us/mariadb/10.6)
 
 Reprepro needs two config files `conf/distributions` and `conf/options`
 
@@ -176,7 +176,7 @@ usermod -aG frappe www-data
 ```nginx
 echo "server {
     listen 80;
-    server_name packages.frappe.cloud;
+    server_name packages.edencloud.us;
 
     location / {
         root /home/frappe/repository;
@@ -194,14 +194,14 @@ echo "server {
 ```
 
 ```sh
-ln -s /home/frappe/nginx.conf /etc/nginx/conf.d/packages.frappe.cloud.conf
+ln -s /home/frappe/nginx.conf /etc/nginx/conf.d/packages.edencloud.us.conf
 ```
 
-Setup TLS for `packages.frappe.cloud`
+Setup TLS for `packages.edencloud.us`
 
 ```sh
 snap install --classic certbot
-certbot --nginx --agree-tos --email developers@frappe.io --domains packages.frappe.cloud
+certbot --nginx --agree-tos --email developers@frappe.io --domains packages.edencloud.us
 ```
 
 ### Install patched MariaDB
@@ -209,13 +209,13 @@ certbot --nginx --agree-tos --email developers@frappe.io --domains packages.frap
 Fetch OpenPGP key
 
 ```sh
-wget -O - https://packages.frappe.cloud/frappe.gpg.key | apt-key add -
+wget -O - https://packages.edencloud.us/frappe.gpg.key | apt-key add -
 ```
 
 Setup repository and install as usual
 
 ```sh
-echo "deb https://packages.frappe.cloud/mariadb/10.6 focal main" > /etc/apt/sources.list.d/mariadb.list"
+echo "deb https://packages.edencloud.us/mariadb/10.6 focal main" > /etc/apt/sources.list.d/mariadb.list"
 apt update
 apt install mariadb-server
 ```
@@ -223,7 +223,7 @@ apt install mariadb-server
 For debug symbols fetch from `main/debug`
 
 ```sh
-echo "deb https://packages.frappe.cloud/mariadb/10.6 focal main main/debug" > /etc/apt/sources.list.d/mariadb.list"
+echo "deb https://packages.edencloud.us/mariadb/10.6 focal main main/debug" > /etc/apt/sources.list.d/mariadb.list"
 apt update
 apt install mariadb-server mariadb-server-core-10.6-dbgsym
 ```

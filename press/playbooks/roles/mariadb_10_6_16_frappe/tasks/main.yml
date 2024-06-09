@@ -15,12 +15,12 @@
 
 - name: Add MariaDB Repository Key
   apt_key:
-    url: https://packages.frappe.cloud/frappe.gpg.key
+    url: https://packages.edencloud.us/frappe.gpg.key
     state: present
 
 - name: Add MariaDB Repository
   apt_repository:
-    repo: deb https://packages.frappe.cloud/mariadb/10.6 focal main
+    repo: deb https://packages.edencloud.us/mariadb/10.6 focal main
     state: present
     update_cache: true
 

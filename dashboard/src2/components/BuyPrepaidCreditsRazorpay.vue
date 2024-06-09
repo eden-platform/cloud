@@ -77,7 +77,7 @@ export default {
 			const options = {
 				key: data.key_id,
 				order_id: data.order_id,
-				name: 'Frappe Cloud',
+				name: 'Eden Cloud',
 				image: '/assets/press/images/frappe-cloud-logo.png',
 				prefill: {
 					email: this.$team.doc.user

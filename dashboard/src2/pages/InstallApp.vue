@@ -212,7 +212,7 @@ export default {
 	},
 	pageMeta() {
 		return {
-			title: `Install ${this.appDoc.title} - Frappe Cloud`
+			title: `Install ${this.appDoc.title} - Eden Cloud`
 		};
 	},
 	components: {

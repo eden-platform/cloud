@@ -14,7 +14,7 @@ WEBROOT_DIRECTORY = os.path.join(HOME_DIRECTORY, ".webroot")
 
 # We've already configured Route 53 zone for this
 # Don't change this unless you know what you're doing
-ROOT_DOMAIN = "local.frappe.dev"
+ROOT_DOMAIN = "local.eden.dev"
 AWS_ACCESS_KEY_ID = ""
 AWS_SECRET_ACCESS_KEY = ""
 
@@ -66,9 +66,9 @@ def complete_setup_wizard():
 	setup_complete(
 		{
 			"language": "English",
-			"country": "India",
-			"timezone": "Asia/Kolkata",
-			"currency": "INR",
+			"country": "United States",
+			"timezone": "America/New_York",
+			"currency": "USD",
 		}
 	)
 
@@ -277,19 +277,19 @@ def setup_teams():
 	from press.api.account import signup
 	from press.press.doctype.team.team import Team
 
-	signup("cloud@erpnext.com")
+	signup("support@dpcco.me")
 	request = frappe.get_all(
-		"Account Request", ["*"], {"email": "cloud@erpnext.com"}, limit=1
+		"Account Request", ["*"], {"email": "support@dpcco.me"}, limit=1
 	)[0]
-	cloud = Team.create_new(request, "Frappe", "Cloud", "FrappeCloud@1", "India", False)
+	cloud = Team.create_new(request, "Eden", "Cloud", "EdenCloud@1", "United States", False)
 
-	signup("aditya@erpnext.com")
+	signup("justin@dpcco.me")
 	request = frappe.get_all(
-		"Account Request", ["*"], {"email": "aditya@erpnext.com"}, limit=1
+		"Account Request", ["*"], {"email": "justin@dpcco.me"}, limit=1
 	)[0]
-	aditya = Team.create_new(request, "Aditya", "Hase", "AdityaHase@1", "India", False)
+	justin = Team.create_new(request, "Justin", "Donnaruma", "Justin@1", "United States", False)
 
-	cloud.append("team_members", {"user": aditya.name})
+	cloud.append("team_members", {"user": justin.name})
 	cloud.save()
 
 
@@ -320,14 +320,14 @@ def setup_plans():
 
 def setup_apps():
 	app = frappe.get_doc(
-		{"doctype": "App", "name": "frappe", "title": "Frappe Framework", "frappe": True}
+		{"doctype": "App", "name": "Eden", "title": "Eden Framework", "frappe": True}
 	).insert()
 	source = frappe.get_doc(
 		{
 			"doctype": "App Source",
 			"app": app.name,
 			"branch": "develop",
-			"repository_url": "https://github.com/frappe/frappe",
+			"repository_url": "https://github.com/eden-platform/eden",
 			"public": True,
 			"team": "Administrator",
 			"versions": [{"version": "Nightly"}],
@@ -336,7 +336,7 @@ def setup_apps():
 	frappe.get_doc(
 		{
 			"doctype": "Release Group",
-			"title": "Frappe",
+			"title": "Eden",
 			"version": "Nightly",
 			"team": "Administrator",
 			"apps": [{"app": app.name, "source": source.name}],

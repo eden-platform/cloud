@@ -51,10 +51,10 @@ BACKUP_JOB_RES = {
 		},
 	},
 	"offsite": {
-		"a.sql.gz": "bucket.frappe.cloud/2023-10-10/a.sql.gz",
-		"a.tar": "bucket.frappe.cloud/2023-10-10/a.tar",
-		"b.tar": "bucket.frappe.cloud/2023-10-10/b.tar",
-		"a.json": "bucket.frappe.cloud/2023-10-10/a.json",
+		"a.sql.gz": "bucket.edencloud.us/2023-10-10/a.sql.gz",
+		"a.tar": "bucket.edencloud.us/2023-10-10/a.tar",
+		"b.tar": "bucket.edencloud.us/2023-10-10/b.tar",
+		"a.json": "bucket.edencloud.us/2023-10-10/a.json",
 	},
 }
 

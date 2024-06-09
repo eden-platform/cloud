@@ -12,7 +12,7 @@
 					<div class="text-4xl font-semibold text-gray-900" v-else>
 						{{ saasProduct.data.title }}
 					</div>
-					<div class="text-base text-gray-700">Powered by Frappe Cloud</div>
+					<div class="text-base text-gray-700">Powered by Eden Cloud</div>
 				</div>
 			</template>
 			<div class="space-y-3" v-if="state == 'Pending'">
@@ -32,7 +32,7 @@
 							ref="domainSuffix"
 							class="flex items-center text-base text-gray-600"
 						>
-							.{{ saasProduct.data.domain || 'frappe.cloud' }}
+							.{{ saasProduct.data.domain || 'edencloud.us' }}
 						</div>
 					</template>
 				</FormControl>

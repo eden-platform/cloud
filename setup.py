@@ -9,11 +9,11 @@ with open("requirements.txt") as f:
 
 
 setup(
-	name="press",
+	name="cloud",
 	version=version,
-	description="Managed Frappe Hosting",
-	author="Frappe",
-	author_email="aditya@erpnext.com",
+	description="Cloud Management System for Eden Platform",
+	author="Don't Panic Consulting",
+	author_email="support@dpcco.me",
 	packages=find_packages(),
 	zip_safe=False,
 	include_package_data=True,

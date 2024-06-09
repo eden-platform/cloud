@@ -193,7 +193,7 @@ class BaseServer(Document, TagHelpers):
 
 	def get_agent_repository_url(self):
 		settings = frappe.get_single("Press Settings")
-		repository_owner = settings.agent_repository_owner or "frappe"
+		repository_owner = settings.agent_repository_owner or "eden-platform"
 		url = f"https://github.com/{repository_owner}/agent"
 		return url
 
@@ -230,6 +230,12 @@ class BaseServer(Document, TagHelpers):
 				ansible = Ansible(playbook="aws.yml", server=self, user="ubuntu")
 			elif self.provider == "OCI":
 				ansible = Ansible(playbook="oci.yml", server=self, user="ubuntu")
+			#elif self.provider == "Azure":
+			#	ansible = Ansible(playbook="azure.yml", server=self, user="ubuntu")
+			#elif self.provider == "GCP":
+			#	ansible = Ansible(playbook="gcp.yml", server=self, user="ubuntu")
+			#elif self.provider == "Digital Ocean":
+			#	ansible = Ansible(playbook="digital_ocean.yml", server=self, user="root")
 
 			ansible.run()
 			self.reload()
@@ -1422,4 +1428,4 @@ def is_dedicated_server(server_name):
 	if not isinstance(server_name, str):
 		frappe.throw("Invalid argument")
 	team = frappe.db.get_value("Server", server_name, "team") or ""
-	return "@erpnext.com" not in team
+	return "@dpcco.me" not in team

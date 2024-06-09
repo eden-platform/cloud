@@ -68,7 +68,7 @@ class SilencedAlert(Document):
 		keyword = f'{self.get_keyword_based_on_instance_type()}="{"erpdb.innoterra.co.in" or self.instance}"'
 		print(keyword)
 		res = requests.get(
-			f"https://monitor.frappe.cloud/alertmanager/api/v2/alerts/groups?filter={keyword}&silenced=false&active=true",
+			f"https://monitor.edencloud.us/alertmanager/api/v2/alerts/groups?filter={keyword}&silenced=false&active=true",
 			headers={"Authorization": f"Basic {auth_token}"},
 		)
 		if res.status_code == 200:
@@ -103,7 +103,7 @@ class SilencedAlert(Document):
 			"id": None,
 		}
 		res = requests.post(
-			"https://monitor.frappe.cloud/alertmanager/api/v2/silences",
+			"https://monitor.edencloud.us/alertmanager/api/v2/silences",
 			headers={"Authorization": f"Basic {auth_token}"},
 			json=data,
 		)
@@ -131,7 +131,7 @@ def check_silenced_alerts():
 		f"frappe:{monitor_server.get_password('grafana_password')}".encode("utf-8")
 	).decode("utf-8")
 	req = requests.get(
-		"https://monitor.frappe.cloud/alertmanager/api/v2/silences?silenced=false&inhibited=false&active=true",
+		"https://monitor.edencloud.us/alertmanager/api/v2/silences?silenced=false&inhibited=false&active=true",
 		headers={"Authorization": f"Basic {auth_token}"},
 	)
 	if req.status_code == 200:

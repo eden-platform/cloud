@@ -6,7 +6,7 @@
 					<img
 						:src="`/assets/press/images/frappecloud-logo.png`"
 						class="h-7 w-7 shrink-0"
-						alt="Frappe Cloud Logo"
+						alt="Eden Cloud Logo"
 					/>
 				</router-link>
 			</span>

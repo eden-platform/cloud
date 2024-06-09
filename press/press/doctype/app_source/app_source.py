@@ -90,7 +90,7 @@ class AppSource(Document):
 			versions.add(row.version)
 
 	def before_save(self):
-		# Assumes repository_url looks like https://github.com/frappe/erpnext
+		# Assumes repository_url looks like https://github.com/eden-platform/eden
 		self.repository_url = self.repository_url.removesuffix(".git")
 
 		_, self.repository_owner, self.repository = self.repository_url.rsplit("/", 2)

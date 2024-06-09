@@ -563,8 +563,8 @@ def create_razorpay_order(amount):
 		"amount": int(amount * 100),
 		"currency": team.currency,
 		"notes": {
-			"Description": "Order for Frappe Cloud Prepaid Credits",
-			"Team (Frappe Cloud ID)": team.name,
+			"Description": "Order for Eden Cloud Prepaid Credits",
+			"Team (Eden Cloud ID)": team.name,
 			"gst": gst_amount if team.currency == "INR" else 0,
 		},
 	}

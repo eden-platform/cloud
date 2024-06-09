@@ -192,7 +192,7 @@ const marketplacePromotionalBanners = createResource({
 			v-model="showPromotionalDialog"
 			@close="e => (clickedPromotion = null)"
 			:options="{
-				title: 'Frappe Cloud Marketplace',
+				title: 'Eden Cloud Marketplace',
 				actions: [
 					{
 						variant: 'solid',

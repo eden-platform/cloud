@@ -3,7 +3,7 @@ import requests
 import frappe
 from tqdm import tqdm
 
-frappe.init(site="frappe.cloud")
+frappe.init(site="edencloud.us")
 frappe.connect()
 settings = frappe.get_single("Press Settings")
 

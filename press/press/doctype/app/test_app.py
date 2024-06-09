@@ -29,7 +29,7 @@ class TestApp(unittest.TestCase):
 
 		source = app.add_source(
 			"Version 12",
-			"https://github.com/frappe/frappe",
+			"https://github.com/eden-platform/framework",
 			"version-12",
 			create_test_team().name,
 		)
@@ -45,7 +45,7 @@ class TestApp(unittest.TestCase):
 
 		source = app.add_source(
 			"Version 12",
-			"https://github.com/frappe/erpnext",
+			"https://github.com/eden-platform/eden",
 			"version-12",
 			create_test_team().name,
 		)
@@ -60,13 +60,13 @@ class TestApp(unittest.TestCase):
 
 		source_1 = app.add_source(
 			"Version 12",
-			"https://github.com/frappe/frappe",
+			"https://github.com/eden-platform/framework",
 			"version-12",
 			create_test_team().name,
 		)
 		source_2 = app.add_source(
 			"Version 13",
-			"https://github.com/frappe/frappe",
+			"https://github.com/eden-platform/framework",
 			"version-13",
 			create_test_team().name,
 		)
@@ -84,7 +84,7 @@ class TestApp(unittest.TestCase):
 
 		source_1 = app.add_source(
 			"Version 12",
-			"https://github.com/frappe/erpnext_documentation",
+			"https://github.com/eden-platform/erpnext_documentation",
 			"master",
 			team_name,
 		)
@@ -94,7 +94,7 @@ class TestApp(unittest.TestCase):
 
 		source_2 = app.add_source(
 			"Version 13",
-			"https://github.com/frappe/erpnext_documentation",
+			"https://github.com/eden-platform/erpnext_documentation",
 			"master",
 			team_name,
 		)
@@ -108,7 +108,7 @@ class TestApp(unittest.TestCase):
 		app = create_test_app("frappe", "Frappe Framework")
 		source_1 = app.add_source(
 			"Version 12",
-			"https://github.com/frappe/frappe",
+			"https://github.com/eden-platform/framework",
 			"version-12",
 			create_test_team().name,
 		)
@@ -118,7 +118,7 @@ class TestApp(unittest.TestCase):
 
 		source_2 = app.add_source(
 			"Version 13",
-			"https://github.com/frappe/frappe",
+			"https://github.com/eden-platform/framework",
 			"version-13",
 			create_test_team().name,
 		)

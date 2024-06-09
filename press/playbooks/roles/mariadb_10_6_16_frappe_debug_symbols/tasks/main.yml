@@ -1,7 +1,7 @@
 ---
 - name: Add MariaDB Debug Symbols Repository
   apt_repository:
-    repo: deb https://packages.frappe.cloud/mariadb/10.6 focal main/debug
+    repo: deb https://packages.edencloud.us/mariadb/10.6 focal main/debug
     state: present
     update_cache: true
 

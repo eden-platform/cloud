@@ -56,7 +56,7 @@
    "label": "Route"
   },
   {
-   "default": "frappe.cloud",
+   "default": "edencloud.us",
    "fieldname": "domain",
    "fieldtype": "Data",
    "label": "Domain"

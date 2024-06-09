@@ -24,6 +24,6 @@ def unlink_remote_files_from_site():
 		"Site", fields=["name"] + fields, filters=filters, or_filters=or_filters, pluck="name"
 	)
 
-	# s3 uploads.frappe.cloud has a 1 day expiry rule for all objects, so we'll unset those files here
+	# s3 uploads.edencloud.us has a 1 day expiry rule for all objects, so we'll unset those files here
 	for remote_file_type in fields:
 		frappe.db.set_value("Site", {"name": ("in", sites)}, remote_file_type, None)

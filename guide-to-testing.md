@@ -3,7 +3,7 @@
 Before we get into writing tests, please make sure you have pre-commit hook for
 styling tools setup so CI won't fail from these
 
-Instructions [here](https://github.com/frappe/press/issues/424#issuecomment-1193375098)
+Instructions [here](https://github.com/eden-platform/cloud/issues/424#issuecomment-1193375098)
 
 # Writing Tests for Press
 
@@ -66,16 +66,16 @@ keep reading.
 
 There's also a decorator you can use to fake the result of an agent job. For
 example, you may do it like so:
-https://github.com/frappe/press/blob/983631ccb59f88e57fd60fdad1615e9abd87d99f/press/api/tests/test_site.py#L243-L247
+https://github.com/eden-platform/cloud/blob/983631ccb59f88e57fd60fdad1615e9abd87d99f/press/api/tests/test_site.py#L243-L247
 
 This way you can use the name of the type of job and fake a response from the same.
 
 You may also fake the output obtained from the job which you can then use to test the callback that uses the same:
-https://github.com/frappe/press/blob/983631ccb59f88e57fd60fdad1615e9abd87d99f/press/api/tests/test_site.py#L305-L323
+https://github.com/eden-platform/cloud/blob/983631ccb59f88e57fd60fdad1615e9abd87d99f/press/api/tests/test_site.py#L305-L323
 
 It is also possible to fake multiple jobs in the same context, for when multiple jobs are processed in the same request or job:
 
-https://github.com/frappe/press/blob/983631ccb59f88e57fd60fdad1615e9abd87d99f/press/press/doctype/site_migration/test_site_migration.py#L29-L77
+https://github.com/eden-platform/cloud/blob/983631ccb59f88e57fd60fdad1615e9abd87d99f/press/press/doctype/site_migration/test_site_migration.py#L29-L77
 
 > Note that with this, you can't fake 2 results for the same type of job. This is still a limitation. As a workaround, you can have multiple `with` statements for such cases.
 
@@ -112,7 +112,7 @@ tell what it's trying to test is supposed without even having to read the code.
 Making the method name small is pointless; we're never going to reference this
 method anywhere in code, ever. Eg:
 
-https://github.com/frappe/press/blob/2503e523284fb905eca60acf3271d3fb1dccbc3f/press/press/doctype/site/test_site.py#L215-L228
+https://github.com/eden-platform/cloud/blob/2503e523284fb905eca60acf3271d3fb1dccbc3f/press/press/doctype/site/test_site.py#L215-L228
 
 You can also go the extra mile and write a function docstring. This docstring
 will be shown in the output when the testrunner detects that the test has
@@ -150,14 +150,14 @@ class TestBench(unittest.TestCase):
 
 You can also use the patch decorator on test methods too. Eg:
 
-https://github.com/frappe/press/blob/6dd6b2c8193b04f1aec1601d52ba09ce9dca8dfe/press/tests/test_cleanup.py#L280-L290
+https://github.com/eden-platform/cloud/blob/6dd6b2c8193b04f1aec1601d52ba09ce9dca8dfe/press/tests/test_cleanup.py#L280-L290
 The decorator passes the mocked function (which is a `Mock()` object) along as
 an argument, so you can later do asserts on it (if you want to).
 
 You can even use the decorator as context manager if you don't want to mock
 things for the entirety of the test.
 
-https://github.com/frappe/press/blob/6dd6b2c8193b04f1aec1601d52ba09ce9dca8dfe/press/tests/test_audit.py#L97-L102
+https://github.com/eden-platform/cloud/blob/6dd6b2c8193b04f1aec1601d52ba09ce9dca8dfe/press/tests/test_audit.py#L97-L102
 
 Here, we're actually faking the output of the function which usually calls a
 remote endpoint that's out of our control by adding the `new` argument to the
@@ -174,7 +174,7 @@ method.
 > case you want to do asserts on it, you can use the `wraps` kwarg instead of
 > new). Eg:
 
-https://github.com/frappe/press/blob/23711e2799f2d24dfd7bbe2b6cd148f54f4b253b/press/press/doctype/database_server_mariadb_variable/test_database_server_mariadb_variable.py#L138-L155
+https://github.com/eden-platform/cloud/blob/23711e2799f2d24dfd7bbe2b6cd148f54f4b253b/press/press/doctype/database_server_mariadb_variable/test_database_server_mariadb_variable.py#L138-L155
 
 Here, we check what args was Ansible constructor was called with.
 
@@ -200,9 +200,9 @@ control/predict when the background job will run and finish. So, when your code
 involves creating a background job, we can simply mock the call so that it runs
 in foreground instead. There's a utility method you can use to achieve this with ease:
 
-https://github.com/frappe/press/blob/23711e2799f2d24dfd7bbe2b6cd148f54f4b253b/press/press/doctype/database_server_mariadb_variable/test_database_server_mariadb_variable.py#L12
+https://github.com/eden-platform/cloud/blob/23711e2799f2d24dfd7bbe2b6cd148f54f4b253b/press/press/doctype/database_server_mariadb_variable/test_database_server_mariadb_variable.py#L12
 
-https://github.com/frappe/press/blob/23711e2799f2d24dfd7bbe2b6cd148f54f4b253b/press/press/doctype/database_server_mariadb_variable/test_database_server_mariadb_variable.py#L104-L108
+https://github.com/eden-platform/cloud/blob/23711e2799f2d24dfd7bbe2b6cd148f54f4b253b/press/press/doctype/database_server_mariadb_variable/test_database_server_mariadb_variable.py#L104-L108
 
 ## Running tests
 

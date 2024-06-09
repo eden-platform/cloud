@@ -64,8 +64,8 @@ class TestRootDomain(unittest.TestCase):
 		job.db_set("creation", creation)
 
 	def test_sites_being_renamed_are_considered_active(self):
-		new_site_name = "new_site.frappe.cloud"
-		old_site_name = "old_site.frappe.cloud"
+		new_site_name = "new_site.edencloud.us"
+		old_site_name = "old_site.edencloud.us"
 		root_domain = create_test_root_domain("frappe.dev")
 
 		self._create_fake_rename_job(new_site_name)

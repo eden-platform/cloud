@@ -91,7 +91,7 @@
 										v-element-size="onResize"
 										class="flex select-none items-center text-base text-gray-600"
 									>
-										.{{ saasProduct.domain || 'frappe.cloud' }}
+										.{{ saasProduct.domain || 'edencloud.us' }}
 									</div>
 								</template>
 							</FormControl>
@@ -141,7 +141,7 @@
 						<div v-else-if="siteRequest.doc.status == 'Error'">
 							<div class="text-p-base text-red-600">
 								There was an error creating your site. Please contact
-								<a class="underline" href="/support">Frappe Cloud Support</a>.
+								<a class="underline" href="/support">Eden Cloud Support</a>.
 							</div>
 						</div>
 					</div>
@@ -407,7 +407,7 @@ export default {
 		progressError() {
 			if (!this.siteRequest?.getProgress.data?.error) return;
 			if (this.progressErrorCount > 9) {
-				return 'An error occurred. Please contact <a href="/support">Frappe Cloud Support</a>.';
+				return 'An error occurred. Please contact <a href="/support">Eden Cloud Support</a>.';
 			}
 			if (this.progressErrorCount > 4) {
 				return 'An error occurred';

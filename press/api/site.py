@@ -1653,13 +1653,13 @@ def multipart_exit(file, id, action, parts=None):
 	)
 	if action == "abort":
 		response = s3_client.abort_multipart_upload(
-			Bucket="uploads.frappe.cloud", Key=file, UploadId=id
+			Bucket="uploads.edencloud.us", Key=file, UploadId=id
 		)
 	elif action == "complete":
 		parts = json.loads(parts)
 		# After completing for all parts, you will use complete_multipart_upload api which requires that parts list
 		response = s3_client.complete_multipart_upload(
-			Bucket="uploads.frappe.cloud",
+			Bucket="uploads.edencloud.us",
 			Key=file,
 			UploadId=id,
 			MultipartUpload={"Parts": parts},
