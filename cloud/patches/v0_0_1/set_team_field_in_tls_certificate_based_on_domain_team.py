@@ -7,8 +7,8 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "site_domain")
-	frappe.reload_doc("press", "doctype", "tls_certificate")
+	frappe.reload_doc("cloud", "doctype", "site_domain")
+	frappe.reload_doc("cloud", "doctype", "tls_certificate")
 	certificates = frappe.get_all(
 		"TLS Certificate", ["name", "domain"], {"wildcard": False}
 	)

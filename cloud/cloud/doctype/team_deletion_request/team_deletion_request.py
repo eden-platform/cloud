@@ -132,7 +132,7 @@ class TeamDeletionRequest(PersonalDataDeletionRequest):
 
 	def generate_url_for_confirmation(self):
 		params = get_signed_params({"team": self.team})
-		api = frappe.utils.get_url("/api/method/press.api.account.delete_team")
+		api = frappe.utils.get_url("/api/method/cloud.api.account.delete_team")
 		url = f"{api}?{params}"
 
 		if frappe.conf.developer_mode:
@@ -279,7 +279,7 @@ class TeamDeletionRequest(PersonalDataDeletionRequest):
 
 
 def process_team_deletion_requests():
-	# order in desc since deleting press data takes the most time
+	# order in desc since deleting cloud data takes the most time
 	doctype = "Team Deletion Request"
 	deletion_requests = frappe.get_all(
 		doctype,

@@ -9,8 +9,8 @@ from frappe.utils import update_progress_bar
 def execute():
 	frappe.db.sql("DROP TABLE IF EXISTS `tabSubscription`")
 
-	frappe.reload_doc("press", "doctype", "subscription", force=True)
-	frappe.reload_doc("press", "doctype", "site")
+	frappe.reload_doc("cloud", "doctype", "subscription", force=True)
+	frappe.reload_doc("cloud", "doctype", "site")
 
 	active_sites = frappe.db.get_all(
 		"Site",

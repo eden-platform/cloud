@@ -7,8 +7,8 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "erpnext_app")
-	frappe.reload_doc("press", "doctype", "press_settings")
+	frappe.reload_doc("cloud", "doctype", "erpnext_app")
+	frappe.reload_doc("cloud", "doctype", "press_settings")
 	frappe.clear_cache()
 	press_settings = frappe.get_doc("Press Settings", "Press Settings")
 	if not press_settings.get("cluster"):

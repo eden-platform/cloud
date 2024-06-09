@@ -493,7 +493,7 @@ def poll_pending_jobs():
 
 	for server in servers:
 		frappe.enqueue(
-			"press.press.doctype.agent_job.agent_job.poll_pending_jobs_server",
+			"cloud.cloud.doctype.agent_job.agent_job.poll_pending_jobs_server",
 			queue="short",
 			server=server,
 			job_id=f"poll_pending_jobs:{server.server}",

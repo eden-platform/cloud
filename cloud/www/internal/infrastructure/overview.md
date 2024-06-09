@@ -20,11 +20,11 @@ Local infrastructure subsystem is a faster, cheaper and more flexible alternativ
 - Libvirt/KVM - Virtualization provider.
 
 ### Installation
-Dependencies can be installed with 
+Dependencies can be installed with
 
 ```bash
 source env/bin/activate
-python3 apps/press/backbone/setup.py
+python3 apps/cloud/backbone/setup.py
 ```
 > Note: After this logout completely and login again to start with local infrastructure. Start a new shell session. if you're on a Non-GUI server.
 
@@ -32,7 +32,7 @@ python3 apps/press/backbone/setup.py
 
 To spawn virtual machines quickly, we'll create a ubuntu base image (as seen on DigitalOcean or other cloud providers). This image can later be used to spawn blank virtual machines in seconds.
 
-This can be done with (`backbone` CLI is installed with `press` application)
+This can be done with (`backbone` CLI is installed with `cloud` application)
 
 ```bash
 source env/bin/activate
@@ -41,16 +41,16 @@ backbone hypervisor build
 
 > Note: When running for the very first time this will download a ~500 MB ubuntu image.
 
-See contents of `press/backbone/packer` directory for more details.
+See contents of `cloud/backbone/packer` directory for more details.
 
 ### Spawning Virtual Machines
-There's no simple CLI for this at the moment. 
+There's no simple CLI for this at the moment.
 
 1. Create a Vagrant directory
 ```bash
 mkdir scratch
 cd scratch
-ln -s ../apps/press/backbone/vagrant/Vagrantfile Vagrantfile
+ln -s ../apps/cloud/backbone/vagrant/Vagrantfile Vagrantfile
 ```
 
 2. Start local cluster with the following command and provide sudo password when asked
@@ -58,7 +58,7 @@ ln -s ../apps/press/backbone/vagrant/Vagrantfile Vagrantfile
 vagrant up --no-parallel --provider=libvirt
 ```
 
-You can destroy the machines with 
+You can destroy the machines with
 ```
 vagrant destroy -f
 ```
@@ -66,7 +66,7 @@ and spawn them again with `vagrant up` command.
 
 Local machines have following names/ips by default
 
-|Type               |Name       |Public IP  |Private IP | 
+|Type               |Name       |Public IP  |Private IP |
 |-------------------|-----------|-----------|-----------|
 |Proxy Server       |n1.fc.dev  |10.0.1.101 |10.1.1.101 |
 |Frappe Server      |f1.fc.dev  |10.0.2.101 |10.1.2.101 |

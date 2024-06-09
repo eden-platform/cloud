@@ -43,11 +43,11 @@ class TestDatabaseServer(FrappeTestCase):
 		frappe.db.rollback()
 
 	@patch(
-		"press.press.doctype.database_server.database_server.Ansible",
+		"cloud.cloud.doctype.database_server.database_server.Ansible",
 		wraps=Ansible,
 	)
 	@patch(
-		"press.press.doctype.database_server.database_server.frappe.enqueue_doc",
+		"cloud.cloud.doctype.database_server.database_server.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	def test_mariadb_service_restarted_on_restart_mariadb_fn_call(
@@ -67,11 +67,11 @@ class TestDatabaseServer(FrappeTestCase):
 		)
 
 	@patch(
-		"press.press.doctype.database_server.database_server.Ansible",
+		"cloud.cloud.doctype.database_server.database_server.Ansible",
 		wraps=Ansible,
 	)
 	@patch(
-		"press.press.doctype.database_server.database_server.frappe.enqueue_doc",
+		"cloud.cloud.doctype.database_server.database_server.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	def test_memory_limits_updated_on_update_of_corresponding_fields(
@@ -99,11 +99,11 @@ class TestDatabaseServer(FrappeTestCase):
 		)
 
 	@patch(
-		"press.press.doctype.database_server.database_server.Ansible",
+		"cloud.cloud.doctype.database_server.database_server.Ansible",
 		wraps=Ansible,
 	)
 	@patch(
-		"press.press.doctype.database_server.database_server.frappe.enqueue_doc",
+		"cloud.cloud.doctype.database_server.database_server.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	def test_reconfigure_mariadb_exporter_play_runs_on_reconfigure_fn_call(
@@ -122,11 +122,11 @@ class TestDatabaseServer(FrappeTestCase):
 		)
 
 	@patch(
-		"press.press.doctype.database_server.database_server.Ansible",
+		"cloud.cloud.doctype.database_server.database_server.Ansible",
 		wraps=Ansible,
 	)
 	@patch(
-		"press.press.doctype.database_server.database_server.frappe.enqueue_doc",
+		"cloud.cloud.doctype.database_server.database_server.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	def test_exception_on_failed_reconfigure_fn_call(self, Mock_Ansible: Mock):
@@ -134,9 +134,9 @@ class TestDatabaseServer(FrappeTestCase):
 		server = create_test_database_server()
 		self.assertRaises(Exception, server.reconfigure_mariadb_exporter)
 
-	@patch("press.press.doctype.database_server.database_server.Ansible", new=Mock())
+	@patch("cloud.cloud.doctype.database_server.database_server.Ansible", new=Mock())
 	@patch(
-		"press.press.doctype.database_server.database_server.frappe.enqueue_doc",
+		"cloud.cloud.doctype.database_server.database_server.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	def test_adjust_memory_config_sets_memory_limits_with_some_buffer(self):

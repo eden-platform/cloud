@@ -150,7 +150,7 @@
 		toggleLoadingIndicator('show')
 
 		return frappe.call({
-			method: "press.www.marketplace.index.filter_by_category",
+			method: "cloud.www.marketplace.index.filter_by_category",
 			args: {
 				category: category
 			},
@@ -196,7 +196,7 @@
 		}
 
 		return frappe.call({
-			method: "press.www.marketplace.index.search",
+			method: "cloud.www.marketplace.index.search",
 			args: {
 				query: query,
 				offset: offset

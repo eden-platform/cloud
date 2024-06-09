@@ -7,7 +7,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "root_domain")
+	frappe.reload_doc("cloud", "doctype", "root_domain")
 	press_settings = frappe.get_doc("Press Settings", "Press Settings")
 	if (
 		press_settings.domain

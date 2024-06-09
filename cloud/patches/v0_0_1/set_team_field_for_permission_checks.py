@@ -16,7 +16,7 @@ def execute():
 		["Bench", "Release Group", "group"],
 	]
 	for target_doctype, source_doctype, link_fieldname in updates:
-		frappe.reload_doc("press", "doctype", frappe.scrub(target_doctype))
+		frappe.reload_doc("cloud", "doctype", frappe.scrub(target_doctype))
 		frappe.db.sql(
 			f"""
 			UPDATE `tab{target_doctype}` as target

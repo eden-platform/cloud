@@ -303,7 +303,7 @@ def schedule():
 def cleanup_offsite():
 	"""Delete expired (based on policy) offsite backups and mark em as Unavailable."""
 	frappe.enqueue(
-		"press.press.doctype.site.backups._cleanup_offsite", queue="long", timeout=3600
+		"cloud.cloud.doctype.site.backups._cleanup_offsite", queue="long", timeout=3600
 	)
 
 

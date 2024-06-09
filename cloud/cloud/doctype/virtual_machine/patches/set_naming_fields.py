@@ -5,7 +5,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "virtual_machine")
+	frappe.reload_doc("cloud", "doctype", "virtual_machine")
 
 	for machine in frappe.get_all(
 		"Virtual Machine", ["name", "index", "series", "domain"]

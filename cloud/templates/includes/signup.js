@@ -7,7 +7,7 @@ frappe.ready(function () {
 			args[e.name] = e.value;
 		});
 		frappe.call({
-			method: "press.www.signup.signup",
+			method: "cloud.www.signup.signup",
 			args: args,
 			type: "POST",
 			btn: page.find(".signup-button"),

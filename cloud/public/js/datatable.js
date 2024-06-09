@@ -1,3 +1,3 @@
 import DataTable from 'frappe-datatable';
 
-frappe.press.DataTable = DataTable;
+frappe.cloud.DataTable = DataTable;

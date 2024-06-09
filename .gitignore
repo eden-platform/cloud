@@ -135,12 +135,12 @@ dmypy.json
 *.swp
 tags
 node_modules
-press/docs/current
-press/public/dashboard
-press/www/dashboard.html
-press/www/dashboard-old.html
-press/public/css/email.css
-press/public/css/saas-next.css
+cloud/docs/current
+cloud/public/dashboard
+cloud/www/dashboard.html
+cloud/www/dashboard-old.html
+cloud/public/css/email.css
+cloud/public/css/saas-next.css
 dashboard/tailwind.theme.json
 
 # Backbone artefacts
@@ -151,8 +151,8 @@ backbone/packer/cloud-init.img
 backbone/packer/cloud-init-scaleway.img
 
 # marketplace
-press/public/css/marketplace.css
-press/public/css/marketplace-next.css
+cloud/public/css/marketplace.css
+cloud/public/css/marketplace-next.css
 
 # Vim
 .vim

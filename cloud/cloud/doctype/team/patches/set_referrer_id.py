@@ -3,7 +3,7 @@ from frappe.utils import update_progress_bar
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "team")
+	frappe.reload_doc("cloud", "doctype", "team")
 
 	teams = frappe.db.get_all(
 		"Team", filters={"referrer_id": ("is", "not set")}, pluck="name"

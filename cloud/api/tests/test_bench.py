@@ -79,12 +79,12 @@ class TestAPIBench(FrappeTestCase):
 		self.assertEqual(get_res["public"], False)
 
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc",
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(DeployCandidate, "_push_docker_image", new=Mock())
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
 	)
 	def test_deploy_fn_deploys_bench_container(self):
 		# mark frappe as approved so that the deploy can happen
@@ -117,12 +117,12 @@ class TestAPIBench(FrappeTestCase):
 		self._check_if_docker_image_was_built(group)
 
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc",
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(DeployCandidate, "schedule_build_and_deploy", new=Mock())
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
 	)
 	def test_deploy_and_update_fn_creates_bench_update(self):
 		group = new(
@@ -149,11 +149,11 @@ class TestAPIBench(FrappeTestCase):
 		self.assertEqual(bu_count_after, bu_count_before + 1)
 
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc",
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
 	)
 	def test_deploy_and_update_fn_fails_without_release_argument(self):
 		group = new(
@@ -176,7 +176,7 @@ class TestAPIBench(FrappeTestCase):
 		)
 
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
 	)
 	def test_deploy_fn_fails_without_apps(self):
 		frappe.set_user(self.team.user)
@@ -193,7 +193,7 @@ class TestAPIBench(FrappeTestCase):
 		self.assertRaises(TypeError, deploy, group)
 
 	@patch(
-		"press.press.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
+		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.frappe.db.commit", new=Mock()
 	)
 	def test_deploy_fn_fails_with_empty_apps(self):
 		frappe.set_user(self.team.user)

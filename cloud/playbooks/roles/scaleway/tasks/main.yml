@@ -9,7 +9,7 @@
 - name: Create Netplan Configuration File
   template:
     src: netplan.yaml
-    dest: /etc/netplan/99-press.yaml
+    dest: /etc/netplan/99-cloud.yaml
 
 - name: Generate Netplan Configuration
   shell: netplan generate

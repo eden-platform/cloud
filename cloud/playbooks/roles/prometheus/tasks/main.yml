@@ -57,8 +57,8 @@
   become: yes
   become_user: frappe
   template:
-    src: press.yml
-    dest: /home/frappe/prometheus/file_sd/press.yml
+    src: cloud.yml
+    dest: /home/frappe/prometheus/file_sd/cloud.yml
     force: true
     mode: 0600
 

@@ -364,7 +364,7 @@ def schedule_updates():
 	servers = frappe.get_all("Server", {"status": "Active"}, pluck="name")
 	for server in servers:
 		frappe.enqueue(
-			"press.press.doctype.site_update.site_update.schedule_updates_server",
+			"cloud.cloud.doctype.site_update.site_update.schedule_updates_server",
 			server=server,
 			job_id=f"schedule_updates:{server}",
 			deduplicate=True,

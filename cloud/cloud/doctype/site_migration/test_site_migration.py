@@ -61,7 +61,7 @@ BACKUP_JOB_RES = {
 
 @patch.object(RemoteFile, "download_link", new="http://test.com")
 @patch(
-	"press.press.doctype.site_migration.site_migration.frappe.db.commit", new=MagicMock
+	"cloud.cloud.doctype.site_migration.site_migration.frappe.db.commit", new=MagicMock
 )
 class TestSiteMigration(FrappeTestCase):
 	def tearDown(self):

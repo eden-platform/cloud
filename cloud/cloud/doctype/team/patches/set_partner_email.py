@@ -2,8 +2,8 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "team")
-	frappe.reload_doc("press", "doctype", "invoice")
+	frappe.reload_doc("cloud", "doctype", "team")
+	frappe.reload_doc("cloud", "doctype", "invoice")
 
 	partners = frappe.db.get_all("Team", filters={"erpnext_partner": True})
 

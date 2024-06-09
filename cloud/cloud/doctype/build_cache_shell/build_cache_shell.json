@@ -1,7 +1,7 @@
 {
  "actions": [
   {
-   "action": "press.press.doctype.build_cache_shell.build_cache_shell.run_command",
+   "action": "cloud.cloud.doctype.build_cache_shell.build_cache_shell.run_command",
    "action_type": "Server Action",
    "hidden": 1,
    "label": "Run"

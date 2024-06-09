@@ -152,7 +152,7 @@ def get_stripe():
 
 		if not secret_key:
 			frappe.throw(
-				"Setup stripe via Press Settings before using press.api.billing.get_stripe"
+				"Setup stripe via Press Settings before using cloud.api.billing.get_stripe"
 			)
 
 		stripe.api_key = secret_key
@@ -197,7 +197,7 @@ def get_razorpay_client():
 		if not (key_id and key_secret):
 			frappe.throw(
 				"Setup razorpay via Press Settings before using"
-				" press.api.billing.get_razorpay_client"
+				" cloud.api.billing.get_razorpay_client"
 			)
 
 		frappe.local.press_razorpay_client_object = razorpay.Client(auth=(key_id, key_secret))

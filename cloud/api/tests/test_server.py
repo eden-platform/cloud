@@ -151,7 +151,7 @@ class TestAPIServer(FrappeTestCase):
 		self.assertEqual(db_servers_before + 1, db_servers_after)
 
 	@patch(
-		"press.press.doctype.press_job.press_job.frappe.enqueue_doc",
+		"cloud.cloud.doctype.press_job.press_job.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(VirtualMachine, "provision", new=successful_provision)
@@ -182,7 +182,7 @@ class TestAPIServer(FrappeTestCase):
 		self.assertEqual(db_servers_before + 1, db_servers_after)
 
 	@patch(
-		"press.press.doctype.press_job.press_job.frappe.enqueue_doc",
+		"cloud.cloud.doctype.press_job.press_job.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(VirtualMachine, "provision", new=successful_provision)
@@ -284,7 +284,7 @@ class TestAPIServer(FrappeTestCase):
 		self.assertEqual(db_server.plan, db_plan_2.name)
 
 	@patch(
-		"press.press.doctype.press_job.press_job.frappe.enqueue_doc",
+		"cloud.cloud.doctype.press_job.press_job.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	)
 	@patch.object(VirtualMachine, "provision", new=successful_provision)

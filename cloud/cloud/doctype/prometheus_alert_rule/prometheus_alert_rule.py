@@ -87,7 +87,7 @@ class PrometheusAlertRule(Document):
 				{
 					"name": "web.hook",
 					"webhook_configs": [
-						{"url": frappe.utils.get_url("api/method/press.api.monitoring.alert")}
+						{"url": frappe.utils.get_url("api/method/cloud.api.monitoring.alert")}
 					],
 				}
 			],

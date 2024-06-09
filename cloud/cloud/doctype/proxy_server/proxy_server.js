@@ -103,6 +103,6 @@ frappe.ui.form.on('Proxy Server', {
 	},
 
 	hostname: function (frm) {
-		press.set_hostname_abbreviation(frm);
+		cloud.set_hostname_abbreviation(frm);
 	},
 });

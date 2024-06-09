@@ -7,7 +7,7 @@ from cloud.cloud.doctype.site.site import release_name
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "site")
+	frappe.reload_doc("cloud", "doctype", "site")
 	sites = frappe.get_all("Site", filters={"status": "Archived"})
 	for site in sites:
 		release_name(site.name)

@@ -3,7 +3,7 @@ from cloud.utils import log_error
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "team")
+	frappe.reload_doc("cloud", "doctype", "team")
 	teams = frappe.get_all("Team", pluck="name")
 
 	for name in teams:

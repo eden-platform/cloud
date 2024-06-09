@@ -7,10 +7,10 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "site")
-	frappe.reload_doc("press", "doctype", "account_request")
-	frappe.reload_doc("press", "doctype", "team")
-	frappe.reload_doc("press", "doctype", "team_member")
+	frappe.reload_doc("cloud", "doctype", "site")
+	frappe.reload_doc("cloud", "doctype", "account_request")
+	frappe.reload_doc("cloud", "doctype", "team")
+	frappe.reload_doc("cloud", "doctype", "team_member")
 
 	user_accounts = frappe.db.sql(
 		"SELECT user, account_key, creation FROM `tabUser Account`", as_dict=1

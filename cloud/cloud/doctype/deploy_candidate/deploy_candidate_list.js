@@ -14,7 +14,7 @@ function show_toggle_builds_button(list_view) {
 			list_view.page.add_inner_button(label, () => {
 				frappe
 					.xcall(
-						'press.press.doctype.deploy_candidate.deploy_candidate.toggle_builds',
+						'cloud.cloud.doctype.deploy_candidate.deploy_candidate.toggle_builds',
 						{ suspend: !suspend_builds },
 					)
 					.then(() => {

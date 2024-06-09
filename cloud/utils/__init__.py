@@ -266,14 +266,14 @@ def chunk(iterable, size):
 
 @cache(seconds=1800)
 def get_minified_script():
-	migration_script = "../apps/press/press/scripts/migrate.py"
+	migration_script = "../apps/cloud/cloud/scripts/migrate.py"
 	script_contents = open(migration_script).read()
 	return script_contents
 
 
 @cache(seconds=1800)
 def get_minified_script_2():
-	migration_script = "../apps/press/press/scripts/migrate_2.py"
+	migration_script = "../apps/cloud/cloud/scripts/migrate_2.py"
 	script_contents = open(migration_script).read()
 	return script_contents
 

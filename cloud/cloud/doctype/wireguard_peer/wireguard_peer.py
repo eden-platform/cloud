@@ -177,7 +177,7 @@ class WireguardPeer(Document):
 			],
 		}
 		outputText = frappe.render_template(
-			"press/doctype/wireguard_peer/templates/wg0.conf", variables, is_path=True
+			"cloud/doctype/wireguard_peer/templates/wg0.conf", variables, is_path=True
 		)
 		self.peer_config = outputText
 		self.save()

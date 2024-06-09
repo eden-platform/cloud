@@ -50,5 +50,5 @@
 - targets:
     - '{{ press_app_server }}'
   labels:
-    job: press
-    __metrics_path__: /metrics/press
+    job: cloud
+    __metrics_path__: /metrics/cloud

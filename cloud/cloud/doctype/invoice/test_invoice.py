@@ -403,7 +403,7 @@ class TestInvoice(unittest.TestCase):
 
 		self.assertEqual(invoice.status, "Draft")
 
-	@patch("press.api.billing.get_stripe")
+	@patch("cloud.api.billing.get_stripe")
 	def test_create_stripe_invoice_with_prepaid_credits(self, mock_stripe):
 		invoice = frappe.get_doc(
 			doctype="Invoice",

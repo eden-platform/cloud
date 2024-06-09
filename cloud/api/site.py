@@ -903,7 +903,7 @@ def get(name):
 			frappe.local.response["type"] = "redirect"
 			frappe.local.response[
 				"location"
-			] = f"/api/method/press.api.site.get?name={site_name}"
+			] = f"/api/method/cloud.api.site.get?name={site_name}"
 			return
 		else:
 			raise

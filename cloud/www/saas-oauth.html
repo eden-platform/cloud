@@ -70,7 +70,7 @@
 {%- endblock -%}
 
 {%- block script -%}
-<script src="/assets/press/js/form_controller.js"></script>
+<script src="/assets/cloud/js/form_controller.js"></script>
 <script>
 	let key = frappe.utils.get_url_arg('key');
 	let app = frappe.utils.get_url_arg('app');
@@ -117,7 +117,7 @@
 		$('#submitButton').prop('disabled', true);
 		$("#submitButton").html('<span class="mr-2">Creating site</span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
-		return frappe.call('press.api.oauth.saas_setup', { key, app, country, subdomain: subdomain })
+		return frappe.call('cloud.api.oauth.saas_setup', { key, app, country, subdomain: subdomain })
 			.then((r) => {
 				window.open(r.message, "_self");
 			});
@@ -143,7 +143,7 @@
 	function check_if_available(subdomain) {
 		return frappe
 			.call({
-				method: "press.api.saas.check_subdomain_availability",
+				method: "cloud.api.saas.check_subdomain_availability",
 				args: { subdomain, app: app },
 				type: "POST",
 			})

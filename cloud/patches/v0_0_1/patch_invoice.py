@@ -6,8 +6,8 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "invoice")
-	frappe.reload_doc("press", "doctype", "invoice_item")
+	frappe.reload_doc("cloud", "doctype", "invoice")
+	frappe.reload_doc("cloud", "doctype", "invoice_item")
 
 	# invoice site usage -> invoice item
 	frappe.db.sql(

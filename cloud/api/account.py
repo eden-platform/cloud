@@ -160,7 +160,7 @@ def send_login_link(email):
 		f"one_time_login_key:{key}", email, expires_in_sec=minutes * 60
 	)
 
-	link = get_url(f"/api/method/press.api.account.login_using_key?key={key}")
+	link = get_url(f"/api/method/cloud.api.account.login_using_key?key={key}")
 
 	if frappe.conf.developer_mode:
 		print()
@@ -1085,7 +1085,7 @@ def fuse_list():
 @frappe.whitelist()
 def get_permission_options(name, ptype):
 	"""
-	[{'doctype': 'Site', 'name': 'ccc.edencloud.us', title: '', 'perms': 'press.api.site.get'}, ...]
+	[{'doctype': 'Site', 'name': 'ccc.edencloud.us', title: '', 'perms': 'cloud.api.site.get'}, ...]
 	"""
 	from cloud.cloud.doctype.press_method_permission.press_method_permission import (
 		available_actions,

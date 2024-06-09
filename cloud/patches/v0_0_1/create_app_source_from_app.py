@@ -8,16 +8,16 @@ from frappe.utils.fixtures import sync_fixtures
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "app")
-	frappe.reload_doc("press", "doctype", "app_source")
-	frappe.reload_doc("press", "doctype", "frappe_version")
-	sync_fixtures("press")
-	frappe.reload_doc("press", "doctype", "app_source_version")
-	frappe.reload_doc("press", "doctype", "app_release")
-	frappe.reload_doc("press", "doctype", "app_release_difference")
-	frappe.reload_doc("press", "doctype", "release_group_app")
-	frappe.reload_doc("press", "doctype", "bench_app")
-	frappe.reload_doc("press", "doctype", "deploy_candidate_app")
+	frappe.reload_doc("cloud", "doctype", "app")
+	frappe.reload_doc("cloud", "doctype", "app_source")
+	frappe.reload_doc("cloud", "doctype", "frappe_version")
+	sync_fixtures("cloud")
+	frappe.reload_doc("cloud", "doctype", "app_source_version")
+	frappe.reload_doc("cloud", "doctype", "app_release")
+	frappe.reload_doc("cloud", "doctype", "app_release_difference")
+	frappe.reload_doc("cloud", "doctype", "release_group_app")
+	frappe.reload_doc("cloud", "doctype", "bench_app")
+	frappe.reload_doc("cloud", "doctype", "deploy_candidate_app")
 	distinct_apps = frappe.get_all("App", ["title", "scrubbed"], group_by="scrubbed")
 
 	for distinct_app in distinct_apps:
@@ -81,5 +81,5 @@ def delete():
 	for source in frappe.get_all("App Source"):
 		frappe.delete_doc("App Source", source.name)
 	frappe.db.delete(
-		"Patch Log", {"patch": "press.patches.v0_0_1.create_app_source_from_app"}
+		"Patch Log", {"patch": "cloud.patches.v0_0_1.create_app_source_from_app"}
 	)

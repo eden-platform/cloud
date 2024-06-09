@@ -36,7 +36,7 @@ frappe.ui.form.on('Site', {
 		let site = frm.get_doc();
 		let account = await frappe
 			.call({
-				method: 'press.api.account.get',
+				method: 'cloud.api.account.get',
 			})
 			.then((resp) => resp.message);
 
@@ -392,7 +392,7 @@ ${r.message.error}
 function login_as_admin(site_name, reason = null) {
 	frappe
 		.call({
-			method: 'press.api.site.login',
+			method: 'cloud.api.site.login',
 			args: {
 				name: site_name,
 				reason: reason,

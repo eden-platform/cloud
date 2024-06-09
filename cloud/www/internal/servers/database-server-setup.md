@@ -7,7 +7,7 @@ Database Server runs MariaDB server listening on a private IP address.
 
 > Note: See [Server Setup](/internal/servers/server-setup) for detailed explanation.
 
-#### Requires 
+#### Requires
 - Press host must have root SSH access to the target machine.
 
 #### Steps
@@ -16,7 +16,7 @@ Database Server runs MariaDB server listening on a private IP address.
  - Set unique **Server ID** (a unique value will be set if left empty).
  - **Is Primary** and **Primary** fields are inconsequential at this point.
 
- ![New Database Server](/assets/press/images/internal/servers/database-server/new-database-server.png)
+ ![New Database Server](/assets/cloud/images/internal/servers/database-server/new-database-server.png)
 
 1. Click on **Actions > Setup Server**
 
@@ -24,4 +24,3 @@ Database Server runs MariaDB server listening on a private IP address.
 
 
 
-    

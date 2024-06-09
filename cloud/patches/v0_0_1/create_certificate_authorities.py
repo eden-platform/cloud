@@ -8,7 +8,7 @@ from cloud.install import create_certificate_authorities
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "certificate_authority")
+	frappe.reload_doc("cloud", "doctype", "certificate_authority")
 	if frappe.get_site_config().developer_mode:
 		frappe.conf.developer_mode = 1
 	create_certificate_authorities()

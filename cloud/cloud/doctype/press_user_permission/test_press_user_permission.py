@@ -20,7 +20,7 @@ class TestPressUserPermission(FrappeTestCase):
 		frappe.db.rollback()
 
 	def test_press_user_permission(self):
-		self.assertFalse(has_user_permission("Site", self.site.name, "press.api.site.login"))
+		self.assertFalse(has_user_permission("Site", self.site.name, "cloud.api.site.login"))
 
 		frappe.get_doc(
 			doctype="Press User Permission",
@@ -28,12 +28,12 @@ class TestPressUserPermission(FrappeTestCase):
 			user=frappe.session.user,
 			document_type="Site",
 			document_name=self.site.name,
-			action="press.api.site.login",
+			action="cloud.api.site.login",
 		).insert(ignore_permissions=True)
 
-		self.assertTrue(has_user_permission("Site", self.site.name, "press.api.site.login"))
+		self.assertTrue(has_user_permission("Site", self.site.name, "cloud.api.site.login"))
 		self.assertFalse(
-			has_user_permission("Site", self.site.name, "press.api.site.migrate")
+			has_user_permission("Site", self.site.name, "cloud.api.site.migrate")
 		)
 
 	def test_press_group_permission(self):
@@ -49,26 +49,26 @@ class TestPressUserPermission(FrappeTestCase):
 			group=group.name,
 			document_type="Site",
 			document_name=self.site.name,
-			action="press.api.site.overview",
+			action="cloud.api.site.overview",
 		).insert(ignore_permissions=True)
 
 		self.assertTrue(
 			has_user_permission(
-				"Site", self.site.name, "press.api.site.overview", groups=[group.name]
+				"Site", self.site.name, "cloud.api.site.overview", groups=[group.name]
 			)
 		)
 		self.assertFalse(
 			has_user_permission(
-				"Site", self.site.name, "press.api.site.migrate", groups=[group.name]
+				"Site", self.site.name, "cloud.api.site.migrate", groups=[group.name]
 			)
 		)
 
 	def test_press_config_permission(self):
 		perms = {
 			"global": {
-				"Site": {"*": "press.api.site.login"},
+				"Site": {"*": "cloud.api.site.login"},
 			},
-			"restricted": {"Site": {"test.frappe.dev": "press.api.site.migrate"}},
+			"restricted": {"Site": {"test.frappe.dev": "cloud.api.site.migrate"}},
 		}
 		frappe.get_doc(
 			doctype="Press User Permission",
@@ -77,13 +77,13 @@ class TestPressUserPermission(FrappeTestCase):
 			user=frappe.session.user,
 		).insert(ignore_permissions=True)
 
-		self.assertTrue(has_user_permission("Site", self.site.name, "press.api.site.login"))
+		self.assertTrue(has_user_permission("Site", self.site.name, "cloud.api.site.login"))
 		self.assertFalse(
-			has_user_permission("Site", "sometest.frappe.dev", "press.api.site.restore")
+			has_user_permission("Site", "sometest.frappe.dev", "cloud.api.site.restore")
 		)
 		self.assertFalse(
-			has_user_permission("Site", "test.frappe.dev", "press.api.site.migrate")
+			has_user_permission("Site", "test.frappe.dev", "cloud.api.site.migrate")
 		)
 		self.assertTrue(
-			has_user_permission("Site", "test.frappe.dev", "press.api.site.login")
+			has_user_permission("Site", "test.frappe.dev", "cloud.api.site.login")
 		)

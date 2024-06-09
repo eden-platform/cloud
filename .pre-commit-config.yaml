@@ -18,12 +18,12 @@ repos:
         # Ignore any files that might contain jinja / bundles
         exclude: |
           (?x)^(
-              press/public/dist/.*|
+              cloud/public/dist/.*|
               .*node_modules.*|
               .*boilerplate.*|
-              press/www/website_script.js|
-              press/templates/includes/.*|
-              press/public/js/.*min.js
+              cloud/www/website_script.js|
+              cloud/templates/includes/.*|
+              cloud/public/js/.*min.js
           )$
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -31,7 +31,7 @@ repos:
     hooks:
       - id: debug-statements
       - id: trailing-whitespace
-        files: 'press.*'
+        files: 'cloud.*'
         exclude: '.*json$|.*txt$|.*csv|.*md|.*svg'
       - id: check-merge-conflict
       - id: check-ast

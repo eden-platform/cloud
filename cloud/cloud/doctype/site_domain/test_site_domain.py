@@ -36,7 +36,7 @@ def create_test_site_domain(
 
 
 @patch.object(AgentJob, "after_insert", new=Mock())
-@patch("press.press.doctype.site.site._change_dns_record", new=Mock())
+@patch("cloud.cloud.doctype.site.site._change_dns_record", new=Mock())
 class TestSiteDomain(unittest.TestCase):
 	"""Tests for Site Domain Document methods."""
 
@@ -186,7 +186,7 @@ class TestSiteDomain(unittest.TestCase):
 		site_domain = create_test_site_domain(site.name, "hellohello.com")
 
 		site.archive()
-		with patch("press.press.doctype.site.site.frappe.delete_doc") as mock_frappe_del:
+		with patch("cloud.cloud.doctype.site.site.frappe.delete_doc") as mock_frappe_del:
 			site_cleanup_after_archive(site.name)
 		mock_frappe_del.assert_has_calls(
 			[call("Site Domain", site.name), call("Site Domain", site_domain.name)],

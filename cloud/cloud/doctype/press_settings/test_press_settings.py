@@ -10,7 +10,7 @@ from cloud.cloud.doctype.cluster.test_cluster import create_test_cluster
 
 
 def create_test_press_settings():
-	"""Create test press settings doc"""
+	"""Create test cloud settings doc"""
 	create_test_cluster()
 	if not frappe.db.exists("TLS Certificate", "*.fc.dev"):
 		frappe.get_doc(

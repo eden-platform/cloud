@@ -94,7 +94,7 @@ class RootDomain(Document):
 			log_error("Route 53 Record Deletion Error", domain=self.name)
 
 	def get_sites_being_renamed(self):
-		# get sites renamed in Server but doc not renamed in press
+		# get sites renamed in Server but doc not renamed in cloud
 		last_hour = datetime.now() - timedelta(hours=1)  # very large bound just to be safe
 		renaming_sites = frappe.get_all(
 			"Agent Job",

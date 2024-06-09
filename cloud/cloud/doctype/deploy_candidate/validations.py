@@ -171,7 +171,7 @@ class PreBuildValidations:
 
 
 def check_version(actual: str, expected: str) -> bool:
-	# Python version mentions on press dont mention the patch version.
+	# Python version mentions on cloud dont mention the patch version.
 	if actual.count(".") == 1:
 		actual += ".0"
 

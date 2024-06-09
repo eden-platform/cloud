@@ -23,7 +23,7 @@ from cloud.cloud.doctype.virtual_machine_image.virtual_machine_image import (
 from cloud.utils.test import foreground_enqueue_doc
 
 
-@patch("press.press.doctype.cluster.cluster.boto3.client", new=MagicMock())
+@patch("cloud.cloud.doctype.cluster.cluster.boto3.client", new=MagicMock())
 def create_test_cluster(
 	name: str = "Mumbai",
 	region: str = "ap-south-1",
@@ -107,9 +107,9 @@ class TestCluster(unittest.TestCase):
 @patch.object(VirtualMachineImage, "wait_for_availability", new=MagicMock())
 @patch.object(VirtualMachineImage, "after_insert", new=MagicMock())
 @patch(
-	"press.press.doctype.cluster.cluster.frappe.enqueue_doc", new=foreground_enqueue_doc
+	"cloud.cloud.doctype.cluster.cluster.frappe.enqueue_doc", new=foreground_enqueue_doc
 )
-@patch("press.press.doctype.cluster.cluster.frappe.db.commit", new=MagicMock())
+@patch("cloud.cloud.doctype.cluster.cluster.frappe.db.commit", new=MagicMock())
 class TestPrivateCluster(TestCluster):
 	@mock_ec2
 	@mock_ssm
@@ -187,9 +187,9 @@ class TestPrivateCluster(TestCluster):
 
 
 @patch.object(VirtualMachineImage, "wait_for_availability", new=MagicMock())
-@patch("press.press.doctype.cluster.cluster.frappe.db.commit", new=MagicMock())
+@patch("cloud.cloud.doctype.cluster.cluster.frappe.db.commit", new=MagicMock())
 @patch(
-	"press.press.doctype.cluster.cluster.frappe.enqueue_doc", new=foreground_enqueue_doc
+	"cloud.cloud.doctype.cluster.cluster.frappe.enqueue_doc", new=foreground_enqueue_doc
 )
 @patch.object(VirtualMachineImage, "after_insert", new=MagicMock())
 class TestPublicCluster(TestCluster):

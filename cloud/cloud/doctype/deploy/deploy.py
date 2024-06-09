@@ -65,7 +65,7 @@ class Deploy(Document):
 			bench.bench = new.name
 
 		frappe.enqueue(
-			"press.press.doctype.deploy.deploy.create_deploy_candidate_differences",
+			"cloud.cloud.doctype.deploy.deploy.create_deploy_candidate_differences",
 			destination=self.candidate,
 			enqueue_after_commit=True,
 		)

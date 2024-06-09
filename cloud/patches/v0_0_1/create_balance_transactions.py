@@ -8,7 +8,7 @@ from cloud.api.billing import get_stripe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "balance_transaction")
+	frappe.reload_doc("cloud", "doctype", "balance_transaction")
 
 	partners = frappe.db.get_all("Team", filters={"erpnext_partner": 1}, pluck="name")
 	for i, name in enumerate(partners):

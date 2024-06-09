@@ -7,7 +7,7 @@ from frappe.utils.fixtures import sync_fixtures
 
 
 def execute():
-	sync_fixtures("press")
+	sync_fixtures("cloud")
 	sites = frappe.get_all(
 		"Site",
 		fields=["name", "status"],

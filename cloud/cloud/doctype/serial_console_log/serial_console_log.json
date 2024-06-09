@@ -1,7 +1,7 @@
 {
  "actions": [
   {
-   "action": "press.press.doctype.serial_console_log.serial_console_log.run_reboot",
+   "action": "cloud.cloud.doctype.serial_console_log.serial_console_log.run_reboot",
    "action_type": "Server Action",
    "group": "Actions",
    "label": "Run Reboot Sequence"

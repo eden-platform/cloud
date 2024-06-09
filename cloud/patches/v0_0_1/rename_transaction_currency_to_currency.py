@@ -7,5 +7,5 @@ from frappe.model.utils.rename_field import rename_field
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "team")
+	frappe.reload_doc("cloud", "doctype", "team")
 	rename_field("Team", "transaction_currency", "currency")

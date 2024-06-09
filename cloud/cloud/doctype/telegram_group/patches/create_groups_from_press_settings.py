@@ -4,9 +4,9 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "telegram_group_topic")
-	frappe.reload_doc("press", "doctype", "telegram_group")
-	frappe.reload_doc("press", "doctype", "press_settings")
+	frappe.reload_doc("cloud", "doctype", "telegram_group_topic")
+	frappe.reload_doc("cloud", "doctype", "telegram_group")
+	frappe.reload_doc("cloud", "doctype", "press_settings")
 	settings = frappe.get_doc("Press Settings")
 	if settings.telegram_alert_chat_id:
 		group = frappe.get_doc(

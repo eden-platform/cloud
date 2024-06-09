@@ -8,7 +8,7 @@ import frappe
 def execute():
 	doctypes = ["Server", "Proxy Server", "Database Server"]
 	for doctype in doctypes:
-		frappe.reload_doc("press", "doctype", frappe.scrub(doctype))
+		frappe.reload_doc("cloud", "doctype", frappe.scrub(doctype))
 		servers = frappe.get_all(doctype, {"hostname": ("is", "not set")})
 		domain = frappe.db.get_single_value("Press Settings", "domain")
 		for server in servers:

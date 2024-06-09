@@ -7,7 +7,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "marketplace_app")
+	frappe.reload_doc("cloud", "doctype", "marketplace_app")
 	apps = frappe.get_all("Marketplace App", {"app": ("is", "not set")})
 	for app in apps:
 		frappe.db.set_value(

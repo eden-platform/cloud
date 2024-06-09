@@ -66,7 +66,7 @@ class CertificateAuthority(Document):
 			f.write(f"{secrets.randbits(16*8):0{32}x}\n")
 
 		template = "root.conf" if self.is_root_ca else "intermediate.conf"
-		template = f"press/press/doctype/certificate_authority/{template}"
+		template = f"cloud/cloud/doctype/certificate_authority/{template}"
 		with open(self.openssl_config_file, "w") as f:
 			openssl_config = frappe.render_template(template, {"doc": self}, is_path=True)
 			f.write(openssl_config)

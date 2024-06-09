@@ -243,6 +243,6 @@ frappe.ui.form.on('Database Server', {
 	},
 
 	hostname: function (frm) {
-		press.set_hostname_abbreviation(frm);
+		cloud.set_hostname_abbreviation(frm);
 	},
 });

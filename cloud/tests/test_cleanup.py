@@ -181,8 +181,8 @@ class TestGFS(unittest.TestCase):
 		self.assertEqual(older_backup.files_availability, "Unavailable")
 		self.assertEqual(newer_backup.files_availability, "Available")
 
-	@patch("press.press.doctype.site.backups.delete_remote_backup_objects")
-	@patch("press.press.doctype.site.backups.frappe.db.commit")
+	@patch("cloud.cloud.doctype.site.backups.delete_remote_backup_objects")
+	@patch("cloud.cloud.doctype.site.backups.frappe.db.commit")
 	def test_delete_remote_backup_objects_called(
 		self, mock_frappe_commit, mock_del_remote_backup_objects
 	):
@@ -239,8 +239,8 @@ class TestFIFO(unittest.TestCase):
 		self.assertEqual(old.files_availability, "Available")
 		self.assertEqual(new.files_availability, "Available")
 
-	@patch("press.press.doctype.site.backups.delete_remote_backup_objects")
-	@patch("press.press.doctype.site.backups.frappe.db.commit")
+	@patch("cloud.cloud.doctype.site.backups.delete_remote_backup_objects")
+	@patch("cloud.cloud.doctype.site.backups.frappe.db.commit")
 	def test_delete_remote_backup_objects_called(
 		self, mock_frappe_commit, mock_del_remote_backup_objects
 	):
@@ -266,7 +266,7 @@ class TestFIFO(unittest.TestCase):
 		self.assertEqual(len(args[0]), 3 * 2, msg=mock_del_remote_backup_objects.call_args)
 
 	def test_press_setting_updates_new_object(self):
-		"""Ensure updating press settings updates new FIFO objects."""
+		"""Ensure updating cloud settings updates new FIFO objects."""
 		press_settings = create_test_press_settings()
 		press_settings.offsite_backups_count = 2
 		press_settings.save()
@@ -278,11 +278,11 @@ class TestBackupRotationScheme(unittest.TestCase):
 	def tearDown(self):
 		frappe.db.rollback()
 
-	@patch("press.press.doctype.site.backups.GFS")
-	@patch("press.press.doctype.site.backups.FIFO")
-	@patch("press.press.doctype.site.backups.frappe.enqueue", foreground_enqueue)
+	@patch("cloud.cloud.doctype.site.backups.GFS")
+	@patch("cloud.cloud.doctype.site.backups.FIFO")
+	@patch("cloud.cloud.doctype.site.backups.frappe.enqueue", foreground_enqueue)
 	def test_press_setting_of_rotation_scheme_works(self, mock_FIFO, mock_GFS):
-		"""Ensure setting rotation scheme in press settings affect rotation scheme used."""
+		"""Ensure setting rotation scheme in cloud settings affect rotation scheme used."""
 		press_settings = create_test_press_settings()
 		press_settings.backup_rotation_scheme = "FIFO"
 		press_settings.save()
@@ -299,8 +299,8 @@ class TestBackupRotationScheme(unittest.TestCase):
 		mock_GFS.assert_called_once()
 		mock_FIFO.assert_not_called()
 
-	@patch("press.press.doctype.site.backups.delete_remote_backup_objects")
-	@patch("press.press.doctype.site.backups.frappe.db.commit")
+	@patch("cloud.cloud.doctype.site.backups.delete_remote_backup_objects")
+	@patch("cloud.cloud.doctype.site.backups.frappe.db.commit")
 	def test_local_backups_are_expired(
 		self, mock_frappe_commit, mock_del_remote_backup_objects
 	):
@@ -333,8 +333,8 @@ class TestBackupRotationScheme(unittest.TestCase):
 		self.assertEqual(backup_2_1.files_availability, "Unavailable")
 		self.assertEqual(backup_2_2.files_availability, "Available")
 
-	@patch("press.press.doctype.site.backups.delete_remote_backup_objects")
-	@patch("press.press.doctype.site.backups.frappe.db.commit")
+	@patch("cloud.cloud.doctype.site.backups.delete_remote_backup_objects")
+	@patch("cloud.cloud.doctype.site.backups.frappe.db.commit")
 	def test_local_backups_with_different_bench_configs_expire_sites(
 		self, mock_frappe_commit, mock_del_remote_backup_objects
 	):

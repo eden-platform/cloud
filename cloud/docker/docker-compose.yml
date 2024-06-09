@@ -96,19 +96,19 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/aditya/Frappe/benches/press/apps/press/mason/run/nginx
+      device: /home/aditya/Frappe/benches/cloud/apps/cloud/mason/run/nginx
   logs:
     driver_opts:
       type: none
       o: bind
-      device: /home/aditya/Frappe/benches/press/apps/press/mason/run/logs
+      device: /home/aditya/Frappe/benches/cloud/apps/cloud/mason/run/logs
   sites:
     driver_opts:
       type: none
       o: bind
-      device: /home/aditya/Frappe/benches/press/apps/press/mason/run/sites
+      device: /home/aditya/Frappe/benches/cloud/apps/cloud/mason/run/sites
   assets:
     driver_opts:
       type: none
       o: bind
-      device: /home/aditya/Frappe/benches/press/apps/press/mason/run/assets
+      device: /home/aditya/Frappe/benches/cloud/apps/cloud/mason/run/assets

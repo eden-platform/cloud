@@ -649,28 +649,28 @@ def frappecloud_migrator(local_site):
 	scheme = "https"
 
 	login_url = "{}://{}/api/method/login".format(scheme, remote_site)
-	upload_url = "{}://{}/api/method/press.api.site.new".format(scheme, remote_site)
-	remote_link_url = "{}://{}/api/method/press.api.site.get_upload_link".format(
+	upload_url = "{}://{}/api/method/cloud.api.site.new".format(scheme, remote_site)
+	remote_link_url = "{}://{}/api/method/cloud.api.site.get_upload_link".format(
 		scheme, remote_site
 	)
-	register_remote_url = "{}://{}/api/method/press.api.site.uploaded_backup_info".format(
+	register_remote_url = "{}://{}/api/method/cloud.api.site.uploaded_backup_info".format(
 		scheme, remote_site
 	)
-	options_url = "{}://{}/api/method/press.api.site.options_for_new".format(
+	options_url = "{}://{}/api/method/cloud.api.site.options_for_new".format(
 		scheme, remote_site
 	)
-	site_exists_url = "{}://{}/api/method/press.api.site.exists".format(
+	site_exists_url = "{}://{}/api/method/cloud.api.site.exists".format(
 		scheme, remote_site
 	)
-	site_info_url = "{}://{}/api/method/press.api.site.get".format(scheme, remote_site)
-	account_details_url = "{}://{}/api/method/press.api.account.get".format(
+	site_info_url = "{}://{}/api/method/cloud.api.site.get".format(scheme, remote_site)
+	account_details_url = "{}://{}/api/method/cloud.api.account.get".format(
 		scheme, remote_site
 	)
-	all_site_url = "{}://{}/api/method/press.api.site.all".format(scheme, remote_site)
-	restore_site_url = "{}://{}/api/method/press.api.site.restore".format(
+	all_site_url = "{}://{}/api/method/cloud.api.site.all".format(scheme, remote_site)
+	restore_site_url = "{}://{}/api/method/cloud.api.site.restore".format(
 		scheme, remote_site
 	)
-	finish_multipart_url = "{}://{}/api/method/press.api.site.multipart_exit".format(
+	finish_multipart_url = "{}://{}/api/method/cloud.api.site.multipart_exit".format(
 		scheme, remote_site
 	)
 

@@ -226,7 +226,7 @@ class AppReleaseApprovalRequest(Document):
 			for line in file["lines"]:
 				line["highlighted_context"] = highlight_context(line["context"])
 		html = frappe.render_template(
-			"press/press/doctype/app_release_approval_request/app_release_approval_request.html",
+			"cloud/cloud/doctype/app_release_approval_request/app_release_approval_request.html",
 			{"result": diff_result, "styles": styles},
 		)
 		self.result_html = html

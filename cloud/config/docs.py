@@ -2,8 +2,8 @@
 Configuration for docs
 """
 
-# source_link = "https://github.com/[org_name]/press"
-# docs_base_url = "https://[org_name].github.io/press"
+# source_link = "https://github.com/[org_name]/cloud"
+# docs_base_url = "https://[org_name].github.io/cloud"
 # headline = "App that does everything"
 # sub_heading = "Yes, you got that right the first time, everything"
 

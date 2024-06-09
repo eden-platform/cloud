@@ -7,7 +7,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "release_group")
+	frappe.reload_doc("cloud", "doctype", "release_group")
 	groups = frappe.get_all(
 		"Release Group", ["name", "_title"], {"title": ("is", "not set")}
 	)

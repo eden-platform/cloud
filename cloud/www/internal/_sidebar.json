@@ -13,7 +13,7 @@
     "group_items": [
       {
         "title": "Overview",
-        "route": "/internal/press/overview"
+        "route": "/internal/cloud/overview"
       }
     ]
   },

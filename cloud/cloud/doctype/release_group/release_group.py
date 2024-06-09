@@ -410,7 +410,7 @@ class ReleaseGroup(Document, TagHelpers):
 		with suppress(AttributeError):
 			if (
 				not frappe.flags.in_test
-				and frappe.request.path == "/api/method/press.api.bench.change_branch"
+				and frappe.request.path == "/api/method/cloud.api.bench.change_branch"
 			):
 				return  # Separate validation exists in set_app_source
 		for app in self.apps:

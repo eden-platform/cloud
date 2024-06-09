@@ -7,9 +7,9 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "release_group")
-	frappe.reload_doc("press", "doctype", "release_group_app")
-	frappe.reload_doc("press", "doctype", "release_group_server")
+	frappe.reload_doc("cloud", "doctype", "release_group")
+	frappe.reload_doc("cloud", "doctype", "release_group_app")
+	frappe.reload_doc("cloud", "doctype", "release_group_server")
 
 	groups = frappe.get_all("Release Group")
 	for group in groups:

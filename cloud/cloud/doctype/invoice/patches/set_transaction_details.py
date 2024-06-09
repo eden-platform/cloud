@@ -6,7 +6,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "invoice")
+	frappe.reload_doc("cloud", "doctype", "invoice")
 	invoices = frappe.db.get_all(
 		"Invoice",
 		{"status": "Paid", "docstatus": 1, "amount_paid": (">", 0), "transaction_amount": 0},

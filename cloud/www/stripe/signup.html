@@ -127,7 +127,7 @@
 {%- endblock -%}
 
 {%- block script -%}
-<script src="/assets/press/js/form_controller.js"></script>
+<script src="/assets/cloud/js/form_controller.js"></script>
 <script>
 	let controller;
 	const app = 'frappe';
@@ -244,7 +244,7 @@
 	function check_if_available(subdomain) {
 		return frappe
 			.call({
-				method: 'press.api.saas.check_subdomain_availability',
+				method: 'cloud.api.saas.check_subdomain_availability',
 				args: { subdomain, app: app },
 				type: 'POST',
 			})
@@ -265,7 +265,7 @@
 		values.stripe_setup = true;
 
 		return frappe.call({
-			method: 'press.api.saas.account_request',
+			method: 'cloud.api.saas.account_request',
 			args: values,
 			callback: (r) => {
 				accountRequestKey = r.message.account_request_key;
@@ -322,7 +322,7 @@
 				} else {
 					if (r.setupIntent.status === 'succeeded') {
 						frappe.call({
-							method: 'press.api.saas.setup_intent_success',
+							method: 'cloud.api.saas.setup_intent_success',
 							args: {
 								setup_intent: r.setupIntent,
 								account_request_key: accountRequestKey,

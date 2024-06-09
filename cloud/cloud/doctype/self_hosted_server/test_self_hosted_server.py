@@ -32,7 +32,7 @@ class TestSelfHostedServer(FrappeTestCase):
 	def test_successful_ping_ansible_sets_status_to_pending(self):
 		server = create_test_self_hosted_server("pinger")
 		with patch(
-			"press.press.doctype.self_hosted_server.self_hosted_server.Ansible.run",
+			"cloud.cloud.doctype.self_hosted_server.self_hosted_server.Ansible.run",
 			new=lambda x: create_test_ansible_play(
 				"Ping Server",
 				"ping.yml",
@@ -47,7 +47,7 @@ class TestSelfHostedServer(FrappeTestCase):
 	def test_failed_ping_ansible_sets_status_to_unreachable(self):
 		server = create_test_self_hosted_server("pinger")
 		with patch(
-			"press.press.doctype.self_hosted_server.self_hosted_server.Ansible.run",
+			"cloud.cloud.doctype.self_hosted_server.self_hosted_server.Ansible.run",
 			new=lambda x: create_test_ansible_play(
 				"Ping Server",
 				"ping.yml",
@@ -63,7 +63,7 @@ class TestSelfHostedServer(FrappeTestCase):
 	def test_get_apps_populates_apps_child_table(self):
 		server = create_test_self_hosted_server("apps")
 		with patch(
-			"press.press.doctype.self_hosted_server.self_hosted_server.Ansible.run",
+			"cloud.cloud.doctype.self_hosted_server.self_hosted_server.Ansible.run",
 			new=lambda x: _create_test_ansible_play_and_task(
 				server=server,
 				playbook="get_apps.yml",
@@ -94,7 +94,7 @@ class TestSelfHostedServer(FrappeTestCase):
 		server = create_test_self_hosted_server("sites")
 		server.bench_path = "/home/frappe/frappe-bench"
 		with patch(
-			"press.press.doctype.self_hosted_server.self_hosted_server.Ansible.run",
+			"cloud.cloud.doctype.self_hosted_server.self_hosted_server.Ansible.run",
 			new=lambda x: _create_test_ansible_play_and_task(
 				server=server,
 				playbook="get_sites.yml",

@@ -14,8 +14,8 @@ from cloud.cloud.doctype.site.test_site import create_test_site
 from cloud.cloud.doctype.site_backup.test_site_backup import create_test_site_backup
 
 
-@patch("press.press.doctype.site.backups.frappe.db.commit", new=MagicMock)
-@patch("press.press.doctype.site.backups.frappe.db.rollback", new=MagicMock)
+@patch("cloud.cloud.doctype.site.backups.frappe.db.commit", new=MagicMock)
+@patch("cloud.cloud.doctype.site.backups.frappe.db.rollback", new=MagicMock)
 @patch.object(AgentJob, "after_insert", new=Mock())
 class TestScheduledBackupJob(FrappeTestCase):
 	def tearDown(self):

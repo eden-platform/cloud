@@ -119,7 +119,7 @@ def google_oauth_flow():
 	google_credentials = get_google_credentials()
 	redirect_uri = google_credentials["web"].get("redirect_uris")[0]
 	redirect_uri = redirect_uri.replace(
-		"press.api.oauth.callback", "press.api.google.callback"
+		"cloud.api.oauth.callback", "cloud.api.google.callback"
 	)
 	print(redirect_uri)
 	flow = Flow.from_client_config(

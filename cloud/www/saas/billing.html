@@ -23,7 +23,7 @@ address_wrapper, email_verify_wrapper -%} {% block content %}
 	}
 
 	function setup() {
-		return call('press.api.developer.marketplace.get_subscriptions', {
+		return call('cloud.api.developer.marketplace.get_subscriptions', {
 			secret_key: secret_key,
 		}).then((r) => {
 			let data = r.message;
@@ -159,7 +159,7 @@ address_wrapper, email_verify_wrapper -%} {% block content %}
 		$('#checkout-wrapper').toggleClass('hidden');
 
 		$('#loading-stripe').toggleClass('hidden');
-		call('press.api.developer.marketplace.saas_payment', {
+		call('cloud.api.developer.marketplace.saas_payment', {
 			secret_key: secret_key,
 			data: response,
 		}).then((r) => {
@@ -242,7 +242,7 @@ address_wrapper, email_verify_wrapper -%} {% block content %}
 			gstin: gstApplicable ? $('input[name="gstin"]').val() : 'Not Applicable',
 		};
 
-		call('press.api.developer.marketplace.update_billing_info', {
+		call('cloud.api.developer.marketplace.update_billing_info', {
 			secret_key: secret_key,
 			data: billing_info,
 		}).then((r) => {
@@ -259,7 +259,7 @@ address_wrapper, email_verify_wrapper -%} {% block content %}
 		$('#email-verify-btn').prop('disabled', true)
 		$("#email-verify-btn").html('<span class="mr-2">Sending</span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
-		call('press.api.developer.marketplace.send_login_link', {
+		call('cloud.api.developer.marketplace.send_login_link', {
 			secret_key: secret_key,
 		}).then((r) => {
 			if (r.message && r.message === "success") {

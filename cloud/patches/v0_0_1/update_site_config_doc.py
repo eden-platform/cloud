@@ -3,8 +3,8 @@ import json
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "site")
-	frappe.reload_doc("press", "doctype", "site config")
+	frappe.reload_doc("cloud", "doctype", "site")
+	frappe.reload_doc("cloud", "doctype", "site config")
 	sites = frappe.get_all("Site", {"status": ("!=", "Archived")})
 
 	commit_scheme = frappe.db.auto_commit_on_many_writes

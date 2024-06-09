@@ -648,7 +648,7 @@ def process_new_bench_job_update(job):
 			StagingSite.create_if_needed(bench)
 			bench = frappe.get_doc("Bench", job.bench)
 			frappe.enqueue(
-				"press.press.doctype.bench.bench.archive_obsolete_benches",
+				"cloud.cloud.doctype.bench.bench.archive_obsolete_benches",
 				enqueue_after_commit=True,
 				group=bench.group,
 				server=bench.server,
@@ -807,7 +807,7 @@ def archive_obsolete_benches(group: str = None, server: str = None):
 	benches_by_server = groupby(benches, lambda x: x.server)
 	for server_benches in benches_by_server:
 		frappe.enqueue(
-			"press.press.doctype.bench.bench.archive_obsolete_benches_for_server",
+			"cloud.cloud.doctype.bench.bench.archive_obsolete_benches_for_server",
 			queue="long",
 			job_id=f"archive_obsolete_benches:{server_benches[0]}",
 			deduplicate=True,
@@ -869,7 +869,7 @@ def sync_benches():
 	benches = frappe.get_all("Bench", {"status": "Active"}, pluck="name")
 	for bench in benches:
 		frappe.enqueue(
-			"press.press.doctype.bench.bench.sync_bench",
+			"cloud.cloud.doctype.bench.bench.sync_bench",
 			queue="sync",
 			name=bench,
 			job_id=f"sync_bench:{bench}",
@@ -911,7 +911,7 @@ def sync_analytics():
 	benches = frappe.get_all("Bench", {"status": "Active"}, pluck="name")
 	for bench in benches:
 		frappe.enqueue(
-			"press.press.doctype.bench.bench.sync_bench_analytics",
+			"cloud.cloud.doctype.bench.bench.sync_bench_analytics",
 			queue="sync",
 			name=bench,
 			job_id=f"sync_bench_analytics:{bench}",

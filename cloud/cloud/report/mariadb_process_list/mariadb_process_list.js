@@ -20,7 +20,7 @@ frappe.query_reports['MariaDB Process List'] = {
 			dialog.set_primary_action(__('Kill Processes'), (args) => {
 				frappe
 					.call(
-						'press.press.report.mariadb_process_list.mariadb_process_list.kill',
+						'cloud.cloud.report.mariadb_process_list.mariadb_process_list.kill',
 						{
 							database_server:
 								frappe.query_report.get_filter_value('database_server'),

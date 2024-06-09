@@ -122,7 +122,7 @@ class TestSiteUpdate(FrappeTestCase):
 			site.schedule_update,
 		)
 
-	@patch("press.press.doctype.server.server.frappe.db.commit", new=MagicMock)
+	@patch("cloud.cloud.doctype.server.server.frappe.db.commit", new=MagicMock)
 	def test_site_update_callback_reallocates_workers_after_disable_maintenance_mode_job(
 		self,
 	):

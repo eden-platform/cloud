@@ -37,10 +37,10 @@ jobs:
           pip install flake8 git+https://github.com/adityahase/black
       - name: Black Test
         run: |
-          black --check ${GITHUB_WORKSPACE}/press/press
+          black --check ${GITHUB_WORKSPACE}/cloud/cloud
       - name: Flake8 Test
         run: |
-          flake8 --ignore W191,E501,W503 ${GITHUB_WORKSPACE}/press/press
+          flake8 --ignore W191,E501,W503 ${GITHUB_WORKSPACE}/cloud/cloud
 
   semgrep:
     name: Semgrep Rules
@@ -53,7 +53,7 @@ jobs:
       - name: Run Semgrep rules
         run: |
           pip install semgrep==1.32
-          semgrep ci --config ./press-semgrep-rules.yml --config r/python.lang.correctness
+          semgrep ci --config ./cloud-semgrep-rules.yml --config r/python.lang.correctness
 
   tests:
     runs-on: ubuntu-latest
@@ -140,7 +140,7 @@ jobs:
         working-directory: /home/runner/frappe-bench
         run: |
           bench --site test_site set-config allow_tests true
-          bench --site test_site run-parallel-tests --app press --with-coverage --total-builds 2 --build-number ${{ matrix.container }}
+          bench --site test_site run-parallel-tests --app cloud --with-coverage --total-builds 2 --build-number ${{ matrix.container }}
         env:
           TYPE: server
 

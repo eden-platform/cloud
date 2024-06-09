@@ -1,12 +1,12 @@
 ## Press
 
-[![codecov](https://codecov.io/gh/frappe/press/branch/master/graph/badge.svg?token=0puvH0jUx9)](https://codecov.io/gh/frappe/press)
+[![codecov](https://codecov.io/gh/frappe/cloud/branch/master/graph/badge.svg?token=0puvH0jUx9)](https://codecov.io/gh/frappe/cloud)
 [![unittests](https://github.com/eden-platform/cloud/actions/workflows/main.yaml/badge.svg)](https://github.com/eden-platform/cloud/actions/workflows/main.yaml)
 
 
-This is `press`, a Frappe custom app that runs Eden Cloud. This app manages infrastructure, subscription, marketplace, SaaS and much more.
+This is `cloud`, a Frappe custom app that runs Eden Cloud. This app manages infrastructure, subscription, marketplace, SaaS and much more.
 
-> press: "I have a brother, without which I cannot live, agent"
+> cloud: "I have a brother, without which I cannot live, agent"
 
 The other half of the Eden Cloud infrastructure is [agent](https://github.com/eden-platform/agent). Which is a flask application that runs on every server in a typical cluster and carries out tasks on HTTP requests. Creating a new site, installing an app, updating a site, creating a bench and everything in between is just a request (`Agent Job`) away.
 

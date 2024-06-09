@@ -7,8 +7,8 @@ from frappe.utils import update_progress_bar
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "team")
-	frappe.reload_doc("press", "doctype", "team_onboarding")
+	frappe.reload_doc("cloud", "doctype", "team")
+	frappe.reload_doc("cloud", "doctype", "team_onboarding")
 
 	teams = frappe.db.get_all("Team")
 	for i, team in enumerate(teams):

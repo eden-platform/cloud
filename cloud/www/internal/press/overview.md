@@ -4,7 +4,7 @@ title: Press
 
 # Press
 
-Steps to setup your own production/development press installation.
+Steps to setup your own production/development cloud installation.
 
 ### Basic
 
@@ -43,10 +43,10 @@ After setting these, click **Obtain TLS Certificate** (Requires **Basic** > **Do
 1. Click on **Create GitHub App**
 1. Name your app and click **Create GitHub App for ...**
 
-  ![GitHub App Create](/assets/press/images/internal/press/github/github-app-create.png)
+  ![GitHub App Create](/assets/cloud/images/internal/cloud/github/github-app-create.png)
 1. You'll be redirected to Press Settings.
 
-  ![GitHub App Created](/assets/press/images/internal/press/github/github-app-created.png)
+  ![GitHub App Created](/assets/cloud/images/internal/cloud/github/github-app-created.png)
 
 
 1. Create a GitHub Personal Access Token and add it in GitHub Access Token field.

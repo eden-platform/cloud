@@ -6,7 +6,7 @@
    "label": "Logs"
   },
   {
-   "action": "press.press.doctype.ansible_console.ansible_console.execute_command",
+   "action": "cloud.cloud.doctype.ansible_console.ansible_console.execute_command",
    "action_type": "Server Action",
    "hidden": 1,
    "label": "Execute"

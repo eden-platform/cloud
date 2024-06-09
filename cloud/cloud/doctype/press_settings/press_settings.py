@@ -151,7 +151,7 @@ class PressSettings(Document):
 	def create_stripe_webhook(self):
 		stripe = get_stripe()
 		url = frappe.utils.get_url(
-			"/api/method/press.press.doctype.stripe_webhook_log.stripe_webhook_log.stripe_webhook_handler"
+			"/api/method/cloud.cloud.doctype.stripe_webhook_log.stripe_webhook_log.stripe_webhook_handler"
 		)
 		webhook = stripe.WebhookEndpoint.create(
 			url=url,
@@ -180,7 +180,7 @@ class PressSettings(Document):
 		manifest = {
 			"name": app_name,
 			"url": "https://edencloud.us",
-			"hook_attributes": {"url": get_url("api/method/press.api.github.hook")},
+			"hook_attributes": {"url": get_url("api/method/cloud.api.github.hook")},
 			"redirect_url": get_url("github/redirect"),
 			"description": "Managed Frappe Hosting",
 			"public": True,

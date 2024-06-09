@@ -65,7 +65,7 @@ frappe.query_reports['MariaDB Slow Queries'] = {
 
 			frappe.confirm('Are you sure you want to add these indexes?', () => {
 				frappe.xcall(
-					'press.press.report.mariadb_slow_queries.mariadb_slow_queries.add_suggested_index',
+					'cloud.cloud.report.mariadb_slow_queries.mariadb_slow_queries.add_suggested_index',
 					{
 						indexes,
 						name: site,

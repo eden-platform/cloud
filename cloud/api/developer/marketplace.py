@@ -160,7 +160,7 @@ class DeveloperApiHandler:
 			frappe.db.commit()
 
 		return get_url(
-			f"/api/method/press.api.marketplace.login_via_token?token={token}&team={team}&site={self.app_subscription_doc.site}"
+			f"/api/method/cloud.api.marketplace.login_via_token?token={token}&team={team}&site={self.app_subscription_doc.site}"
 		)
 
 

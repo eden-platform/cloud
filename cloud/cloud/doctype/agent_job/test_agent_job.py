@@ -150,15 +150,15 @@ def fake_agent_job(
 		fake_agent_job_req(job_type, status, data, steps),
 		create=True,
 	), patch(
-		"press.press.doctype.agent_job.agent_job.frappe.enqueue_doc",
+		"cloud.cloud.doctype.agent_job.agent_job.frappe.enqueue_doc",
 		new=foreground_enqueue_doc,
 	), patch(
-		"press.press.doctype.agent_job.agent_job.frappe.enqueue",
+		"cloud.cloud.doctype.agent_job.agent_job.frappe.enqueue",
 		new=foreground_enqueue,
 	), patch(
-		"press.press.doctype.agent_job.agent_job.frappe.db.commit", new=Mock()
+		"cloud.cloud.doctype.agent_job.agent_job.frappe.db.commit", new=Mock()
 	), patch(
-		"press.press.doctype.agent_job.agent_job.frappe.db.rollback", new=Mock()
+		"cloud.cloud.doctype.agent_job.agent_job.frappe.db.rollback", new=Mock()
 	):
 		frappe.local.role_permissions = (
 			{}
@@ -231,8 +231,8 @@ class TestAgentJob(unittest.TestCase):
 		doc_name = lock_doc_updated_by_job(job.name)
 		self.assertIsNone(doc_name)
 
-	@patch("press.press.doctype.site.site.create_dns_record", new=Mock())
-	@patch("press.press.doctype.site.site._change_dns_record", new=Mock())
+	@patch("cloud.cloud.doctype.site.site.create_dns_record", new=Mock())
+	@patch("cloud.cloud.doctype.site.site._change_dns_record", new=Mock())
 	def test_lock_doc_updated_by_job_locks_on_site_rename(self):
 		site = create_test_site()
 		site.subdomain = "renamed-domain"

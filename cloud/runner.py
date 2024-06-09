@@ -149,7 +149,7 @@ class Ansible:
 		self.patch()
 		self.server = server
 		self.playbook = playbook
-		self.playbook_path = frappe.get_app_path("press", "playbooks", self.playbook)
+		self.playbook_path = frappe.get_app_path("cloud", "playbooks", self.playbook)
 		self.host = f"{server.ip}:{port}"
 		self.variables = variables or {}
 
@@ -190,11 +190,11 @@ class Ansible:
 			self.callback.on_async_start(task._role.get_name(), task.name, job_id)
 			return self._poll_async_result(executor, result, templar, task_vars=task_vars)
 
-		if ActionModule.run.__module__ != "press.runner":
+		if ActionModule.run.__module__ != "cloud.runner":
 			self.action_module_run = ActionModule.run
 			ActionModule.run = modified_action_module_run
 
-		if TaskExecutor.run.__module__ != "press.runner":
+		if TaskExecutor.run.__module__ != "cloud.runner":
 			self._poll_async_result = TaskExecutor._poll_async_result
 			TaskExecutor._poll_async_result = modified_poll_async_result
 

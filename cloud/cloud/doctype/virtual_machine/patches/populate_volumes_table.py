@@ -2,8 +2,8 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "virtual_machine_volume")
-	frappe.reload_doc("press", "doctype", "virtual_machine")
+	frappe.reload_doc("cloud", "doctype", "virtual_machine_volume")
+	frappe.reload_doc("cloud", "doctype", "virtual_machine")
 
 	for machine in frappe.get_all("Virtual Machine", pluck="name"):
 		machine = frappe.get_doc("Virtual Machine", machine)

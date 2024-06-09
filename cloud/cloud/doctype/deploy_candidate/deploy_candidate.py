@@ -547,10 +547,10 @@ class DeployCandidate(Document):
 		output_data = json.loads(job_data.get("output", "{}"))
 
 		"""
-		Due to how agent - press communication takes place, every time an
+		Due to how agent - cloud communication takes place, every time an
 		output is published all of it has to be re-parsed from the start.
 
-		This is due to a method of streaming agent output to press not
+		This is due to a method of streaming agent output to cloud not
 		existing.
 		"""
 		if output := get_remote_step_output(
@@ -1032,11 +1032,11 @@ class DeployCandidate(Document):
 	def _generate_dockerfile(self):
 		dockerfile = os.path.join(self.build_directory, "Dockerfile")
 		with open(dockerfile, "w") as f:
-			dockerfile_template = "press/docker/Dockerfile"
+			dockerfile_template = "cloud/docker/Dockerfile"
 
 			for d in self.dependencies:
 				if d.dependency == "BENCH_VERSION" and d.version == "5.2.1":
-					dockerfile_template = "press/docker/Dockerfile_Bench_5_2_1"
+					dockerfile_template = "cloud/docker/Dockerfile_Bench_5_2_1"
 
 			content = frappe.render_template(dockerfile_template, {"doc": self}, is_path=True)
 			f.write(content)
@@ -1114,12 +1114,12 @@ class DeployCandidate(Document):
 	def _copy_config_files(self):
 		for target in ["common_site_config.json", "supervisord.conf", ".vimrc"]:
 			shutil.copy(
-				os.path.join(frappe.get_app_path("press", "docker"), target), self.build_directory
+				os.path.join(frappe.get_app_path("cloud", "docker"), target), self.build_directory
 			)
 
 		for target in ["config", "redis"]:
 			shutil.copytree(
-				os.path.join(frappe.get_app_path("press", "docker"), target),
+				os.path.join(frappe.get_app_path("cloud", "docker"), target),
 				os.path.join(self.build_directory, target),
 				symlinks=True,
 			)
@@ -1127,7 +1127,7 @@ class DeployCandidate(Document):
 	def _generate_redis_cache_config(self):
 		redis_cache_conf = os.path.join(self.build_directory, "config", "redis-cache.conf")
 		with open(redis_cache_conf, "w") as f:
-			redis_cache_conf_template = "press/docker/config/redis-cache.conf"
+			redis_cache_conf_template = "cloud/docker/config/redis-cache.conf"
 			content = frappe.render_template(
 				redis_cache_conf_template, {"doc": self}, is_path=True
 			)
@@ -1136,7 +1136,7 @@ class DeployCandidate(Document):
 	def _generate_supervisor_config(self):
 		supervisor_conf = os.path.join(self.build_directory, "config", "supervisor.conf")
 		with open(supervisor_conf, "w") as f:
-			supervisor_conf_template = "press/docker/config/supervisor.conf"
+			supervisor_conf_template = "cloud/docker/config/supervisor.conf"
 			content = frappe.render_template(
 				supervisor_conf_template, {"doc": self}, is_path=True
 			)

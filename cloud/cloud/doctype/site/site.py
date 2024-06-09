@@ -1044,7 +1044,7 @@ class Site(Document, TagHelpers):
 			expires_in_sec=minutes * 60,
 		)
 
-		link = get_url(f"/api/method/press.api.site.confirm_site_transfer?key={key}")
+		link = get_url(f"/api/method/cloud.api.site.confirm_site_transfer?key={key}")
 
 		if frappe.conf.developer_mode:
 			print(f"\nSite transfer link for {team_mail_id}\n{link}\n")
@@ -1367,8 +1367,8 @@ class Site(Document, TagHelpers):
 	def update_site_config(self, config=None):
 		"""Updates site.configuration, site.config and runs site.save which initiates an Agent Request
 		This checks for the blacklisted config keys via Frappe Validations, but not for internal usages.
-		Don't expose this directly to an external API. Pass through `press.utils.sanitize_config` or use
-		`press.api.site.update_config` instead.
+		Don't expose this directly to an external API. Pass through `cloud.utils.sanitize_config` or use
+		`cloud.api.site.update_config` instead.
 
 		Args:
 		config (dict): Python dict for any suitable frappe.conf
@@ -2143,7 +2143,7 @@ class Site(Document, TagHelpers):
 
 	@frappe.whitelist()
 	def forcefully_remove_site(self, bench):
-		"""Bypass all agent/press callbacks and just remove this site from the target bench/server"""
+		"""Bypass all agent/cloud callbacks and just remove this site from the target bench/server"""
 
 		frappe.only_for("System Manager")
 
@@ -2517,7 +2517,7 @@ def process_move_site_to_bench_job_update(job):
 
 
 def update_records_for_rename(job):
-	"""Update press records for successful site rename."""
+	"""Update cloud records for successful site rename."""
 	data = json.loads(job.request_data)
 	new_name = data["new_name"]
 	if new_name == job.site:  # idempotency

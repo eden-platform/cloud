@@ -121,7 +121,7 @@ class SSHCertificateAuthority(Document):
 	def _prepare_build_context(self):
 		for target in ["sshd_config", "Dockerfile"]:
 			shutil.copy(
-				os.path.join(frappe.get_app_path("press", "docker", "ssh_proxy"), target),
+				os.path.join(frappe.get_app_path("cloud", "docker", "ssh_proxy"), target),
 				self.build_directory,
 			)
 

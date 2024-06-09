@@ -7,7 +7,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "app_release")
+	frappe.reload_doc("cloud", "doctype", "app_release")
 	frappe.db.sql(
 		"""
 		UPDATE `tabApp Release` as `release`

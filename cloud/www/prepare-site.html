@@ -59,7 +59,7 @@
 	}
 
 	function get_site_status() {
-		return frappe.call('press.api.saas.get_site_status', {
+		return frappe.call('cloud.api.saas.get_site_status', {
 				key,
 				app
 			})
@@ -67,7 +67,7 @@
 	}
 
 	function get_site_url_and_sid() {
-		return frappe.call('press.api.saas.get_site_url_and_sid', {
+		return frappe.call('cloud.api.saas.get_site_url_and_sid', {
 				key,
 				app
 			})

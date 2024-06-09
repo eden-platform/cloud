@@ -40,7 +40,7 @@ class TestStagingSite(unittest.TestCase):
 		frappe.db.rollback()
 
 	def test_create_staging_site(self):
-		bench = create_test_bench()  # also creates press settings
+		bench = create_test_bench()  # also creates cloud settings
 		frappe.db.set_single_value(
 			"Press Settings", "staging_plan", create_test_plan("Site").name
 		)
@@ -54,7 +54,7 @@ class TestStagingSite(unittest.TestCase):
 
 
 @patch.object(AgentJob, "after_insert", new=Mock())
-@patch("press.press.doctype.server.server.frappe.db.commit", new=MagicMock)
+@patch("cloud.cloud.doctype.server.server.frappe.db.commit", new=MagicMock)
 class TestBench(FrappeTestCase):
 	def tearDown(self):
 		frappe.db.rollback()
@@ -285,7 +285,7 @@ class TestBench(FrappeTestCase):
 		self.assertFalse(bench2.memory_swap)
 
 
-@patch("press.press.doctype.bench.bench.frappe.db.commit", new=MagicMock)
+@patch("cloud.cloud.doctype.bench.bench.frappe.db.commit", new=MagicMock)
 class TestArchiveObsoleteBenches(unittest.TestCase):
 	def tearDown(self):
 		frappe.db.rollback()
@@ -339,10 +339,10 @@ class TestArchiveObsoleteBenches(unittest.TestCase):
 		self.assertEqual(benches_after, benches_before)
 
 	@patch(
-		"press.press.doctype.bench.bench.archive_obsolete_benches_for_server",
+		"cloud.cloud.doctype.bench.bench.archive_obsolete_benches_for_server",
 		wraps=archive_obsolete_benches_for_server,
 	)
-	@patch("press.press.doctype.bench.bench.frappe.enqueue", new=foreground_enqueue)
+	@patch("cloud.cloud.doctype.bench.bench.frappe.enqueue", new=foreground_enqueue)
 	def test_benches_archived_for_multiple_servers_via_multiple_jobs(
 		self, mock_archive_by_server: MagicMock
 	):

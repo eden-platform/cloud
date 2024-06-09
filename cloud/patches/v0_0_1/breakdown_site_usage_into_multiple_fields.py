@@ -4,7 +4,7 @@ import json
 
 def execute():
 	"""Convert site._site_usages Data field into individual fields"""
-	frappe.reload_doc("press", "doctype", "site")
+	frappe.reload_doc("cloud", "doctype", "site")
 	non_archived_sites = frappe.get_all(
 		"Site", filters={"status": ("!=", "Archived")}, pluck="name"
 	)

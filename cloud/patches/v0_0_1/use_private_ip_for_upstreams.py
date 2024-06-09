@@ -14,7 +14,7 @@ def execute():
 	settings.agent_github_access_token = input("GitHub Access Token: ")
 	settings.save()
 
-	sync_fixtures("press")
+	sync_fixtures("cloud")
 
 	servers = frappe.get_all(
 		"Server", {"is_upstream_setup": True, "status": "Active"}, ["name", "proxy_server"]

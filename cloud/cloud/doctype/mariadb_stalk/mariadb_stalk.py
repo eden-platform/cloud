@@ -68,7 +68,7 @@ def fetch_stalks():
 		"Database Server", {"status": "Active", "is_stalk_setup": True}, pluck="name"
 	):
 		frappe.enqueue(
-			"press.press.doctype.mariadb_stalk.mariadb_stalk.fetch_server_stalks",
+			"cloud.cloud.doctype.mariadb_stalk.mariadb_stalk.fetch_server_stalks",
 			server=server,
 			job_id=f"fetch_mariadb_stalk:{server}",
 		)

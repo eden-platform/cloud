@@ -144,7 +144,7 @@ class TLSCertificate(Document):
 			)
 			for server in servers:
 				frappe.enqueue(
-					"press.press.doctype.tls_certificate.tls_certificate.update_server_tls_certifcate",
+					"cloud.cloud.doctype.tls_certificate.tls_certificate.update_server_tls_certifcate",
 					server=frappe.get_doc(server_doctype, server),
 					certificate=self,
 				)
@@ -245,7 +245,7 @@ def retrigger_failed_wildcard_tls_callbacks():
 			if plays and plays[0] != "Success":
 				server_doc = frappe.get_doc(server_doctype, server)
 				frappe.enqueue(
-					"press.press.doctype.tls_certificate.tls_certificate.update_server_tls_certifcate",
+					"cloud.cloud.doctype.tls_certificate.tls_certificate.update_server_tls_certifcate",
 					server=server_doc,
 					certificate=server_doc.get_certificate(),
 				)

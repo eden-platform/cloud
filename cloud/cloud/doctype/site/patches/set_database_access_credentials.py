@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "site")
+	frappe.reload_doc("cloud", "doctype", "site")
 	sites = frappe.get_all(
 		"Site",
 		{

@@ -157,7 +157,7 @@ def create_build_failed_notification(
 	dc: "DeployCandidate", exc: "BaseException"
 ) -> bool:
 	"""
-	Used to create press notifications on Build failures. If the notification
+	Used to create cloud notifications on Build failures. If the notification
 	is actionable then it will be displayed on the dashboard and will block
 	further builds until the user has resolved it.
 

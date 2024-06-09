@@ -157,7 +157,7 @@ class TestAPISite(FrappeTestCase):
 		)
 
 	@patch(
-		"press.press.doctype.app_release_difference.app_release_difference.Github",
+		"cloud.cloud.doctype.app_release_difference.app_release_difference.Github",
 		new=MagicMock(),
 	)
 	@patch.object(AgentJob, "enqueue_http_request", new=Mock())
@@ -469,12 +469,12 @@ erpnext 0.8.3	    HEAD
 		self.assertEqual(site.bench, bench2.name)
 
 	@patch(
-		"press.press.doctype.agent_job.agent_job.process_site_migration_job_update",
+		"cloud.cloud.doctype.agent_job.agent_job.process_site_migration_job_update",
 		new=Mock(),
 	)
-	@patch("press.press.doctype.site.site.create_dns_record", new=Mock())
+	@patch("cloud.cloud.doctype.site.site.create_dns_record", new=Mock())
 	@patch(
-		"press.press.doctype.site_migration.site_migration.frappe.db.commit", new=MagicMock
+		"cloud.cloud.doctype.site_migration.site_migration.frappe.db.commit", new=MagicMock
 	)
 	def test_site_change_region(self):
 		from cloud.api.site import change_region, change_region_options
@@ -589,11 +589,11 @@ erpnext 0.8.3	    HEAD
 		self.assertEqual(site_version, v15_group.version)
 
 	@patch(
-		"press.press.doctype.agent_job.agent_job.process_site_migration_job_update",
+		"cloud.cloud.doctype.agent_job.agent_job.process_site_migration_job_update",
 		new=Mock(),
 	)
 	@patch(
-		"press.press.doctype.site_migration.site_migration.frappe.db.commit", new=MagicMock
+		"cloud.cloud.doctype.site_migration.site_migration.frappe.db.commit", new=MagicMock
 	)
 	def test_site_change_server(self):
 		from cloud.api.site import (

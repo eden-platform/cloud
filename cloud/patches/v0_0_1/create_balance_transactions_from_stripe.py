@@ -10,7 +10,7 @@ migrated_cache_key = "migrated_teams"
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "balance_transaction")
+	frappe.reload_doc("cloud", "doctype", "balance_transaction")
 
 	skip_teams = list(frappe.cache().smembers(migrated_cache_key))
 	teams = frappe.db.get_all(

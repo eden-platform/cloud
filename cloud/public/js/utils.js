@@ -1,7 +1,7 @@
-frappe.provide('press');
-frappe.provide('press.utils');
+frappe.provide('cloud');
+frappe.provide('cloud.utils');
 
-$.extend(press, {
+$.extend(cloud, {
 	set_hostname_abbreviation: function (frm) {
 		if (frm.doc.hostname) {
 			let parts = frm.doc.hostname.split('-');

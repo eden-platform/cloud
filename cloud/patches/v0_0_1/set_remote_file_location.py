@@ -8,7 +8,7 @@ from frappe.desk.doctype.tag.tag import add_tag
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "remote_file")
+	frappe.reload_doc("cloud", "doctype", "remote_file")
 	remote_files = (
 		x["name"] for x in frappe.get_all("Remote File", [["bucket", "like", ""]])
 	)

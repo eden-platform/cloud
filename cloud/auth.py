@@ -7,7 +7,7 @@ import traceback
 import os
 
 
-PRESS_AUTH_KEY = "press-auth-logs"
+PRESS_AUTH_KEY = "cloud-auth-logs"
 PRESS_AUTH_MAX_ENTRIES = 1000000
 
 
@@ -28,17 +28,17 @@ ALLOWED_PATHS = [
 	"/api/method/ping",
 	"/api/method/login",
 	"/api/method/logout",
-	"/api/method/press.press.doctype.razorpay_webhook_log.razorpay_webhook_log.razorpay_webhook_handler",
-	"/api/method/press.press.doctype.stripe_webhook_log.stripe_webhook_log.stripe_webhook_handler",
+	"/api/method/cloud.cloud.doctype.razorpay_webhook_log.razorpay_webhook_log.razorpay_webhook_handler",
+	"/api/method/cloud.cloud.doctype.stripe_webhook_log.stripe_webhook_log.stripe_webhook_handler",
 	"/api/method/upload_file",
 	"/api/method/frappe.search.web_search",
 	"/api/method/frappe.email.queue.unsubscribe",
 	"/api/method/frappe.client.get",
 	"/api/method/frappe.client.get_count",
-	"/api/method/press.utils.telemetry.capture_read_event",
+	"/api/method/cloud.utils.telemetry.capture_read_event",
 	"/api/method/validate_plan_change",
 	"/api/method/marketplace-apps",
-	"/api/method/press.www.dashboard.get_context_for_dev",
+	"/api/method/cloud.www.dashboard.get_context_for_dev",
 	"/api/method/frappe.website.doctype.web_form.web_form.accept",
 	"/api/method/frappe.core.doctype.user.user.test_password_strength",
 	"/api/method/frappe.core.doctype.user.user.update_password",
@@ -46,10 +46,10 @@ ALLOWED_PATHS = [
 ]
 
 ALLOWED_WILDCARD_PATHS = [
-	"/api/method/press.api.",
+	"/api/method/cloud.api.",
 	"/api/method/wiki.",
 	"/api/method/frappe.integrations.oauth2_logins.",
-	"/api/method/press.www.marketplace.index.",
+	"/api/method/cloud.www.marketplace.index.",
 ]
 
 DENIED_WILDCARD_PATHS = [
@@ -100,7 +100,7 @@ def log(path, user_type):
 
 
 def flush():
-	log_file = os.path.join(frappe.utils.get_bench_path(), "logs", "press.auth.json.log")
+	log_file = os.path.join(frappe.utils.get_bench_path(), "logs", "cloud.auth.json.log")
 	try:
 		# Fetch all entries without removing from cache
 		logs = frappe.cache().lrange(PRESS_AUTH_KEY, 0, -1)

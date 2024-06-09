@@ -1,6 +1,6 @@
 {
 	"api_version": "2020-03-02",
-	"cmd": "press.press.doctype.stripe_webhook_log.stripe_webhook_log.stripe_webhook_handler",
+	"cmd": "cloud.cloud.doctype.stripe_webhook_log.stripe_webhook_log.stripe_webhook_handler",
 	"created": 1606748869,
 	"data": {
 		"object": {

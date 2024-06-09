@@ -37,7 +37,7 @@ class DockerBuildOutputParser:
 	Parses `docker build` raw output and updates Deploy Candidate.
 
 	Output can be generated from a remote builder (agent) or from a build running
-	on press itself.
+	on cloud itself.
 
 	In case of a remote build, due to the way agent updates are propagated, all
 	lines are updated when agent is polled, and so output is looped N! times.
@@ -255,7 +255,7 @@ class UploadStepUpdater:
 	registry.
 
 	Similar to DockerBuildOutputParser, this can process the output from
-	a remote (agent) or local (press) builder docker push.
+	a remote (agent) or local (cloud) builder docker push.
 	"""
 
 	_upload_step: "DeployCandidateBuildStep | None"

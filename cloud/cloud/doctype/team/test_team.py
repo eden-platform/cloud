@@ -16,7 +16,7 @@ from cloud.cloud.doctype.team.team import Team
 
 
 def create_test_press_admin_team(email: str = None) -> Team:
-	"""Create test press admin user."""
+	"""Create test cloud admin user."""
 	if not email:
 		email = frappe.mock("email")
 	create_test_user(email)

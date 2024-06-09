@@ -13,7 +13,7 @@ class TestAccountApi(TestCase):
 		frappe.db.rollback()
 
 	def _fake_signup(self, email: str = "user@test.com") -> Mock:
-		"""Call press.api.account.signup without sending verification mail."""
+		"""Call cloud.api.account.signup without sending verification mail."""
 		with patch.object(AccountRequest, "send_verification_email") as mock_send_email:
 			signup(email)
 		return mock_send_email

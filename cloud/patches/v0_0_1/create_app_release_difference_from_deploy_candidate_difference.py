@@ -7,9 +7,9 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "deploy_candidate_difference")
-	frappe.reload_doc("press", "doctype", "deploy_candidate_difference_app")
-	frappe.reload_doc("press", "doctype", "app_release_difference")
+	frappe.reload_doc("cloud", "doctype", "deploy_candidate_difference")
+	frappe.reload_doc("cloud", "doctype", "deploy_candidate_difference_app")
+	frappe.reload_doc("cloud", "doctype", "app_release_difference")
 
 	frappe.db.delete("Deploy Candidate Difference App", {"changed": False})
 	differences = frappe.get_all("Deploy Candidate Difference App", "*")

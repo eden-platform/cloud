@@ -42,7 +42,7 @@ def get_benches_in_server(server: str) -> List[Dict]:
 
 
 class BenchFieldCheck(Audit):
-	"""Audit to check fields of site in press are correct."""
+	"""Audit to check fields of site in cloud are correct."""
 
 	audit_type = "Bench Field Check"
 	server_map = {}
@@ -68,7 +68,7 @@ class BenchFieldCheck(Audit):
 		log["potential_fixes"] = self.get_potential_fixes()
 		log["Summary"] = {
 			"Potential fixes": sum(len(sites) for sites in log["potential_fixes"].values()),
-			"Sites only on press": len(log["sites_only_on_press"]),
+			"Sites only on cloud": len(log["sites_only_on_press"]),
 			"Sites only on server": len(log["sites_only_on_server"]),
 			"Sites on multiple benches": len(log["sites_on_multiple_benches"]),
 		}

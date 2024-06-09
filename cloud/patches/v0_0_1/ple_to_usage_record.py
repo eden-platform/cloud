@@ -6,7 +6,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "usage_record")
+	frappe.reload_doc("cloud", "doctype", "usage_record")
 	# PLE to Usage Record
 	frappe.db.sql(
 		"""

@@ -124,7 +124,7 @@
 {%- endblock -%}
 
 {%- block script -%}
-<script src="/assets/press/js/form_controller.js"></script>
+<script src="/assets/cloud/js/form_controller.js"></script>
 <script>
 	const app = document.getElementById('app').value;
 	const domain = document.getElementById('domain').value;
@@ -199,7 +199,7 @@
 			form_data = { ...values, app }
 		}
 
-		return call('press.api.saas.account_request', form_data)
+		return call('cloud.api.saas.account_request', form_data)
 			.then(() => {
 				$('h1').hide();
 				$('#googleLogin').toggle();
@@ -236,7 +236,7 @@
 		const password = $input.val() || input
 
 		return frappe.call({
-			method: "press.api.saas.validate_password",
+			method: "cloud.api.saas.validate_password",
 			args: {
 				password: password,
 				first_name: document.querySelector("#first_name").value,
@@ -275,7 +275,7 @@
 	function check_if_available(subdomain) {
 		return frappe
 			.call({
-				method: "press.api.saas.check_subdomain_availability",
+				method: "cloud.api.saas.check_subdomain_availability",
 				args: { subdomain, app: app },
 				type: "POST",
 			})
@@ -306,7 +306,7 @@
 
 	function signupWithGoogle() {
 		return frappe.call({
-			method: "press.api.oauth.google_login",
+			method: "cloud.api.oauth.google_login",
 			args: {
 				saas_app: app
 			},

@@ -227,7 +227,7 @@ class VirtualMachine(Document):
 	def get_cloud_init(self):
 		server = self.get_server()
 		log_server, kibana_password = server.get_log_server()
-		cloud_init_template = "press/press/doctype/virtual_machine/cloud-init.yml.jinja2"
+		cloud_init_template = "cloud/cloud/doctype/virtual_machine/cloud-init.yml.jinja2"
 		context = {
 			"server": server,
 			"machine": self.name,
@@ -235,12 +235,12 @@ class VirtualMachine(Document):
 			"agent_password": server.get_password("agent_password"),
 			"monitoring_password": server.get_monitoring_password(),
 			"statsd_exporter_service": frappe.render_template(
-				"press/playbooks/roles/statsd_exporter/templates/statsd_exporter.service",
+				"cloud/playbooks/roles/statsd_exporter/templates/statsd_exporter.service",
 				{"private_ip": self.private_ip_address},
 				is_path=True,
 			),
 			"filebeat_config": frappe.render_template(
-				"press/playbooks/roles/filebeat/templates/filebeat.yml",
+				"cloud/playbooks/roles/filebeat/templates/filebeat.yml",
 				{
 					"server": self.name,
 					"log_server": log_server,
@@ -262,17 +262,17 @@ class VirtualMachine(Document):
 				{
 					"log_requests": True,
 					"mariadb_config": frappe.render_template(
-						"press/playbooks/roles/mariadb/templates/mariadb.cnf",
+						"cloud/playbooks/roles/mariadb/templates/mariadb.cnf",
 						mariadb_context,
 						is_path=True,
 					),
 					"mariadb_systemd_config": frappe.render_template(
-						"press/playbooks/roles/mariadb_systemd_limits/templates/memory.conf",
+						"cloud/playbooks/roles/mariadb_systemd_limits/templates/memory.conf",
 						mariadb_context,
 						is_path=True,
 					),
 					"mariadb_exporter_config": frappe.render_template(
-						"press/playbooks/roles/mysqld_exporter/templates/mysqld_exporter.service",
+						"cloud/playbooks/roles/mysqld_exporter/templates/mysqld_exporter.service",
 						mariadb_context,
 						is_path=True,
 					),

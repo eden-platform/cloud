@@ -6,7 +6,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("press", "doctype", "site_backup")
+	frappe.reload_doc("cloud", "doctype", "site_backup")
 	frappe.db.sql(
 		"""
 		UPDATE `tabSite Backup`

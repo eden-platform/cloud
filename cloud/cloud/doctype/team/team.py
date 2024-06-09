@@ -1265,7 +1265,7 @@ def handle_payment_intent_succeeded(payment_intent):
 def _enqueue_finalize_unpaid_invoices_for_team(team: str):
 	# Enqueue a background job to call finalize_draft_invoice for unpaid invoices
 	frappe.enqueue(
-		"press.press.doctype.team.team.enqueue_finalize_unpaid_for_team",
+		"cloud.cloud.doctype.team.team.enqueue_finalize_unpaid_for_team",
 		team=team,
 		queue="long",
 	)

@@ -138,7 +138,7 @@ def create_test_site(
 
 
 @patch.object(AgentJob, "enqueue_http_request", new=Mock())
-@patch("press.press.doctype.site.site._change_dns_record", new=Mock())
+@patch("cloud.cloud.doctype.site.site._change_dns_record", new=Mock())
 class TestSite(unittest.TestCase):
 	"""Tests for Site Document methods."""
 

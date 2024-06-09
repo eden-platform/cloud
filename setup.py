@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-# get version from __version__ variable in press/__init__.py
+# get version from __version__ variable in cloud/__init__.py
 from cloud import __version__ as version
 
 with open("requirements.txt") as f:

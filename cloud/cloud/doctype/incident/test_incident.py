@@ -73,16 +73,16 @@ class MockTwilioClient:
 
 
 @patch(
-	"press.press.doctype.alertmanager_webhook_log.alertmanager_webhook_log.enqueue_doc",
+	"cloud.cloud.doctype.alertmanager_webhook_log.alertmanager_webhook_log.enqueue_doc",
 	new=foreground_enqueue_doc,
 )
 @patch.object(AlertmanagerWebhookLog, "send_telegram_notification", new=Mock())
 @patch.object(AlertmanagerWebhookLog, "react", new=Mock())
-@patch("press.press.doctype.incident.incident.frappe.db.commit", new=Mock())
+@patch("cloud.cloud.doctype.incident.incident.frappe.db.commit", new=Mock())
 @patch.object(AgentJob, "enqueue_http_request", new=Mock())
-@patch("press.press.doctype.site.site._change_dns_record", new=Mock())
-@patch("press.press.doctype.press_settings.press_settings.Client", new=MockTwilioClient)
-@patch("press.press.doctype.incident.incident.enqueue_doc", new=foreground_enqueue_doc)
+@patch("cloud.cloud.doctype.site.site._change_dns_record", new=Mock())
+@patch("cloud.cloud.doctype.press_settings.press_settings.Client", new=MockTwilioClient)
+@patch("cloud.cloud.doctype.incident.incident.enqueue_doc", new=foreground_enqueue_doc)
 class TestIncident(FrappeTestCase):
 	def setUp(self):
 		self.from_ = "+911234567892"
@@ -186,7 +186,7 @@ class TestIncident(FrappeTestCase):
 		).insert().call_humans()
 		self.assertEqual(mock_calls_create.call_count, 2)
 
-	@patch("press.press.doctype.incident.incident.Incident.wait_for_pickup", new=Mock())
+	@patch("cloud.cloud.doctype.incident.incident.Incident.wait_for_pickup", new=Mock())
 	def test_incident_gets_created_on_alert_that_meets_conditions(self):
 		incident_count = frappe.db.count("Incident")
 		create_test_alertmanager_webhook_log()
