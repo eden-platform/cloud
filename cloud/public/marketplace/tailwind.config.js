@@ -5,8 +5,8 @@ module.exports = {
 	theme: config.theme,
 	plugins: config.plugins,
 	content: [
-		'./press/**/marketplace/**/*.html',
-		'./press/**/marketplace/*.html',
-		'./press/**/marketplace_*.html',
+		'./cloud/**/marketplace/**/*.html',
+		'./cloud/**/marketplace/*.html',
+		'./cloud/**/marketplace_*.html',
 	],
 };
