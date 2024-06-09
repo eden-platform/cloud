@@ -1,7 +1,7 @@
 const config = require('../../../dashboard/tailwind.config');
 
 module.exports = {
-	content: ['./press/templates/emails/*.html'],
+	content: ['./cloud/templates/emails/*.html'],
 	important: true,
 	theme: Object.assign(config.theme, {
 		screens: {
