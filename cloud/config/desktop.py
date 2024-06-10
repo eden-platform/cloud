@@ -9,7 +9,7 @@ def get_data():
 			"module_name": "Cloud",
 			"category": "Modules",
 			"color": "grey",
-			"description": "Managed Frappe Hosting",
+			"description": "Cloud Management System for the Eden Platform",
 			"icon": "octicon octicon-rocket",
 			"type": "module",
 			"label": _("Cloud"),
