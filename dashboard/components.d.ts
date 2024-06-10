@@ -100,6 +100,7 @@ declare module 'vue' {
     H4: typeof import('./node_modules/frappe-ui/src/components/TextEditor/icons/h-4.vue')['default']
     H5: typeof import('./node_modules/frappe-ui/src/components/TextEditor/icons/h-5.vue')['default']
     H6: typeof import('./node_modules/frappe-ui/src/components/TextEditor/icons/h-6.vue')['default']
+    ILucideAlertCircle: typeof import('~icons/lucide/alert-circle')['default']
     ILucideAlertTriangle: typeof import('~icons/lucide/alert-triangle')['default']
     ILucideArrowLeft: typeof import('~icons/lucide/arrow-left')['default']
     ILucideCheck: typeof import('~icons/lucide/check')['default']

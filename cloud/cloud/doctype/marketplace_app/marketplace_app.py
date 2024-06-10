@@ -566,6 +566,7 @@ class MarketplaceApp(WebsiteGenerator):
 
 	@dashboard_whitelist()
 	def update_listing(self, *args):
+		print(args)
 		data = frappe._dict(args[0])
 		self.title = data.get("title") or self.title
 		self.description = data.get("description")
