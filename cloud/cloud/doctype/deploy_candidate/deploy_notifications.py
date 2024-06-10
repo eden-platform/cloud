@@ -61,7 +61,9 @@ DOC_URLS = {
 	"incompatible-node-version": "https://frappecloud.com/docs/common-issues/incompatible-node-version",
 	"incompatible-dependency-version": "https://frappecloud.com/docs/common-issues/incompatible-dependency-version",
 	"incompatible-app-version": "https://frappecloud.com/docs/common-issues/incompatible-app-version",
+	"required-app-not-found": "https://frappecloud.com/docs/common-issues/required-app-not-found",
 	"debugging-app-installs-locally": "https://frappecloud.com/docs/common-issues/debugging-app-installs-locally",
+	"vite-not-found": "https://frappecloud.com/docs/common-issues/vite-not-found",
 }
 
 
@@ -88,11 +90,11 @@ def handlers() -> "list[UserAddressableHandlerTuple]":
 	return [
 		(
 			"App installation token could not be fetched",
-			update_with_installation_token_not_fetchable,
+			update_with_app_not_fetchable,
 		),
 		(
 			"Repository could not be fetched",
-			update_with_repository_not_fetchable,
+			update_with_app_not_fetchable,
 		),
 		(
 			"App has invalid pyproject.toml file",
@@ -108,7 +110,7 @@ def handlers() -> "list[UserAddressableHandlerTuple]":
 		),
 		(
 			"Incompatible Node version found",
-			update_with_incompatible_app_prebuild,
+			update_with_incompatible_node,
 		),
 		(
 			"Incompatible Python version found",
@@ -125,10 +127,6 @@ def handlers() -> "list[UserAddressableHandlerTuple]":
 		(
 			"Required app not found",
 			update_with_required_app_not_found_prebuild,
-		),
-		(
-			"note: This error originates from a subprocess, and is likely not a problem with pip.",
-			update_with_error_on_pip_install,
 		),
 		(
 			"ModuleNotFoundError: No module named",
@@ -150,11 +148,29 @@ def handlers() -> "list[UserAddressableHandlerTuple]":
 			"[ERROR] [plugin frappe-vue-style]",
 			update_with_vue_build_failed,
 		),
+		(
+			"vite: not found",
+			update_with_vite_not_found,
+		),
+		# Below two are catch all fallback handlers for
+		# `yarn build` and `pip install` errors originating due
+		# to issues in an app.
+		#
+		# They should always be at the end.
+		(
+			"subprocess.CalledProcessError: Command 'bench build --app",
+			update_with_yarn_build_failed,
+		),
+		(
+			"note: This error originates from a subprocess, and is likely not a problem with pip.",
+			update_with_error_on_pip_install,
+		),
 	]
 
 
 def create_build_failed_notification(
-	dc: "DeployCandidate", exc: "BaseException"
+	dc: "DeployCandidate",
+	exc: BaseException | None,
 ) -> bool:
 	"""
 	Used to create cloud notifications on Build failures. If the notification
@@ -163,6 +179,10 @@ def create_build_failed_notification(
 
 	Returns True if build failure is_actionable
 	"""
+	if exc is None:
+		# Exception is not passed if called from
+		# build agent job update handler
+		exc = Exception("PLACEHOLDER_EXCEPTION")
 
 	details = get_details(dc, exc)
 	doc_dict = {
@@ -188,7 +208,7 @@ def create_build_failed_notification(
 def get_details(dc: "DeployCandidate", exc: BaseException) -> "Details":
 	tb = frappe.get_traceback(with_context=False)
 	default_title = get_default_title(dc)
-	default_message = (get_default_message(dc),)
+	default_message = get_default_message(dc)
 
 	details: "Details" = dict(
 		title=default_title,
@@ -224,10 +244,10 @@ def get_details(dc: "DeployCandidate", exc: BaseException) -> "Details":
 def update_with_vue_build_failed(
 	details: "Details",
 	dc: "DeployCandidate",
-	exc: "BaseException",
+	exc: BaseException,
 ):
 
-	failed_step = dc.get_first_step("status", "Failure")
+	failed_step = get_failed_step(dc)
 	app_name = None
 
 	details["title"] = "App installation failed due to errors in frontend code"
@@ -257,10 +277,10 @@ def update_with_vue_build_failed(
 def update_with_import_error(
 	details: "Details",
 	dc: "DeployCandidate",
-	exc: "BaseException",
+	exc: BaseException,
 ):
 
-	failed_step = dc.get_first_step("status", "Failure")
+	failed_step = get_first_step(dc)
 	app_name = None
 
 	details["title"] = "App installation failed due to invalid import"
@@ -304,10 +324,10 @@ def update_with_import_error(
 def update_with_module_not_found(
 	details: "Details",
 	dc: "DeployCandidate",
-	exc: "BaseException",
+	exc: BaseException,
 ):
 
-	failed_step = dc.get_first_step("status", "Failure")
+	failed_step = get_first_step(dc)
 	app_name = None
 
 	details["title"] = "App installation failed due to missing module"
@@ -348,10 +368,10 @@ def update_with_module_not_found(
 def update_with_dependency_not_found(
 	details: "Details",
 	dc: "DeployCandidate",
-	exc: "BaseException",
+	exc: BaseException,
 ):
 
-	failed_step = dc.get_first_step("status", "Failure")
+	failed_step = get_first_step(dc)
 	app_name = None
 
 	details["title"] = "App installation failed due to dependency not being found"
@@ -393,10 +413,10 @@ def update_with_dependency_not_found(
 def update_with_error_on_pip_install(
 	details: "Details",
 	dc: "DeployCandidate",
-	exc: "BaseException",
+	exc: BaseException,
 ):
 
-	failed_step = dc.get_first_step("status", "Failure")
+	failed_step = get_first_step(dc)
 	app_name = None
 
 	details["title"] = "App installation failed due to errors"
@@ -427,7 +447,7 @@ def update_with_error_on_pip_install(
 def update_with_invalid_pyproject_error(
 	details: "Details",
 	dc: "DeployCandidate",
-	exc: "BaseException",
+	exc: BaseException,
 ):
 	if len(exc.args) <= 1 or not (app := exc.args[1]):
 		return False
@@ -450,7 +470,7 @@ def update_with_invalid_pyproject_error(
 def update_with_invalid_package_json_error(
 	details: "Details",
 	dc: "DeployCandidate",
-	exc: "BaseException",
+	exc: BaseException,
 ):
 	if len(exc.args) <= 1 or not (app := exc.args[1]):
 		return False
@@ -475,53 +495,33 @@ def update_with_invalid_package_json_error(
 	return True
 
 
-def update_with_installation_token_not_fetchable(
+def update_with_app_not_fetchable(
 	details: "Details",
 	dc: "DeployCandidate",
 	exc: BaseException,
 ):
-	return _update_with_github_token_error(details, dc, exc, False)
 
+	failed_step = get_failed_step(dc)
 
-def update_with_repository_not_fetchable(
-	details: "Details",
-	dc: "DeployCandidate",
-	exc: BaseException,
-):
-	return _update_with_github_token_error(details, dc, exc, True)
+	details["title"] = "App could not be fetched"
+	if failed_step.stage_slug == "apps":
+		app_name = failed_step.step
+		message = f"""
+		<p><b>{app_name}</b> could not be fetched from GitHub.</p>
+		<p>This may have been due to an invalid installation id or due
+		to an invalid repository URL.</p>
+		<p>For a possible solutions, please follow the steps mentioned
+		in <i>Help</i>.</p>
+		"""
+	else:
+		message = """
+		<p>App could not be fetched from GitHub.</p>
+		<p>This may have been due to an invalid installation id or due
+		to an invalid repository URL.</p>
+		<p>For a possible solutions, please follow the steps mentioned
+		in <i>Help</i>.</p>
+		"""
 
-
-def _update_with_github_token_error(
-	details: "Details",
-	dc: "DeployCandidate",
-	exc: BaseException,
-	is_repo_not_found: bool = False,
-):
-	if len(exc.args) > 1:
-		app = exc.args[1]
-	elif (failed_step := dc.get_first_step("status", "Failure")) is not None:
-		app = failed_step.step_slug
-
-	if not app:
-		return False
-
-	# Ensure that installation token is None
-	if is_repo_not_found and not is_installation_token_none(dc, app):
-		return False
-
-	build_step = get_ct_row(dc, app, "build_steps", "step_slug")
-	if not build_step:
-		return False
-
-	details["title"] = "App access token could not be fetched"
-
-	app_name = build_step.step
-	message = f"""
-	<p>{details['message']}</p>
-
-	<p><b>{app_name}</b> installation access token could not be fetched from GitHub.
-	To rectify this issue, please follow the steps mentioned in <i>Help</i>.</p>
-	"""
 	details["message"] = fmt(message)
 	details["assistance_url"] = DOC_URLS["app-installation-issue"]
 	return True
@@ -680,6 +680,71 @@ def update_with_required_app_not_found_prebuild(
 	"""
 	details["traceback"] = None
 	details["message"] = fmt(message)
+	details["assistance_url"] = DOC_URLS["required-app-not-found"]
+	return True
+
+
+def update_with_vite_not_found(
+	details: "Details",
+	dc: "DeployCandidate",
+	exc: BaseException,
+):
+	details["title"] = "Vite not found"
+	failed_step = get_failed_step(dc)
+	if failed_step.stage_slug == "apps":
+		app_name = failed_step.step
+		message = f"""
+		<p><b>{app_name}</b> installation has failed due the build
+		dependency Vite not being found.</p>
+		<p>To rectify this issue, please follow the steps mentioned
+		in <i>Help</i>.</p>
+		"""
+	else:
+		message = """
+		<p>App installation has failed due the build dependency Vite
+		not being found.</p>
+		<p>To rectify this issue, please follow the steps mentioned
+		in <i>Help</i>.</p>
+		"""
+
+	details["message"] = fmt(message)
+	details["traceback"] = None
+	details["assistance_url"] = DOC_URLS["vite-not-found"]
+	return True
+
+
+def update_with_yarn_build_failed(
+	details: "Details",
+	dc: "DeployCandidate",
+	exc: BaseException,
+):
+	details["title"] = "App frontend build failed"
+	failed_step = get_failed_step(dc)
+	if failed_step.stage_slug == "apps":
+		app_name = failed_step.step
+		message = f"""
+		<p><b>{app_name}</b> assets have failed to build.</p>
+
+		<p>Please view the failing step <b>{failed_step.stage} - {failed_step.step}</b>
+		output to debug and fix the error before retrying build.</p>
+
+		<p>This may be due to issues with the app being installed
+		and not Frappe Cloud.</p>
+		"""
+
+	else:
+		message = """
+		<p>App assets have failed to build.</p>
+
+		<p>Please view the failing step output to debug and fix the error
+		before retrying build.</p>
+
+		<p>This may be due to issues with the app being installed
+		and not Frappe Cloud.</p>
+		"""
+
+	details["message"] = fmt(message)
+	details["traceback"] = None
 	return True
 
 
@@ -716,24 +781,6 @@ def get_app_from_incompatible_build_output_line(line: str):
 	return splits[idx][:-1].split("@")[0]
 
 
-def is_installation_token_none(dc: "DeployCandidate", app: str) -> bool:
-	from cloud.api.github import get_access_token
-
-	dc_app = get_ct_row(dc, app, "apps", "app")
-	if dc_app is None:
-		return False
-
-	installation_id = frappe.get_value(
-		"App Source", dc_app.source, "github_installation_id"
-	)
-
-	try:
-		return get_access_token(installation_id) is None
-	except Exception:
-		# Error is not actionable
-		return False
-
-
 def get_default_title(dc: "DeployCandidate") -> str:
 	return "Build Failed"
 
@@ -762,3 +809,7 @@ def get_ct_row(
 	for row in ct:
 		if row.get(ct_field) == match_value:
 			return row
+
+
+def get_failed_step(dc: "DeployCandidate"):
+	return dc.get_first_step("status", "Failure") or frappe._dict()

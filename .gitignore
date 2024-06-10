@@ -142,6 +142,7 @@ cloud/www/dashboard-old.html
 cloud/public/css/email.css
 cloud/public/css/saas-next.css
 dashboard/tailwind.theme.json
+dashboard/components.d.ts
 
 # Backbone artefacts
 backbone/packer/builds/

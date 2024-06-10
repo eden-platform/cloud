@@ -2,11 +2,16 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe.core.utils import find
 import yaml
 import json
 from frappe.model.document import Document
 from cloud.agent import Agent
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+	from cloud.cloud.doctype.server.server import Server
 
 class PrometheusAlertRule(Document):
 	# begin: auto-generated types
@@ -16,6 +21,9 @@ class PrometheusAlertRule(Document):
 
 	if TYPE_CHECKING:
 		from frappe.types import DF
+		from press.press.doctype.prometheus_alert_rule_cluster.prometheus_alert_rule_cluster import (
+			PrometheusAlertRuleCluster,
+		)
 
 		alert_preview: DF.Code | None
 		annotations: DF.Code
@@ -26,10 +34,13 @@ class PrometheusAlertRule(Document):
 		group_interval: DF.Data
 		group_wait: DF.Data
 		labels: DF.Code
+		only_on_shared: DF.Check
 		cloud_job_type: DF.Link | None
+		ignore_on_clusters: DF.TableMultiSelect[PrometheusAlertRuleCluster]
 		repeat_interval: DF.Data
 		route_preview: DF.Code | None
 		severity: DF.Literal["Critical", "Warning", "Information"]
+		silent: DF.Check
 	# end: auto-generated types
 
 	def validate(self):
@@ -106,6 +117,11 @@ class PrometheusAlertRule(Document):
 	def run_cloud_job(
 		self, job_name: str, server_type: str, server_name: str, arguments=None
 	):
+		server: "Server" = frappe.get_doc(server_type, server_name)
+		if self.only_on_shared and not server.is_shared:
+			return
+		if find(self.ignore_on_clusters, lambda x: x.cluster == server.cluster):
+			return
 		if arguments is None:
 			arguments = {}
 		return frappe.get_doc(
@@ -114,7 +130,7 @@ class PrometheusAlertRule(Document):
 				"job_type": job_name,
 				"server_type": server_type,
 				"server": server_name,
-				"virtual_machine": frappe.get_value(server_type, server_name, "virtual_machine"),
+				"virtual_machine": server.virtual_machine,
 				"arguments": json.dumps(arguments, indent=2, sort_keys=True),
 			}
 		).insert()

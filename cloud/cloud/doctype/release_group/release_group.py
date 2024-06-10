@@ -10,13 +10,14 @@ from datetime import datetime
 from typing import TYPE_CHECKING, List, Optional, TypedDict
 
 import frappe
+from frappe.query_builder.functions import Count
 import semantic_version as sv
 from frappe import _
 from frappe.core.doctype.version.version import get_diff
 from frappe.core.utils import find, find_all
 from frappe.model.document import Document
 from frappe.model.naming import append_number_if_name_exists
-from frappe.utils import cstr, flt, sbool
+from frappe.utils import cstr, flt, sbool, get_url
 from cloud.api.client import dashboard_whitelist
 from cloud.overrides import get_permission_query_conditions_for_doctype
 from cloud.cloud.doctype.app.app import new_app
@@ -160,6 +161,7 @@ class ReleaseGroup(Document, TagHelpers):
 	def get_doc(self, doc):
 		doc.deploy_information = self.deploy_information()
 		doc.status = self.status
+		doc.actions = self.get_actions()
 		if len(self.servers) == 1:
 			server = frappe.db.get_value(
 				"Server", self.servers[0].server, ["team", "title"], as_dict=True
@@ -167,6 +169,29 @@ class ReleaseGroup(Document, TagHelpers):
 			doc.server = self.servers[0].server
 			doc.server_title = server.title
 			doc.server_team = server.team
+
+	def get_actions(self):
+		return [
+			{
+				"action": "Rename Bench",
+				"description": "Rename the bench",
+				"button_label": "Rename",
+				"doc_method": "rename",
+			},
+			{
+				"action": "Transfer Bench",
+				"description": "Transfer ownership of this bench to another team",
+				"button_label": "Transfer",
+				"doc_method": "send_change_team_request",
+			},
+			{
+				"action": "Drop Bench",
+				"description": "Drop the bench",
+				"button_label": "Drop",
+				"doc_method": "drop",
+				"group": "Dangerous Actions",
+			},
+		]
 
 	def validate(self):
 		self.validate_title()
@@ -486,6 +511,11 @@ class ReleaseGroup(Document, TagHelpers):
 		dc = self.create_duplicate_deploy_candidate()
 		dc.schedule_build_and_deploy()
 
+	@dashboard_whitelist()
+	def initial_deploy(self):
+		dc = self.create_deploy_candidate()
+		dc.schedule_build_and_deploy()
+
 	@frappe.whitelist()
 	def create_deploy_candidate(self, apps_to_update=None) -> "Optional[DeployCandidate]":
 		if not self.enabled:
@@ -619,7 +649,9 @@ class ReleaseGroup(Document, TagHelpers):
 		out.sites = [
 			site.update({"skip_failing_patches": False, "skip_backups": False})
 			for site in frappe.get_all(
-				"Site", {"group": self.name, "status": "Active"}, ["name", "server", "bench"]
+				"Site",
+				{"group": self.name, "status": ("in", ["Active", "Broken"])},
+				["name", "server", "bench"],
 			)
 		]
 
@@ -728,6 +760,65 @@ class ReleaseGroup(Document, TagHelpers):
 			)
 			app.tag = get_app_tag(app.repository, app.repository_owner, app.hash)
 		return apps
+
+	@dashboard_whitelist()
+	def send_change_team_request(self, team_mail_id: str, reason: str):
+		"""Send email to team to accept bench transfer request"""
+
+		if self.team != get_current_team():
+			frappe.throw(
+				"You should belong to the team owning the bench to initiate a bench ownership transfer."
+			)
+
+		if not frappe.db.exists("Team", {"user": team_mail_id, "enabled": 1}):
+			frappe.throw("No Active Team record found.")
+
+		old_team = frappe.db.get_value("Team", self.team, "user")
+
+		if old_team == team_mail_id:
+			frappe.throw(f"Bench is already owned by the team {team_mail_id}")
+
+		team_change = frappe.get_doc(
+			{
+				"doctype": "Team Change",
+				"document_type": "Release Group",
+				"document_name": self.name,
+				"to_team": frappe.db.get_value("Team", {"user": team_mail_id}),
+				"from_team": self.team,
+				"reason": reason or "",
+			}
+		).insert()
+
+		key = frappe.generate_hash("Release Group Transfer Link", 20)
+		minutes = 20
+		frappe.cache.set_value(
+			f"bench_transfer_data:{key}",
+			(
+				self.name,
+				team_change.name,
+			),
+			expires_in_sec=minutes * 60,
+		)
+
+		link = get_url(f"/api/method/press.api.bench.confirm_bench_transfer?key={key}")
+
+		if frappe.conf.developer_mode:
+			print(f"Bench transfer link for {team_mail_id}\n{link}\n")
+
+		frappe.sendmail(
+			recipients=team_mail_id,
+			subject="Transfer Bench Ownership Confirmation",
+			template="transfer_team_confirmation",
+			args={
+				"name": self.title or self.name,
+				"type": "bench",
+				"old_team": old_team,
+				"new_team": team_mail_id,
+				"transfer_url": link,
+				"minutes": minutes,
+			},
+		)
+
 
 	@dashboard_whitelist()
 	def generate_certificate(self):
@@ -1047,6 +1138,7 @@ class ReleaseGroup(Document, TagHelpers):
 		required_app_source = frappe.get_all(
 			"App Source",
 			filters={"repository_url": current_app_source.repository_url, "branch": to_branch},
+			or_filters={"team": current_app_source.team, "public": 1},
 			limit=1,
 		)
 
@@ -1166,7 +1258,8 @@ class ReleaseGroup(Document, TagHelpers):
 		if isinstance(app, str):
 			app = json.loads(app)
 
-		name = app["name"]
+		if not (name := app.get("name")):
+			return
 
 		if frappe.db.exists("App", name):
 			app_doc = frappe.get_doc("App", name)
@@ -1276,6 +1369,59 @@ def get_status(name):
 		)
 		else "Awaiting Deploy"
 	)
+
+def prune_servers_without_sites():
+	rg_servers = frappe.qb.DocType("Release Group Server")
+	rg = frappe.qb.DocType("Release Group")
+	groups_with_multiple_servers = (
+		frappe.qb.from_(rg_servers)
+		.inner_join(rg)
+		.on(rg.name == rg_servers.parent)
+		.where(rg.enabled == 1)
+		.where(rg.public == 0)
+		.where(rg.central_bench == 0)
+		.where(rg.team != "team@erpnext.com")
+		.where(
+			rg.modified < frappe.utils.add_to_date(None, days=-7)
+		)  # use this timestamp to assume server added time
+		.groupby(rg_servers.parent)
+		.having(Count("*") > 1)
+		.select(rg_servers.parent)
+		.run(as_dict=False)
+	)
+	groups_with_multiple_servers = [x[0] for x in groups_with_multiple_servers]
+	groups_with_multiple_servers = frappe.get_all(
+		"Release Group Server",
+		filters={"parent": ("in", groups_with_multiple_servers)},
+		fields=["parent", "server"],
+		order_by="parent",
+		as_list=True,
+	)
+
+	from press.press.doctype.bench.bench import (
+		get_scheduled_version_upgrades,
+		get_unfinished_site_migrations,
+	)
+
+	for group, server in groups_with_multiple_servers:
+		sites = frappe.get_all(
+			"Site",
+			{"status": ("!=", "Archived"), "group": group, "server": server},
+			["name"],
+		)
+		if not sites:
+			benches = frappe.get_all(
+				"Bench",
+				{"group": group, "server": server, "status": "Active"},
+				["name", "server", "group"],
+			)
+			for bench in benches:
+				if get_unfinished_site_migrations(bench.name) or get_scheduled_version_upgrades(
+					bench
+				):
+					continue
+			frappe.db.delete("Release Group Server", {"parent": group, "server": server})
+			frappe.db.commit()
 
 
 get_permission_query_conditions = get_permission_query_conditions_for_doctype(

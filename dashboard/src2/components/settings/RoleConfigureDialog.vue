@@ -3,7 +3,6 @@
 		v-if="role.doc"
 		:options="{ title: `${role.doc.title}` }"
 		v-model="show"
-		@after-leave="() => (this.memberEmail = '')"
 	>
 		<template v-slot:body-content>
 			<Tabs
@@ -101,11 +100,12 @@
 </template>
 
 <script setup>
-import { createDocumentResource, Switch, Tabs } from 'frappe-ui';
+import { Switch, Tabs } from 'frappe-ui';
 import { computed, ref, watch } from 'vue';
 import { getTeam } from '../../data/team';
 import UserWithAvatarCell from '../UserWithAvatarCell.vue';
 import { toast } from 'vue-sonner';
+import { getDocResource } from '../../utils/resource';
 import session from '../../data/session';
 
 const props = defineProps({
@@ -115,7 +115,7 @@ const member = ref({});
 const show = ref(true);
 const tabIndex = ref(0);
 
-const role = createDocumentResource({
+const role = getDocResource({
 	doctype: 'Cloud Role',
 	name: props.roleId,
 	auto: true,

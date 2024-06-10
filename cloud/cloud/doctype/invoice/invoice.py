@@ -14,6 +14,7 @@ from frappe.model.document import Document
 
 from cloud.overrides import get_permission_query_conditions_for_doctype
 from cloud.utils.billing import get_frappe_io_connection, convert_stripe_money
+from cloud.api.client import dashboard_whitelist
 
 
 DISCOUNT_MAP = {"Entry": 0, "Bronze": 0.05, "Silver": 0.1, "Gold": 0.15}
@@ -117,6 +118,7 @@ class Invoice(Document):
 		"due_date",
 		"total_discount_amount",
 		"invoice_pdf",
+		"stripe_invoice_url",
 	]
 
 	@staticmethod
@@ -133,13 +135,18 @@ class Invoice(Document):
 					invoice.name, invoice.total, invoice.amount_due, invoice.status, invoice.due_date
 				)
 				.where((invoice.team == team_name) & (invoice.due_date >= due_date[1]))
+				.where(
+					(invoice.team == team_name)
+					& (invoice.due_date >= due_date[1])
+					& (invoice.type == "Subscription")
+				)
 			)
 		return query
 
 	def get_doc(self, doc):
 		doc.invoice_pdf = self.invoice_pdf or (self.currency == "USD" and self.get_pdf())
 
-	@frappe.whitelist()
+	@dashboard_whitelist()
 	def stripe_payment_url(self):
 		if not self.stripe_invoice_id:
 			return
@@ -351,9 +358,11 @@ class Invoice(Document):
 		amount = int(self.amount_due * 100)
 		invoice = stripe.Invoice.create(
 			customer=customer_id,
+			pending_invoice_items_behavior="exclude",
 			collection_method="charge_automatically",
 			auto_advance=True,
-			idempotency_key=f"invoice:{self.name}:{amount}",
+			currency=self.currency.lower(),
+			idempotency_key=f"invoice:{self.name}:amount:{amount}",
 		)
 		stripe.InvoiceItem.create(
 			customer=customer_id,
@@ -361,7 +370,7 @@ class Invoice(Document):
 			description=self.get_stripe_invoice_item_description(),
 			amount=amount,
 			currency=self.currency.lower(),
-			idempotency_key=f"invoiceitem:{self.name}:{amount}",
+			idempotency_key=f"invoiceitem:{self.name}:amount:{amount}",
 		)
 		self.stripe_invoice_id = invoice["id"]
 		self.status = "Invoice Created"
@@ -392,24 +401,35 @@ class Invoice(Document):
 		stripe.Invoice.finalize_invoice(self.stripe_invoice_id)
 
 	def validate_duplicate(self):
-		if self.type != "Subscription":
-			return
-
-		if self.period_start and self.period_end and self.is_new():
-			query = (
-				f"select `name` from `tabInvoice` where team = '{self.team}' and"
-				f" status = 'Draft' and ('{self.period_start}' between `period_start` and"
-				f" `period_end` or '{self.period_end}' between `period_start` and"
-				" `period_end`)"
-			)
-
-			intersecting_invoices = [x[0] for x in frappe.db.sql(query, as_list=True)]
-
-			if intersecting_invoices:
+		if self.type == "Prepaid Credits":
+			if self.stripe_payment_intent_id and frappe.db.exists(
+				"Invoice",
+				{
+					"stripe_payment_intent_id": self.stripe_payment_intent_id,
+					"type": "Prepaid Credits",
+					"name": ("!=", self.name),
+				},
+			):
 				frappe.throw(
-					f"There are invoices with intersecting periods:{', '.join(intersecting_invoices)}",
-					frappe.DuplicateEntryError,
+					"Invoice with same Stripe payment intent exists", frappe.DuplicateEntryError
 				)
+
+		if self.type == "Subscription":
+			if self.period_start and self.period_end and self.is_new():
+				query = (
+					f"select `name` from `tabInvoice` where team = '{self.team}' and"
+					f" status = 'Draft' and ('{self.period_start}' between `period_start` and"
+					f" `period_end` or '{self.period_end}' between `period_start` and"
+					" `period_end`)"
+				)
+
+				intersecting_invoices = [x[0] for x in frappe.db.sql(query, as_list=True)]
+
+				if intersecting_invoices:
+					frappe.throw(
+						f"There are invoices with intersecting periods:{', '.join(intersecting_invoices)}",
+						frappe.DuplicateEntryError,
+					)
 
 	def validate_team(self):
 		team = frappe.get_cached_doc("Team", self.team)
@@ -762,7 +782,7 @@ class Invoice(Document):
 				headers=client.headers,
 				data={
 					"team": team.as_json(),
-					"address": address.as_json(),
+					"address": address.as_json() if address else '""',
 					"invoice": self.as_json(),
 				},
 			)

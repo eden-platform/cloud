@@ -5,6 +5,7 @@ from datetime import timedelta
 from unittest.mock import patch, Mock
 import frappe
 from frappe.tests.utils import FrappeTestCase
+from twilio.base.exceptions import TwilioRestException
 from cloud.cloud.doctype.agent_job.agent_job import AgentJob
 from cloud.cloud.doctype.alertmanager_webhook_log.alertmanager_webhook_log import (
 	AlertmanagerWebhookLog,
@@ -23,6 +24,7 @@ from cloud.cloud.doctype.prometheus_alert_rule.test_prometheus_alert_rule import
 	create_test_prometheus_alert_rule,
 )
 from cloud.cloud.doctype.site.test_site import create_test_site
+from cloud.telegram_utils import Telegram
 from cloud.utils.test import foreground_enqueue_doc
 
 
@@ -413,3 +415,15 @@ class TestIncident(FrappeTestCase):
 			mock_calls_create.assert_called_with(
 				to=self.test_phno_2, from_=self.from_, url="http://demo.twilio.com/docs/voice.xml"
 			)
+
+	@patch.object(Telegram, "send")
+	def test_telegram_message_is_sent_when_unable_to_reach_twilio(
+		self, mock_telegram_send
+	):
+		create_test_alertmanager_webhook_log()
+		incident = frappe.get_last_doc("Incident")
+		with patch.object(
+			MockTwilioCallList, "create", side_effect=TwilioRestException("test", 500)
+		):
+			incident.call_humans()
+		mock_telegram_send.assert_called_once()

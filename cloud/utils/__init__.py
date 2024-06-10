@@ -136,6 +136,14 @@ def _system_user():
 		frappe.get_cached_value("User", frappe.session.user, "user_type") == "System User"
 	)
 
+def has_role(role, user=None):
+	if not user:
+		user = frappe.session.user
+
+	return frappe.db.exists(
+		"Has Role", {"parenttype": "User", "parent": user, "role": role}
+	)
+
 
 @functools.lru_cache(maxsize=1024)
 def get_app_tag(repository, repository_owner, hash):

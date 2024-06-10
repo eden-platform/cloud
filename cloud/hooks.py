@@ -169,6 +169,9 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
+    "weekly_long": [
+		"cloud.cloud.doctype.marketplace_app.events.auto_review_for_missing_steps"
+	],
 	"daily": [
 		"cloud.cloud.doctype.tls_certificate.tls_certificate.renew_tls_certificates",
 		"cloud.experimental.doctype.referral_bonus.referral_bonus.credit_referral_bonuses",
@@ -194,6 +197,7 @@ scheduler_events = {
 		"cloud.cloud.doctype.site.backups.schedule_for_sites_with_backup_time",
 	],
 	"hourly_long": [
+        "cloud.cloud.doctype.release_group.release_group.prune_servers_without_sites",
 		"cloud.cloud.doctype.server.server.scale_workers",
 		"cloud.cloud.doctype.usage_record.usage_record.link_unlinked_usage_records",
 		"cloud.cloud.doctype.bench.bench.sync_benches",
@@ -203,11 +207,14 @@ scheduler_events = {
 		"cloud.cloud.doctype.site_update.site_update.mark_stuck_updates_as_fatal",
 		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.cleanup_build_directories",
 		"cloud.cloud.doctype.deploy_candidate.deploy_candidate.delete_draft_candidates",
+        "cloud.cloud.doctype.deploy_candidate.deploy_candidate.check_builds_status",
 		"cloud.cloud.doctype.virtual_disk_snapshot.virtual_disk_snapshot.delete_old_snapshots",
 		"cloud.cloud.doctype.app_release.app_release.cleanup_unused_releases",
 	],
 	"all": [
 		"cloud.auth.flush",
+        "cloud.cloud.doctype.site.sync.sync_setup_wizard_status",
+
 	],
 	"cron": {
 		"1-59/2 * * * *": [

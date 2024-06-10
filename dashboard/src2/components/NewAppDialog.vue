@@ -273,6 +273,14 @@ export default {
 				).default_branch;
 				this.selectedBranch = { label: defaultBranch, value: defaultBranch };
 			} else this.selectedBranch = '';
+		},
+		selectedBranch(newSelectedBranch) {
+			this.$resources.validateApp.submit({
+				owner: this.appOwner,
+				repository: this.appName,
+				branch: newSelectedBranch.value,
+				installation: this.selectedGithubUser?.value?.id
+			});
 		}
 	},
 	resources: {
@@ -315,19 +323,6 @@ export default {
 		branches() {
 			return {
 				url: 'cloud.api.github.branches',
-				onSuccess(branches) {
-					if (this.githubAppLink)
-						this.selectedBranch = {
-							label: branches[0].name,
-							value: branches[0].name
-						};
-					this.$resources.validateApp.submit({
-						owner: this.appOwner,
-						repository: this.appName,
-						branch: branches[0].name,
-						installation: this.selectedGithubUser?.value?.id
-					});
-				},
 				validate() {
 					const githubUrlRegex =
 						/^(https?:\/\/)?(www\.)?github\.com\/([a-zA-Z0-9_.\-]+)\/([a-zA-Z0-9_.\-]+)(\/)?$/;
@@ -336,6 +331,13 @@ export default {
 					if (this.tabIndex === 0 && !isValidUrl) {
 						return 'Please enter a valid github link';
 					}
+				},
+				onSuccess(data) {
+					if (this.tabIndex === 0)
+						this.selectedBranch = {
+							label: data[0].name,
+							value: data[0].name
+						};
 				}
 			};
 		},

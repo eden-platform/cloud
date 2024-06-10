@@ -6,6 +6,7 @@
 				{
 					label: 'Restore',
 					variant: 'solid',
+					theme: 'red',
 					loading: $resources.restoreBackup.loading,
 					onClick: () => {
 						$resources.restoreBackup.submit();
@@ -19,6 +20,15 @@
 		<template v-slot:body-content>
 			<div class="space-y-4">
 				<p class="text-base">Restore your database using a previous backup.</p>
+				<div
+					class="flex items-center rounded border border-gray-200 bg-gray-100 p-4 text-sm text-gray-600"
+				>
+					<i-lucide-alert-triangle class="mr-4 inline-block h-6 w-6" />
+					<div>
+						This operation will replace all <b>data</b> & <b>apps</b> in your
+						site with those from the backup
+					</div>
+				</div>
 				<BackupFilesUploader v-model:backupFiles="selectedFiles" />
 			</div>
 			<div class="mt-3">

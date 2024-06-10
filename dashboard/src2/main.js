@@ -63,11 +63,21 @@ getInitialData().then(() => {
 				const ignoreErrors = [
 					/api\/method\/cloud.api.client/,
 					/dynamically imported module/,
-					/NetworkError when attempting to fetch resource/
+					/NetworkError when attempting to fetch resource/,
+					/Load failed/,
+					/Importing a module script failed./
+				];
+				const ignoreErrorTypes = [
+					'ValidationError',
+					'PermissionError',
+					'AuthenticationError'
 				];
 				const error = hint.originalException;
 
-				if (error?.message && ignoreErrors.some(re => re.test(error.message)))
+				if (
+					ignoreErrorTypes.includes(error?.exc_type) ||
+					(error?.message && ignoreErrors.some(re => re.test(error.message)))
+				)
 					return null;
 
 				return event;

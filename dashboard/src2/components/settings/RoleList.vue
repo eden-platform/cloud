@@ -1,8 +1,4 @@
 <template>
-	<AlertBanner
-		title="We were not able to migrate all your permissions to the new dashboard, please configure them manually."
-		class="mb-4"
-	/>
 	<ObjectList :options="listOptions" />
 </template>
 
@@ -14,13 +10,10 @@ import ObjectList from '../ObjectList.vue';
 import RoleConfigureDialog from './RoleConfigureDialog.vue';
 import router from '../../router';
 import UserAvatarGroup from '../AvatarGroup.vue';
-import AlertBanner from '../AlertBanner.vue';
-import { getTeam } from '../../data/team';
 
 const listOptions = ref({
 	doctype: 'Cloud Role',
 	fields: [{ users: ['user', 'user.full_name', 'user.user_image'] }],
-	filter: { team: getTeam().doc.name },
 	documentation: 'https://frappecloud.com/docs/role-permissions',
 	columns: [
 		{

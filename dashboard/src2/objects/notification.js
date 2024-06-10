@@ -1,9 +1,20 @@
 import { h } from 'vue';
 import router from '../router';
 import { getDocResource } from '../utils/resource';
-import { Tooltip } from 'frappe-ui';
+import { Tooltip, frappeRequest } from 'frappe-ui';
 import { icon } from '../utils/components';
 import { getTeam } from '../data/team';
+import { toast } from 'vue-sonner';
+
+const getNotification = name => {
+	return getDocResource({
+		doctype: 'Cloud Notification',
+		name: name,
+		whitelistedMethods: {
+			markNotificationAsRead: 'mark_as_read'
+		}
+	});
+};
 
 export default {
 	doctype: 'Cloud Notification',
@@ -17,7 +28,8 @@ export default {
 				url: 'cloud.api.notifications.get_notifications',
 				auto: true,
 				filters: {
-					team: $team.name
+					team: $team.name,
+					read: 'Unread'
 				},
 				cache: ['Notifications']
 			};
@@ -28,31 +40,54 @@ export default {
 		filterControls() {
 			return [
 				{
-					type: 'select',
+					type: 'tab',
 					label: 'Read',
-					class: 'w-20',
 					fieldname: 'read',
-					options: ['', 'Read', 'Unread']
+					options: ['All', 'Unread'],
+					default: 'Unread'
 				}
 			];
 		},
 		onRowClick(row) {
-			let notification = getDocResource({
-				doctype: 'Cloud Notification',
-				name: row.name,
-				whitelistedMethods: {
-					markNotificationAsRead: 'mark_as_read'
-				}
-			});
+			const notification = getNotification(row.name);
+
 			notification.markNotificationAsRead.submit().then(() => {
 				if (row.route) router.push(row.route);
 			});
+		},
+		actions({ listResource: notifications }) {
+			return [
+				{
+					label: 'Mark all as read',
+					slots: {
+						prefix: icon('check-circle')
+					},
+					async onClick() {
+						toast.promise(
+							frappeRequest({
+								url: '/api/method/cloud.api.notifications.mark_all_notifications_as_read'
+							}),
+							{
+								success: () => {
+									notifications.reload();
+									return 'All notifications marked as read';
+								},
+								loading: 'Marking all notifications as read...',
+								error: error =>
+									error.messages?.length
+										? error.messages.join('\n')
+										: error.message
+							}
+						);
+					}
+				}
+			];
 		},
 		columns: [
 			{
 				label: 'Title',
 				fieldname: 'title',
-				width: '15rem',
+				width: '20rem',
 				format(value, row) {
 					return value || row.type;
 				},
@@ -82,11 +117,14 @@ export default {
 				label: 'Message',
 				fieldname: 'message',
 				type: 'Component',
-				width: '65%',
+				width: '40rem%',
 				component({ row }) {
 					return h('div', {
 						class: 'truncate text-base text-gray-600',
-						innerHTML: row.message.split('\n')[0]
+						// replace all html tags except <b>
+						innerHTML: row.message
+							.replace(/<(?!\/?b\b)[^>]*>/g, '')
+							.split('\n')[0]
 					});
 				}
 			},
@@ -94,8 +132,7 @@ export default {
 				label: '',
 				fieldname: 'creation',
 				type: 'Timestamp',
-				align: 'right',
-				width: '10rem'
+				align: 'right'
 			}
 		]
 	},

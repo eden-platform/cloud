@@ -7,9 +7,16 @@
 		<Button
 			v-if="site?.doc"
 			class="whitespace-nowrap"
-			:label="props.buttonLabel"
 			@click="getSiteActionHandler(props.actionLabel)"
-		/>
+			>
+			<p
+				:class="
+					group === 'Dangerous Actions' ? 'text-red-600' : 'text-gray-800'
+				"
+			>
+				{{ props.buttonLabel }}
+			</p>
+		</Button>
 	</div>
 </template>
 
@@ -25,7 +32,8 @@ const props = defineProps({
 	actionLabel: { type: String, required: true },
 	method: { type: String, required: true },
 	description: { type: String, required: true },
-	buttonLabel: { type: String, required: true }
+	buttonLabel: { type: String, required: true },
+	group: { type: String, required: false }
 });
 
 const site = getCachedDocumentResource('Site', props.siteName);
@@ -228,7 +236,7 @@ function onTransferSite() {
 			variant: 'solid',
 			onClick: ({ hide, values }) => {
 				return site.sendTransferRequest
-					.submit({ team_mail_id: values.email, reason: values.reason })
+					.submit({ team_mail_id: values.email, reason: values.reason || '' })
 					.then(() => {
 						hide();
 						toast.success(

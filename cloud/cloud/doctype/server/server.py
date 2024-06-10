@@ -69,28 +69,49 @@ class BaseServer(Document, TagHelpers):
 		doc.disk_size = frappe.db.get_value(
 			"Virtual Machine", self.virtual_machine, "disk_size"
 		)
+		doc.replication_server = frappe.db.get_value(
+			"Database Server",
+			{"primary": doc.database_server, "is_replication_setup": 1},
+			"name",
+		)
 
 		return doc
 
+	@staticmethod
+	def on_not_found(name):
+		# If name is of a db server then redirect to the app server
+		app_server = frappe.db.get_value("Server", {"database_server": name}, "name")
+		if app_server:
+			frappe.response.message = {
+				"redirect": f"/dashboard/servers/{app_server}",
+			}
+		raise
+
 	def get_actions(self):
+		server_type = ""
+		if self.doctype == "Server":
+			server_type = "application server"
+		elif self.doctype == "Database Server":
+			if self.is_replication_setup:
+				server_type = "replication server"
+			else:
+				server_type = "database server"
 		actions = [
 			{
-				"action": "Reboot server",
-				"description": "Reboot the application server"
-				if self.doctype == "Server"
-				else "Reboot the database server",
-				"button_label": "Reboot",
-				"condition": self.status == "Active",
-				"doc_method": "reboot",
-			},
-			{
 				"action": "Rename server",
-				"description": "Rename the application server"
-				if self.doctype == "Server"
-				else "Rename the database server",
+				"description": f"Rename the {server_type}",
 				"button_label": "Rename",
 				"condition": self.status == "Active",
 				"doc_method": "rename",
+				"group": f"{server_type.title()} Actions",
+			},
+			{
+				"action": "Reboot server",
+				"description": f"Reboot the {server_type}",
+				"button_label": "Reboot",
+				"condition": self.status == "Active",
+				"doc_method": "reboot",
+				"group": f"{server_type.title()} Actions",
 			},
 			{
 				"action": "Drop server",
@@ -98,8 +119,14 @@ class BaseServer(Document, TagHelpers):
 				"button_label": "Drop",
 				"condition": self.status == "Active" and self.doctype == "Server",
 				"doc_method": "drop_server",
+				"group": "Dangerous Actions",
 			},
 		]
+
+		for action in actions:
+			action["server_doctype"] = self.doctype
+			action["server_name"] = self.name
+
 		return [action for action in actions if action.get("condition", True)]
 
 	@dashboard_whitelist()
@@ -401,10 +428,11 @@ class BaseServer(Document, TagHelpers):
 		for play in plays:
 			frappe.delete_doc("Ansible Play", play.name)
 
-	@frappe.whitelist()
-	def extend_ec2_volume(self):
-		if self.provider not in ("AWS EC2", "OCI"):
-			return
+	def break_glass(self):
+		"""
+		Remove glass file with simple ssh command to make free space
+		Space is required for playbooks to run, growpart command, etc.
+		"""
 		try:
 			subprocess.check_output(
 				shlex.split(
@@ -414,6 +442,12 @@ class BaseServer(Document, TagHelpers):
 			)
 		except subprocess.CalledProcessError as e:
 			log_error(f"Error removing glassfile: {e.output.decode()}")
+
+	@frappe.whitelist()
+	def extend_ec2_volume(self):
+		if self.provider not in ("AWS EC2", "OCI"):
+			return
+		self.break_glass()
 		try:
 			ansible = Ansible(playbook="extend_ec2_volume.yml", server=self)
 			ansible.run()
@@ -522,6 +556,9 @@ class BaseServer(Document, TagHelpers):
 
 		if team.parent_team:
 			team = frappe.get_doc("Team", team.parent_team)
+
+		if team.payment_mode == "Paid By Partner" and team.billing_team:
+			team = frappe.get_doc("Team", team.billing_team)
 
 		if team.is_defaulter():
 			frappe.throw("Cannot change plan because you have unpaid invoices")
@@ -805,7 +842,24 @@ node_filesystem_avail_bytes{{instance="{self.name}", mountpoint="/"}}[3h], 6*360
 	def calculated_increase_disk_size(self):
 		self.increase_disk_size(self.size_to_increase_by_for_20_percent_available)
 
+	def prune_docker_system(self):
+		frappe.enqueue_doc(
+			self.doctype,
+			self.name,
+			"_prune_docker_system",
+			queue="long",
+			timeout=8000,
+		)
 
+	def _prune_docker_system(self):
+		try:
+			ansible = Ansible(
+				playbook="docker_system_prune.yml",
+				server=self,
+			)
+			ansible.run()
+		except Exception:
+			log_error("Prune Docker System Exception", doc=self)
 class Server(BaseServer):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
@@ -827,6 +881,7 @@ class Server(BaseServer):
 		hostname_abbreviation: DF.Data | None
 		ignore_incidents: DF.Check
 		ip: DF.Data | None
+		is_managed_database: DF.Check
 		is_primary: DF.Check
 		is_replication_setup: DF.Check
 		is_self_hosted: DF.Check
@@ -836,6 +891,7 @@ class Server(BaseServer):
 		is_standalone: DF.Check
 		is_standalone_setup: DF.Check
 		is_upstream_setup: DF.Check
+		managed_database_service: DF.Link | None
 		new_worker_allocation: DF.Check
 		plan: DF.Link | None
 		primary: DF.Link | None
@@ -868,13 +924,17 @@ class Server(BaseServer):
 
 	def on_update(self):
 		# If Database Server is changed for the server then change it for all the benches
-		if not self.is_new() and self.has_value_changed("database_server"):
+		if not self.is_new() and (
+			self.has_value_changed("database_server")
+			or self.has_value_changed("managed_database_service")
+		):
 			benches = frappe.get_all(
 				"Bench", {"server": self.name, "status": ("!=", "Archived")}
 			)
 			for bench in benches:
 				bench = frappe.get_doc("Bench", bench)
 				bench.database_server = self.database_server
+				bench.managed_database_service = self.managed_database_service
 				bench.save()
 
 		if not self.is_new() and self.has_value_changed("team"):

@@ -68,13 +68,14 @@ class GitHubWebhookLog(Document):
 
 		self.payload = json.dumps(payload, indent=4, sort_keys=True)
 
-	def after_insert(self):
+	def handle_events(self):
 		if self.event == "push":
 			self.handle_push_event()
 		elif self.event == "installation":
 			self.handle_installation_event()
 		elif self.event == "installation_repositories":
 			self.handle_repository_installation_event()
+		frappe.db.commit()
 
 	def handle_push_event(self):
 		payload = self.get_parsed_payload()
@@ -86,9 +87,9 @@ class GitHubWebhookLog(Document):
 	def handle_installation_event(self):
 		payload = self.get_parsed_payload()
 		action = payload.get("action")
-		if action == "created":
+		if action == "created" or action == "unsuspend":
 			self.handle_installation_created(payload)
-		elif action == "deleted":
+		elif action == "deleted" or action == "suspend":
 			self.handle_installation_deletion(payload)
 
 	def handle_repository_installation_event(self):
@@ -107,8 +108,14 @@ class GitHubWebhookLog(Document):
 
 	def handle_installation_deletion(self, payload):
 		owner = payload["installation"]["account"]["login"]
-		for repo in payload.get("repositories", []):
+		repositories = payload.get("repositories", [])
+
+		for repo in repositories:
 			set_uninstalled(owner, repo["name"])
+
+			if len(repositories) == 0:
+			# Set all sources as uninstalled
+				set_uninstalled(owner)
 
 	def update_installation_ids(self, owner: str):
 		for name in get_sources(owner):
@@ -116,19 +123,26 @@ class GitHubWebhookLog(Document):
 			if not self.should_update_app_source(doc):
 				continue
 
-			doc.github_installation_id = self.github_installation_id
-			doc.uninstalled = False
-			doc.poll_github_for_branch_info()
-		frappe.db.commit()
+			self.update_app_source_installation_id(doc)
+
+	def update_app_source_installation_id(self, doc: "AppSource"):
+		doc.github_installation_id = self.github_installation_id
+		"""
+		These two are assumptions, they will be resolved when
+		`doc.create_release` is called.
+		It is not called here, because it requires polling GitHub
+		which if the repository owner has several apps gets us
+		rate limited.
+		"""
+		doc.uninstalled = False
+		doc.last_github_poll_failed = False
+		doc.db_update()
 
 	def should_update_app_source(self, doc: "AppSource"):
 		if doc.uninstalled or doc.last_github_poll_failed:
 			return True
 
-		if doc.github_installation_id != self.github_installation_id:
-			return True
-
-		return False
+		return doc.github_installation_id != self.github_installation_id
 
 	def get_parsed_payload(self):
 		return frappe.parse_json(self.payload)
@@ -161,7 +175,7 @@ class GitHubWebhookLog(Document):
 		)
 
 		try:
-			release.insert()
+			release.insert(ignore_permissions=True)
 		except Exception:
 			log_error("App Release Creation Error", payload=payload, doc=self)
 
@@ -193,10 +207,9 @@ class GitHubWebhookLog(Document):
 		frappe.db.delete(table, filters=(table.creation < (Now() - Interval(days=days))))
 
 
-def set_uninstalled(owner: str, repository: str):
+def set_uninstalled(owner: str, repository: Optional[str] = None):
 	for name in get_sources(owner, repository):
 		frappe.db.set_value("App Source", name, "uninstalled", True)
-	frappe.db.commit()
 
 
 def get_sources(owner: str, repository: Optional[str] = None) -> "list[str]":

@@ -74,15 +74,29 @@ class SiteMigration(Document):
 
 	def before_insert(self):
 		self.validate_apps()
+		self.validate_bench()
 		self.check_enough_space_on_destination_server()
 		if get_ongoing_migration(self.site, scheduled=True):
 			frappe.throw("Ongoing/Scheduled Site Migration for that site exists.")
+
+	def validate_bench(self):
+		if (
+			frappe.db.get_value("Bench", self.destination_bench, "status", for_update=True)
+			!= "Active"
+		):
+			frappe.throw("Destination bench does not exist")
 
 	def check_enough_space_on_destination_server(self):
 		try:
 			backup: SiteBackup = frappe.get_last_doc(  # approximation with last backup
 				"Site Backup",
-				{"site": self.site, "with_files": True, "offsite": True, "status": "Success"},
+				{
+					"site": self.site,
+					"with_files": True,
+					"offsite": True,
+					"status": "Success",
+					"files_availability": "Available",
+				},
 			)
 		except frappe.DoesNotExistError:
 			pass
@@ -113,12 +127,8 @@ class SiteMigration(Document):
 		self.check_for_ongoing_agent_jobs()
 		self.validate_apps()
 		self.check_enough_space_on_destination_server()
-		frappe.db.set_value(
-			"Site",
-			self.site,
-			"status_before_update",
-			frappe.get_value("Site", self.site, "status"),
-		)
+		site: Site = frappe.get_doc("Site", self.site)
+		site.ready_for_move()
 		self.status = "Pending"
 		self.save()
 		frappe.db.commit()
@@ -484,7 +494,7 @@ class SiteMigration(Document):
 	def deactivate_site_on_source_server(self):
 		"""Deactivate site on source"""
 		site: Site = frappe.get_doc("Site", self.site)
-		site.status = "Inactive"
+		site.status = "Pending"
 		return site.update_site_config({"maintenance_mode": 1})  # saves doc
 
 	def deactivate_site_on_source_proxy(self):

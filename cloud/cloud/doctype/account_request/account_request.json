@@ -8,7 +8,6 @@
   "request_key",
   "team",
   "email",
-  "password",
   "oauth_signup",
   "column_break_4",
   "role",
@@ -196,12 +195,6 @@
    "fieldname": "saas_sign_up_section",
    "fieldtype": "Section Break",
    "label": "Saas Sign Up"
-  },
-  {
-   "fieldname": "password",
-   "fieldtype": "Password",
-   "label": "Password",
-   "read_only": 1
   },
   {
    "collapsible": 1,

@@ -27,7 +27,11 @@
   "column_break_21",
   "route_preview",
   "reaction_tab",
-  "cloud_job_type"
+  "cloud_job_type",
+  "ignore_on_clusters",
+  "column_break_oetk",
+  "only_on_shared",
+  "silent"
  ],
  "fields": [
   {
@@ -161,6 +165,29 @@
    "fieldtype": "Link",
    "label": "Cloud Job Type",
    "options": "Cloud Job Type"
+},
+{
+ "fieldname": "column_break_oetk",
+ "fieldtype": "Column Break"
+},
+{
+ "default": "0",
+ "fieldname": "only_on_shared",
+ "fieldtype": "Check",
+ "label": "Only on Shared"
+},
+{
+ "fieldname": "ignore_on_clusters",
+ "fieldtype": "Table MultiSelect",
+ "label": "Ignore on Clusters",
+ "options": "Prometheus Alert Rule Cluster"
+},
+{
+ "default": "0",
+ "description": "Don't forward to telegram (Only for reactions)",
+ "fieldname": "silent",
+ "fieldtype": "Check",
+ "label": "Silent"
   }
  ],
  "index_web_pages_for_search": 1,

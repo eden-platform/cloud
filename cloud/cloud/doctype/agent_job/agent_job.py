@@ -30,7 +30,7 @@ from cloud.cloud.doctype.site_migration.site_migration import (
 	process_site_migration_job_update,
 	job_matches_site_migration,
 )
-from cloud.utils import log_error
+from cloud.utils import log_error, has_role
 from typing import Optional
 
 
@@ -95,7 +95,7 @@ class AgentJob(Document):
 		if not (site or group or server):
 			frappe.throw("Not permitted", frappe.PermissionError)
 
-		if site:
+		if site and not has_role("Press Support Agent"):
 			is_owned_by_team("Site", site, raise_exception=True)
 
 		if group:
@@ -300,12 +300,13 @@ def job_detail(job):
 		frappe.get_all(
 			"Agent Job Step",
 			filters={"agent_job": job.name},
-			fields=["step_name", "status", "start", "end", "duration", "output"],
+			fields=["name", "step_name", "status", "start", "end", "duration", "output"],
 			order_by="creation",
 		)
 	):
 		step = {"name": job_step.step_name, "index": index, **job_step}
 		if job_step.status == "Running":
+			step["output"] = frappe.cache.hget("agent_job_step_output", job_step.name)
 			current = step
 		steps.append(step)
 
@@ -353,6 +354,7 @@ def publish_update(job):
 				"name": message["site"],
 				"status": message["status"],
 				"id": message["id"],
+				"site": message["site"],
 			},
 		)
 

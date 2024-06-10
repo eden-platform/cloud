@@ -166,13 +166,23 @@ class Site(Document, TagHelpers):
 		"tags",
 		"server",
 		"host_name",
+		"skip_auto_updates",
 	]
 
 	@staticmethod
-	def get_list_query(query):
+	def get_list_query(query, filters=None, **list_args):
+		from cloud.cloud.doctype.site_update.site_update import benches_with_available_update
+
+		benches_with_available_update = benches_with_available_update()
+
 		Site = frappe.qb.DocType("Site")
-		query = query.where(Site.status != "Archived")
-		return query
+		sites = query.where(Site.status != "Archived").select(Site.bench).run(as_dict=1)
+
+		for site in sites:
+			if site.bench in benches_with_available_update:
+				site.status = "Update Available"
+
+		return sites
 
 	@staticmethod
 	def on_not_found(name):
@@ -244,6 +254,7 @@ class Site(Document, TagHelpers):
 	def validate(self):
 		if self.has_value_changed("subdomain"):
 			self.validate_site_name()
+		self.validate_bench()
 		self.set_site_admin_password()
 		self.validate_installed_apps()
 		self.validate_host_name()
@@ -275,6 +286,22 @@ class Site(Document, TagHelpers):
 		# set site.admin_password if doesn't exist
 		if not self.admin_password:
 			self.admin_password = frappe.generate_hash(length=16)
+
+	def validate_bench(self):
+		if frappe.db.get_value("Bench", self.bench, "status") != "Active":
+			frappe.throw(f"Bench {self.bench} is not active.")
+
+		bench_group = frappe.db.get_value("Bench", self.bench, "group")
+		if bench_group != self.group:
+			frappe.throw(
+				f"Bench release group {bench_group} is not the same as site release group {self.group}."
+			)
+
+		bench_server = frappe.db.get_value("Bench", self.bench, "server")
+		if bench_server != self.server:
+			frappe.throw(
+				f"Bench server {bench_server} is not the same as site server {self.server}."
+			)
 
 	def validate_installed_apps(self):
 		# validate apps to be installed on site
@@ -482,7 +509,7 @@ class Site(Document, TagHelpers):
 		).insert(ignore_if_duplicate=True)
 
 	def after_insert(self):
-		from cloud.cloud.doctype.cloud_role.cloud_role import (
+		from cloud.cloud.doctype.press_role.press_role import (
 			add_permission_for_newly_created_doc,
 		)
 
@@ -725,6 +752,14 @@ class Site(Document, TagHelpers):
 		except ClientError:
 			log_error(title="Offsite Backup Response Exception")
 
+	def ready_for_move(self):
+		if self.status in ["Updating", "Pending", "Installing"]:
+			frappe.throw("Site is under maintenance. Cannot Update")
+
+		self.status_before_update = self.status
+		self.status = "Pending"
+		self.save()
+
 	@dashboard_whitelist()
 	@site_action(["Active", "Inactive", "Suspended"])
 	def schedule_update(
@@ -758,10 +793,8 @@ class Site(Document, TagHelpers):
 
 	@frappe.whitelist()
 	def move_to_bench(self, bench, deactivate=True, skip_failing_patches=False):
+		self.ready_for_move()
 		log_site_activity(self.name, "Update")
-		self.status_before_update = self.status
-		self.status = "Pending"
-		self.save()
 		agent = Agent(self.server)
 		agent.move_site_to_bench(self, bench, deactivate, skip_failing_patches)
 
@@ -834,7 +867,9 @@ class Site(Document, TagHelpers):
 		agent.add_domain(self, domain)
 
 	def remove_domain_from_config(self, domain):
-		domains = self.get_config_value_for_key("domains")
+		domains = self.get_config_value_for_key("domains") or []
+		if domain not in domains:
+			return
 		domains.remove(domain)
 		self._update_configuration({"domains": domains})
 		agent = Agent(self.server)
@@ -951,8 +986,6 @@ class Site(Document, TagHelpers):
 			server=self.server, site=self.name, site_name=site_name, skip_reload=skip_reload
 		)
 
-		frappe.db.delete("Cloud Role Permission", {"site": self.name})
-
 		self.db_set("host_name", None)
 
 		self.delete_offsite_backups()
@@ -1052,9 +1085,10 @@ class Site(Document, TagHelpers):
 		frappe.sendmail(
 			recipients=team_mail_id,
 			subject="Transfer Site Ownership Confirmation",
-			template="transfer_site_confirmation",
+			template="transfer_team_confirmation",
 			args={
-				"site": self.host_name or self.name,
+				"name": self.host_name or self.name,
+				"type": "site",
 				"old_team": old_team,
 				"new_team": team_mail_id,
 				"transfer_url": link,
@@ -1287,6 +1321,9 @@ class Site(Document, TagHelpers):
 				value = json.dumps(d.value)
 			else:
 				value = d.value
+			# Value is mandatory, skip None and empty strings
+			if value is None or cstr(value).strip() == "":
+				continue
 			self.append("configuration", {"key": d.key, "value": value, "type": d.type})
 		self.save()
 
@@ -1301,11 +1338,14 @@ class Site(Document, TagHelpers):
 			_type = frappe.get_value("Site Config Key", {"key": key}, "type") or guess_type(
 				value
 			)
+			converted_value = convert(value)
+			if converted_value is None or cstr(converted_value).strip() == "":
+				continue
 			if key in keys:
-				self.configuration[keys[key]].value = convert(value)
+				self.configuration[keys[key]].value = converted_value
 				self.configuration[keys[key]].type = _type
 			else:
-				self.append("configuration", {"key": key, "value": convert(value), "type": _type})
+				self.append("configuration", {"key": key, "value": converted_value, "type": _type})
 
 		if save:
 			self.save()
@@ -1440,6 +1480,9 @@ class Site(Document, TagHelpers):
 
 		if team.parent_team:
 			team = frappe.get_doc("Team", team.parent_team)
+
+		if team.payment_mode == "Paid By Partner" and team.billing_team:
+			team = frappe.get_doc("Team", team.billing_team)
 
 		if team.is_defaulter():
 			frappe.throw("Cannot change plan because you have unpaid invoices", CannotChangePlan)
@@ -1720,6 +1763,19 @@ class Site(Document, TagHelpers):
 	@dashboard_whitelist()
 	@site_action(["Active"])
 	def enable_database_access(self, mode="read_only"):
+		if frappe.db.get_all(
+			"Agent Job",
+			filters={
+				"site": self.name,
+				"job_type": "Add User to ProxySQL",
+				"status": ["in", ["Running", "Pending"]],
+			},
+			limit=1,
+		):
+			frappe.throw(
+				"Database Access is already being enabled on this site. Please check after a while."
+			)
+
 		if not frappe.db.get_value("Site Plan", self.plan, "database_access"):
 			frappe.throw(f"Database Access is not available on {self.plan} plan")
 		log_site_activity(self.name, "Enable Database Access")
@@ -1929,6 +1985,7 @@ class Site(Document, TagHelpers):
 			frappe.qb.from_(sites)
 			.select(sites.name, sites.backup_time)
 			.where(sites.backup_time.isnotnull())
+			.where(sites.skip_scheduled_backups == 0)
 			.run(as_dict=True)
 		)
 
@@ -2031,54 +2088,11 @@ class Site(Document, TagHelpers):
 
 		actions = [
 			{
-				"action": "Deactivate site",
-				"description": "Deactivated site is not accessible on the internet",
-				"button_label": "Deactivate",
-				"condition": self.status == "Active",
-				"doc_method": "deactivate",
-			},
-			{
 				"action": "Activate site",
 				"description": "Activate site to make it accessible on the internet",
 				"button_label": "Activate",
 				"condition": self.status in ["Inactive", "Broken"],
 				"doc_method": "activate",
-			},
-			{
-				"action": "Restore from backup",
-				"description": "Restore your database from database, public and private files",
-				"button_label": "Restore",
-				"doc_method": "restore_site_from_files",
-			},
-			{
-				"action": "Restore from an existing site",
-				"description": "Restore your database with database, public and private files from another site",
-				"button_label": "Restore",
-				"doc_method": "restore_site_from_files",
-			},
-			{
-				"action": "Migrate site",
-				"description": "Run bench migrate command on your site",
-				"button_label": "Migrate",
-				"doc_method": "migrate",
-			},
-			{
-				"action": "Reset site",
-				"description": "Reset your site database to a clean state",
-				"button_label": "Reset",
-				"doc_method": "reinstall",
-			},
-			{
-				"action": "Access site database",
-				"description": "Enable read/write access to your site database",
-				"button_label": "Enable Access",
-				"doc_method": "enable_database_access",
-			},
-			{
-				"action": "Drop site",
-				"description": "When you drop your site, all site data is deleted forever",
-				"button_label": "Drop",
-				"doc_method": "archive",
 			},
 			{
 				"action": "Transfer site",
@@ -2117,10 +2131,59 @@ class Site(Document, TagHelpers):
 			{
 				"action": "Clear cache",
 				"description": "Clear cache on your site",
-				"button_label": "Clear cache",
+				"button_label": "Clear",
 				"doc_method": "clear_site_cache",
 			},
+			{
+				"action": "Access site database",
+				"description": "Enable read/write access to your site database",
+				"button_label": "Enable",
+				"doc_method": "enable_database_access",
+			},
+			{
+				"action": "Deactivate site",
+				"description": "Deactivated site is not accessible on the internet",
+				"button_label": "Deactivate",
+				"condition": self.status == "Active",
+				"doc_method": "deactivate",
+			},
+			{
+				"action": "Migrate site",
+				"description": "Run bench migrate command on your site",
+				"button_label": "Migrate",
+				"doc_method": "migrate",
+				"group": "Dangerous Actions",
+			},
+			{
+				"action": "Restore from backup",
+				"description": "Restore your database from database, public and private files",
+				"button_label": "Restore",
+				"doc_method": "restore_site_from_files",
+				"group": "Dangerous Actions",
+			},
+			{
+				"action": "Restore from an existing site",
+				"description": "Restore your database with database, public and private files from another site",
+				"button_label": "Restore",
+				"doc_method": "restore_site_from_files",
+				"group": "Dangerous Actions",
+			},
+			{
+				"action": "Reset site",
+				"description": "Reset your site database to a clean state",
+				"button_label": "Reset",
+				"doc_method": "reinstall",
+				"group": "Dangerous Actions",
+			},
+			{
+				"action": "Drop site",
+				"description": "When you drop your site, all site data is deleted forever",
+				"button_label": "Drop",
+				"doc_method": "archive",
+				"group": "Dangerous Actions",
+			},
 		]
+
 		return [d for d in actions if d.get("condition", True)]
 
 	@property
@@ -2181,6 +2244,11 @@ def site_cleanup_after_archive(site):
 	delete_site_domains(site)
 	delete_site_subdomain(site)
 	release_name(site)
+	delete_permissions(site)
+
+
+def delete_permissions(site):
+	frappe.db.delete("Cloud Role Permission", {"site": site})
 
 
 def delete_site_subdomain(site):

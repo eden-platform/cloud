@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div v-if="hideControls" class="flex items-center justify-between">
+		<div class="flex items-center justify-between">
 			<slot name="header-left" v-bind="context">
-				<div class="flex items-center space-x-2">
+				<div v-if="hideControls" class="flex items-center space-x-2">
 					<TextInput
 						placeholder="Search"
 						class="max-w-[20rem]"
@@ -24,6 +24,7 @@
 						@update:filter="onFilterControlChange"
 					/>
 				</div>
+				<div v-else></div>
 			</slot>
 			<div class="ml-2 flex shrink-0 items-center space-x-2">
 				<slot name="header-right" v-bind="context" />
@@ -102,7 +103,7 @@
 					<ErrorMessage :message="$list.list.error" />
 				</div>
 				<div v-else class="text-center text-sm leading-10 text-gray-500">
-					No results found
+					{{ emptyStateMessage }}
 				</div>
 			</div>
 			<div class="px-2 py-2 text-right" v-if="$list">
@@ -389,8 +390,14 @@ export default {
 			if (this.options.data) return false;
 			return this.$list.list?.loading || this.$list.loading;
 		},
-		hideControls() {
-			return !this.options.hideControls;
+		showControls() {
+			return (
+				(this.filteredRows.length > 5 || this.filterControls.length) &&
+				!this.options.hideControls
+			);
+		},
+		emptyStateMessage() {
+			return this.options.emptyStateMessage || 'No results found';
 		}
 	},
 	methods: {

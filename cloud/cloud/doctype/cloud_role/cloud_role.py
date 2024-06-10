@@ -99,10 +99,12 @@ def check_role_permissions(doctype: str, name: str | None = None) -> list[str] |
 	:param name: Document name
 	:return: List of permitted roles or None
 	"""
+	from cloud.utils import has_role
+
 	if doctype not in ["Site", "Release Group", "Server", "Marketplace App"]:
 		return []
 
-	if frappe.local.system_user():
+	if frappe.local.system_user() or has_role("Cloud Support Agent"):
 		return []
 
 	CloudRoleUser = frappe.qb.DocType("Cloud Role User")
@@ -132,7 +134,10 @@ def check_role_permissions(doctype: str, name: str | None = None) -> list[str] |
 			)
 			if not perms and name:
 				# throw error if the user is not permitted for the document
-				frappe.throw("Not permitted", frappe.PermissionError)
+				frappe.throw(
+					f"You don't have permission to this {doctype if doctype != 'Release Group' else 'Bench'}",
+					frappe.PermissionError,
+				)
 			else:
 				return roles
 

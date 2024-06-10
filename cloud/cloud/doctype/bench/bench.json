@@ -8,6 +8,7 @@
   "status",
   "server",
   "database_server",
+  "managed_database_service",
   "cluster",
   "column_break_3",
   "staging",
@@ -316,6 +317,13 @@
    "fieldname": "use_rq_workerpool",
    "fieldtype": "Check",
    "label": "Use RQ WorkerPool"
+},
+{
+ "fetch_from": "server.managed_database_service",
+ "fieldname": "managed_database_service",
+ "fieldtype": "Link",
+ "label": "Managed Database Service",
+ "options": "Managed Database Service"
   }
  ],
  "links": [],

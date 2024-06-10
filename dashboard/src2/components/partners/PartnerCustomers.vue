@@ -5,7 +5,7 @@
 			v-model="contributionDialog"
 			:options="{
 				size: '3xl',
-				title: 'Last Month + Current Month\'s Contribution '
+				title: 'Last 6 Month\'s Contribution'
 			}"
 		>
 			<template #body-content>
@@ -16,7 +16,10 @@
 					>
 						Nothing to show
 					</div>
-					<PartnerCustomerInvoices :customerTeam="showInvoice.name" />
+					<PartnerCustomerInvoices
+						:customerTeam="showInvoice.name"
+						:customerCurrency="showInvoice.currency"
+					/>
 				</template>
 			</template>
 		</Dialog>
@@ -97,7 +100,7 @@ export default {
 	resources: {
 		getPartnerCustomers() {
 			return {
-				url: 'cloud.api.account.get_partner_customers',
+				url: 'cloud.api.partner.get_partner_customers',
 				onSuccess(data) {
 					this.partnerCustomers = data.map(d => {
 						return {
@@ -114,7 +117,7 @@ export default {
 		},
 		transferCredits() {
 			return {
-				url: 'cloud.api.account.transfer_credits',
+				url: 'cloud.api.partner.transfer_credits',
 				onSuccess(data) {
 					this.amount = data;
 					this.transferCreditsDialog = false;
