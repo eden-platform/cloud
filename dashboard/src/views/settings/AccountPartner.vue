@@ -1,7 +1,7 @@
 <template>
 	<Card
-		title="Frappe Partner"
-		subtitle="Frappe Partner associated with your account"
+		title="Eden Platform Partner"
+		subtitle="Eden Platform Partner associated with your account"
 		v-if="!$account.team.erpnext_partner"
 	>
 		<div>
@@ -14,13 +14,13 @@
 
 			<div class="py-4">
 				<h3 class="text-base text-gray-700" v-if="$account.parent_team">
-					Only parent team can link with Frappe Partner.
+					Only parent team can link with Eden Platform Partner.
 				</h3>
 				<h3
 					class="text-base text-gray-700"
 					v-if="!$account.partner_email && !$account.parent_team"
 				>
-					Have a Frappe Partner Referral Code? Click on
+					Have a Eden Platform Partner Referral Code? Click on
 					<strong>Add Partner Code</strong> to link with your Partner team.
 				</h3>
 			</div>

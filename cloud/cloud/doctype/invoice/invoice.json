@@ -333,7 +333,7 @@
   {
    "fieldname": "frappe_partner_order",
    "fieldtype": "Data",
-   "label": "Frappe Partner Order"
+   "label": "Eden Platform Partner Order"
   },
   {
    "fieldname": "razorpay_billing_section",
@@ -416,7 +416,7 @@
    "fetch_from": "team.frappe_partnership_date",
    "fieldname": "frappe_partnership_date",
    "fieldtype": "Date",
-   "label": "Frappe Partnership Date",
+   "label": "Eden Platform Partnership Date",
    "read_only": 1
   },
   {

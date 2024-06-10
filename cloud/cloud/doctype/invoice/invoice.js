@@ -19,7 +19,7 @@ frappe.ui.form.on('Invoice', {
 		if (frm.doc.frappe_partner_order) {
 			frm.add_web_link(
 				`https://frappe.io/app/partner-order/${frm.doc.frappe_partner_order}`,
-				'View Frappe Partner Order',
+				'View Eden Platform Partner Order',
 			);
 		}
 

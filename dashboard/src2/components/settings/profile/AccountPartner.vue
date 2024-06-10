@@ -1,8 +1,8 @@
 <template>
 	<Card
 		v-if="!$team.doc.erpnext_partner"
-		title="Frappe Partner"
-		subtitle="Frappe Partner associated with your account"
+		title="Eden Platform Partner"
+		subtitle="Eden Platform Partner associated with your account"
 	>
 		<template #actions>
 			<Button
@@ -18,7 +18,7 @@
 				class="text-base font-medium text-gray-700"
 				v-if="!$team.doc.partner_email"
 			>
-				Have a Frappe Partner Referral Code? Click on
+				Have a Eden Platform Partner Referral Code? Click on
 				<strong>Add Partner Code</strong> to link with your Partner team.
 			</span>
 			<ListItem
