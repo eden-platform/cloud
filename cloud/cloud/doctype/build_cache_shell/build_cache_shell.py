@@ -6,9 +6,6 @@ import json
 import frappe
 from frappe.model.document import Document
 from cloud.agent import Agent
-from cloud.cloud.doctype.deploy_candidate.cache_utils import (
-	run_command_in_docker_cache,
-)
 
 
 class BuildCacheShell(Document):
@@ -23,7 +20,7 @@ class BuildCacheShell(Document):
 		build_server: DF.Link | None
 		cache_target: DF.Data
 		command: DF.Code
-		cwd: DF.Data | None
+		cwd: DF.Data
 		image_tag: DF.Data | None
 		output: DF.Code | None
 		returncode: DF.Int
@@ -39,13 +36,10 @@ class BuildCacheShell(Document):
 		frappe.db.commit()
 
 	def _run_command(self):
-		if self.build_server:
-			return Agent(self.build_server).run_command_in_docker_cache(
-				self.command,
-				self.cache_target,
-			)
+		if not self.build_server:
+			frappe.throw("Please select a <b>Build Server</b>.")
 
-		return run_command_in_docker_cache(
+		return Agent(self.build_server).run_command_in_docker_cache(
 			self.command,
 			self.cache_target,
 		)

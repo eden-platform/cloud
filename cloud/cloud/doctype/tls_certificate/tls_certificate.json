@@ -20,7 +20,10 @@
   "certificate",
   "full_chain",
   "intermediate_chain",
-  "private_key"
+  "private_key",
+  "section_break_cvcg",
+  "error",
+  "retry_count"
  ],
  "fields": [
   {
@@ -126,6 +129,24 @@
    "label": "Team",
    "options": "Team",
    "read_only": 1
+   },
+   {
+    "fieldname": "section_break_cvcg",
+    "fieldtype": "Section Break"
+   },
+   {
+    "fieldname": "error",
+    "fieldtype": "Code",
+    "label": "Error",
+    "read_only": 1
+   },
+   {
+    "default": "0",
+    "depends_on": "eval: doc.retry_count",
+    "fieldname": "retry_count",
+    "fieldtype": "Int",
+    "label": "Retry Count",
+    "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,

@@ -42,11 +42,12 @@
    "reqd": 1
   },
   {
-   "description": "If set, command will be run in a remote build server and not locally.",
-   "fieldname": "build_server",
-   "fieldtype": "Link",
-   "label": "Build Server",
-   "options": "Server"
+    "description": "Select which build server to run the command on.",
+    "fieldname": "build_server",
+    "fieldtype": "Link",
+    "label": "Build Server",
+    "options": "Server",
+    "reqd": 1
   },
   {
    "fieldname": "output_section",

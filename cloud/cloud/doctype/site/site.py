@@ -391,7 +391,20 @@ class Site(Document, TagHelpers):
 			frappe.throw(f"Another site already exists in {self.bench} with name: {site_name}")
 		self.archive(site_name=site_name, reason="Retry Archive")
 
+	def check_duplicate_site(self):
+		if frappe.db.exists(
+			"Site",
+			{
+				"subdomain": self.subdomain,
+				"domain": self.domain,
+				"status": ("!=", "Archived"),
+				"name": ("!=", self.name),
+			},
+		):
+			frappe.throw("Site with same subdomain already exists")
+
 	def rename(self, new_name: str):
+		self.check_duplicate_site()
 		create_dns_record(doc=self, record_name=self._get_site_name(self.subdomain))
 		agent = Agent(self.server)
 		if self.standby_for_product:
@@ -504,7 +517,7 @@ class Site(Document, TagHelpers):
 				"domain": self.name,
 				"status": "Active",
 				"retry_count": 0,
-				"dns_type": "A",
+				"dns_type": "CNAME",
 			}
 		).insert(ignore_if_duplicate=True)
 
@@ -825,7 +838,8 @@ class Site(Document, TagHelpers):
 	@dashboard_whitelist()
 	def add_domain(self, domain):
 		domain = domain.lower().strip(".")
-		if check_dns(self.name, domain)["matched"]:
+		response = check_dns(self.name, domain)
+		if response["matched"]:
 			log_site_activity(self.name, "Add Domain")
 			frappe.get_doc(
 				{
@@ -833,7 +847,7 @@ class Site(Document, TagHelpers):
 					"status": "Pending",
 					"site": self.name,
 					"domain": domain,
-					"dns_type": "CNAME",
+					"dns_type": response("type"),
 					"ssl": False,
 				}
 			).insert()

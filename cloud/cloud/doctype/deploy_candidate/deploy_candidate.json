@@ -6,7 +6,6 @@
  "engine": "InnoDB",
  "field_order": [
   "status",
-  "is_remote_builder_used",
   "column_break_2",
   "group",
   "team",
@@ -21,11 +20,12 @@
   "build_duration",
   "pending_start",
   "build_directory",
+  "last_updated",
   "column_break_7",
   "build_end",
   "pending_duration",
   "pending_end",
-  "last_updated",
+  "build_server",
   "section_break_11",
   "docker_image",
   "docker_image_id",
@@ -304,7 +304,7 @@
    "label": "Compress App Cache"
   },
   {
-   "description": "Used when parsing a remote builds output.",
+   "description": "Used when parsing a build output.",
    "fieldname": "last_updated",
    "fieldtype": "Datetime",
    "hidden": 1,
@@ -383,21 +383,6 @@
    "label": "Pending End",
    "read_only": 1
   },
-  {
-   "default": "0",
-   "fieldname": "is_remote_builder_used",
-   "fieldtype": "Check",
-   "label": "Is Remote Builder Used",
-   "read_only": 1
-  },
-  {
-   "depends_on": "eval:doc.remote_build_server",
-   "fieldname": "remote_build_server",
-   "fieldtype": "Link",
-   "label": "Remote Build Server",
-   "options": "Server",
-   "read_only": 1
-},
 {
  "default": "0",
  "depends_on": "eval: doc.retry_count",
@@ -406,7 +391,15 @@
  "fieldtype": "Int",
  "label": "Retry Count",
  "read_only": 1
-  }
+  },
+  {
+   "depends_on": "eval:doc.build_server",
+   "fieldname": "build_server",
+   "fieldtype": "Link",
+   "label": "Build Server",
+   "options": "Server",
+   "read_only": 1
+ }
  ],
  "links": [
   {

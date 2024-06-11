@@ -30,6 +30,8 @@
   "free_credits_inr",
   "free_credits_usd",
   "ngrok_auth_token",
+  "micro_debit_charge_inr",
+  "micro_debit_charge_usd",
   "razorpay_settings_section",
   "razorpay_key_id",
   "razorpay_webhook_secret",
@@ -72,7 +74,7 @@
   "suspend_builds",
   "clone_directory",
   "build_directory",
-  "remote_build_server",
+  "build_server",
   "column_break_66",
   "code_server",
   "code_server_password",
@@ -1177,11 +1179,31 @@
    "label": "Agent Sentry DSN"
   },
   {
-   "fieldname": "remote_build_server",
+   "fieldname": "build_server",
    "fieldtype": "Link",
-   "label": "Remote Build Server",
+   "label": "Build Server",
    "options": "Server"
-  }
+  },
+  {
+   "default": "10",
+   "fieldname": "tls_renewal_queue_size",
+   "fieldtype": "Int",
+   "label": "TLS Renewal Queue Size"
+  },
+  {
+    "default": "80",
+    "fieldname": "micro_debit_charge_inr",
+    "fieldtype": "Currency",
+    "label": "Micro Debit Charge (INR)",
+    "precision": "0"
+   },
+   {
+    "default": "1",
+    "fieldname": "micro_debit_charge_usd",
+    "fieldtype": "Currency",
+    "label": "Micro Debit Charge (USD)",
+    "precision": "0"
+   }
  ],
  "issingle": 1,
  "links": [],

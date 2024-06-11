@@ -2,9 +2,9 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.model.naming import make_autoname
 from frappe.model.document import Document
 from cloud.utils import log_error
+from cloud.utils.unique_name_generator import generate as generate_random_name
 
 
 class SaaSProduct(Document):
@@ -97,16 +97,7 @@ class SaaSProduct(Document):
 	def create_standby_sites(self, cluster):
 		if not self.enable_pooling:
 			return
-		standby_site_count = frappe.db.count(
-			"Site",
-			{
-				"cluster": cluster,
-				"is_standby": 1,
-				"standby_for_product": self.name,
-				"status": "Active",
-			},
-		)
-		sites_to_create = self.standby_pool_size - standby_site_count
+		sites_to_create = self.standby_pool_size - self.get_standby_sites_count(cluster)
 		if sites_to_create <= 0:
 			return
 		if sites_to_create > self.standby_queue_size:
@@ -120,7 +111,7 @@ class SaaSProduct(Document):
 		administrator = frappe.db.get_value("Team", {"user": "Administrator"}, "name")
 		site = frappe.get_doc(
 			doctype="Site",
-			subdomain=make_autoname("standby-.########"),
+			subdomain=self.get_unique_site_name(),
 			domain=self.domain,
 			group=self.release_group,
 			cluster=cluster,

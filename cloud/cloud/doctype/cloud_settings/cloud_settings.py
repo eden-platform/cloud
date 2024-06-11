@@ -41,6 +41,7 @@ class CloudSettings(Document):
 		backup_rotation_scheme: DF.Literal["FIFO", "Grandfather-father-son"]
 		bench_configuration: DF.Code
 		build_directory: DF.Data | None
+		build_server: DF.Link | None
 		central_migration_server: DF.Link | None
 		certbot_directory: DF.Data
 		clone_directory: DF.Data | None
@@ -89,6 +90,8 @@ class CloudSettings(Document):
 		log_server: DF.Link | None
 		mailgun_api_key: DF.Data | None
 		max_allowed_screenshots: DF.Int
+		micro_debit_charge_inr: DF.Currency
+		micro_debit_charge_usd: DF.Currency
 		monitor_server: DF.Link | None
 		monitor_token: DF.Data | None
 		ngrok_auth_token: DF.Data | None
@@ -107,7 +110,6 @@ class CloudSettings(Document):
 		razorpay_webhook_secret: DF.Data | None
 		realtime_job_updates: DF.Check
 		remote_access_key_id: DF.Data | None
-		remote_build_server: DF.Link | None
 		remote_link_expiry: DF.Int
 		remote_secret_access_key: DF.Password | None
 		remote_uploads_bucket: DF.Data | None

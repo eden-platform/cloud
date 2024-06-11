@@ -30,15 +30,17 @@
   "payment_attempt_count",
   "payment_attempt_date",
   "payment_mode",
+  "write_off_amount",
+  "column_break_15",
   "total_before_discount",
   "total_discount_amount",
-  "column_break_15",
   "total",
   "total_before_tax",
-  "gst",
   "applied_credits",
   "free_credits",
   "amount_due",
+  "gst",
+  "amount_due_with_tax",
   "amount_paid",
   "section_break_15",
   "credit_allocations",
@@ -428,8 +430,22 @@
   {
    "fieldname": "total_before_tax",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Total Before Tax",
    "options": "currency"
+   },
+   {
+    "fieldname": "write_off_amount",
+    "fieldtype": "Float",
+    "label": "Write-Off Amount",
+    "precision": "9"
+   },
+   {
+    "fieldname": "amount_due_with_tax",
+    "fieldtype": "Currency",
+    "label": "Amount Due (Including Tax)",
+    "no_copy": 1,
+    "options": "currency"
   }
  ],
  "is_submittable": 1,
