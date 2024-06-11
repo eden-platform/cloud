@@ -122,6 +122,39 @@ class SaaSProduct(Document):
 		)
 		site.insert()
 
+	def get_standby_sites_count(self, cluster):
+		active_standby_sites = frappe.db.count(
+			"Site",
+			{
+				"cluster": cluster,
+				"is_standby": 1,
+				"standby_for_product": self.name,
+				"status": "Active",
+			},
+		)
+		# sites that are in pending state created in the last hour
+		recent_pending_standby_sites = frappe.db.count(
+			"Site",
+			{
+				"cluster": cluster,
+				"is_standby": 1,
+				"standby_for_product": self.name,
+				"status": ("in", ["Pending", "Installing"]),
+				"creation": (">", frappe.utils.add_to_date(None, hours=-1)),
+			},
+		)
+		return active_standby_sites + recent_pending_standby_sites
+
+	def get_unique_site_name(self):
+		subdomain = generate_random_name()
+		filters = {
+			"subdomain": subdomain,
+			"domain": self.domain,
+			"status": ("!=", "Archived"),
+		}
+		while frappe.db.exists("Site", filters):
+			subdomain = generate_random_name()
+			return subdomain
 
 def replenish_standby_sites():
 	"""Create standby sites for all products with pooling enabled. This is called by the scheduler."""
