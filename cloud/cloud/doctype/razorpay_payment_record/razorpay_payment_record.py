@@ -40,7 +40,7 @@ class RazorpayPaymentRecord(Document):
 		gst = float(payment["notes"].get("gst", 0))
 		amount = amount_with_tax - gst
 		balance_transaction = team.allocate_credit_amount(
-			amount
+			amount,
 			source="Prepaid Credits",
 			remark=f"Razorpay: {self.payment_id}",
 		)
