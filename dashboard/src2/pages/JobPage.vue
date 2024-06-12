@@ -128,6 +128,7 @@ export default {
 					}
 				}
 			].filter(option => option.condition?.() ?? true);
+		}
 	},
 	mounted() {
 		this.$socket.emit('doc_subscribe', 'Agent Job', this.id);
