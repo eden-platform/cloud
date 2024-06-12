@@ -228,19 +228,18 @@ def renew_tls_certificates():
 				renewals_attempted += 1
 				certificate_doc = frappe.get_doc("TLS Certificate", certificate.name)
 				certificate_doc._obtain_certificate()
-		except Exception:
-			frappe.db.commit()
-			except Exception as e:
-				frappe.db.rollback()
-				frappe.db.set_value(
-					"TLS Certificate",
-					certificate.name,
-					{
-						"status": "Failure",
-						"error": repr(e),
-						"retry_count": certificate.retry_count + 1,
-					},
-				)
+
+		except Exception as e:
+			frappe.db.rollback()
+			frappe.db.set_value(
+				"TLS Certificate",
+				certificate.name,
+				{
+					"status": "Failure",
+					"error": repr(e),
+					"retry_count": certificate.retry_count + 1,
+				},
+			)
 			log_error("TLS Renewal Exception", certificate=certificate, site=site)
 			frappe.db.commit()
 
