@@ -136,10 +136,10 @@ def get_list(
 		field = doctype.lower().replace(" ", "_")
 
 		query = (
-			query.join(PressRolePermission)
+			query.join(CloudRolePermission)
 			.on(
-				PressRolePermission[field]
-				== QueriedDocType.name & PressRolePermission.role.isin(roles)
+				CloudRolePermission[field]
+				== QueriedDocType.name & CloudRolePermission.role.isin(roles)
 			)
 			.distinct()
 		)
@@ -177,7 +177,7 @@ def get(doctype, name):
 		raise
 
 	if not (
-		frappe.local.system_user() or has_role("Press Support Agent")
+		frappe.local.system_user() or has_role("Cloud Support Agent")
 	) and frappe.get_meta(doctype).has_field("team"):
 		if doc.team != frappe.local.team().name:
 			raise_not_permitted()
@@ -308,7 +308,7 @@ def check_document_access(doctype: str, name: str):
 	if frappe.local.system_user():
 		return
 
-	if has_role("Press Support Agent") and doctype in ALLOWED_DOCTYPES_FOR_SUPPORT:
+	if has_role("Cloud Support Agent") and doctype in ALLOWED_DOCTYPES_FOR_SUPPORT:
 		return
 
 	team = ""
