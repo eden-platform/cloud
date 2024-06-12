@@ -158,3 +158,6 @@ cloud/public/css/marketplace-next.css
 # Vim
 .vim
 .nvimrc
+
+# Nova
+.nova
