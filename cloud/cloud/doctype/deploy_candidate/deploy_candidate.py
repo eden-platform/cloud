@@ -483,7 +483,7 @@ class DeployCandidate(Document):
 
 		# Build Runs locally
 		if not self.build_server:
-		throw_no_build_server()
+			throw_no_build_server()
 
 		# Build runs on build server
 		self._run_build_agent_jobs(
