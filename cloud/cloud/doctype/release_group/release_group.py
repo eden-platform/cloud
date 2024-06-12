@@ -800,7 +800,7 @@ class ReleaseGroup(Document, TagHelpers):
 			expires_in_sec=minutes * 60,
 		)
 
-		link = get_url(f"/api/method/press.api.bench.confirm_bench_transfer?key={key}")
+		link = get_url(f"/api/method/cloud.api.bench.confirm_bench_transfer?key={key}")
 
 		if frappe.conf.developer_mode:
 			print(f"Bench transfer link for {team_mail_id}\n{link}\n")
@@ -1398,7 +1398,7 @@ def prune_servers_without_sites():
 		as_list=True,
 	)
 
-	from press.press.doctype.bench.bench import (
+	from cloud.doctype.bench.bench import (
 		get_scheduled_version_upgrades,
 		get_unfinished_site_migrations,
 	)

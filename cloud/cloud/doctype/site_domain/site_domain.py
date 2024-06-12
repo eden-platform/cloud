@@ -9,7 +9,7 @@ from frappe.model.document import Document
 from cloud.agent import Agent
 
 from cloud.overrides import get_permission_query_conditions_for_doctype
-from press.api.site import check_dns
+from cloud.api.site import check_dns
 
 
 class SiteDomain(Document):

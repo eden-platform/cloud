@@ -21,7 +21,7 @@ class PrometheusAlertRule(Document):
 
 	if TYPE_CHECKING:
 		from frappe.types import DF
-		from press.press.doctype.prometheus_alert_rule_cluster.prometheus_alert_rule_cluster import (
+		from cloud.doctype.prometheus_alert_rule_cluster.prometheus_alert_rule_cluster import (
 			PrometheusAlertRuleCluster,
 		)
 

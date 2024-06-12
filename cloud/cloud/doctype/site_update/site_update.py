@@ -19,7 +19,7 @@ from cloud.api.client import dashboard_whitelist
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-	from press.press.doctype.site.site import Site
+	from cloud.doctype.site.site import Site
 
 
 class SiteUpdate(Document):
