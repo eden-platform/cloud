@@ -478,7 +478,7 @@ class DeployCandidate(Document):
 
 		# Build runs on remote server
 		if no_build:
-		self._set_status_success()
+			self._set_status_success()
 			return
 
 		# Build Runs locally
