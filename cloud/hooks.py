@@ -188,14 +188,14 @@ scheduler_events = {
 		"cloud.cloud.doctype.root_domain.root_domain.cleanup_cname_records",
 		"cloud.cloud.doctype.remote_file.remote_file.poll_file_statuses",
 		"cloud.cloud.doctype.virtual_machine.virtual_machine.snapshot_virtual_machines",
-		"cloud.doctype.site_domain.site_domain.update_dns_type",
+		"cloud.cloud.doctype.site_domain.site_domain.update_dns_type",
 	],
 	"hourly": [
 		"cloud.cloud.doctype.site.backups.cleanup_local",
 		"cloud.cloud.doctype.agent_job.agent_job.update_job_step_status",
 		"cloud.cloud.doctype.bench.bench.archive_obsolete_benches",
 		"cloud.cloud.doctype.site.backups.schedule_for_sites_with_backup_time",
-		"cloud.doctype.tls_certificate.tls_certificate.renew_tls_certificates",
+		"cloud.cloud.doctype.tls_certificate.tls_certificate.renew_tls_certificates",
 	],
 	"hourly_long": [
         "cloud.cloud.doctype.release_group.release_group.prune_servers_without_sites",
