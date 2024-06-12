@@ -75,8 +75,6 @@ export default {
 							fieldname: 'type',
 							options: ['', 'Subscription', 'Prepaid Credits']
 						},
-				filterControls() {
-					return [
 						{
 							type: 'select',
 							label: 'Status',
@@ -119,16 +117,16 @@ export default {
 						label: 'Date',
 						fieldname: 'due_date',
 						format(value, row) {
-						if (row.type == 'Subscription') {
-							let start = dayjsLocal(row.period_start);
-							let end = dayjsLocal(row.period_end);
-							let sameYear = start.year() === end.year();
-							let formattedStart = sameYear
-								? start.format('MMM D')
-								: start.format('ll');
-							return `${formattedStart} - ${end.format('ll')}`;
-						}
-						return date(value, 'll');
+							if (row.type == 'Subscription') {
+								let start = dayjsLocal(row.period_start);
+								let end = dayjsLocal(row.period_end);
+								let sameYear = start.year() === end.year();
+								let formattedStart = sameYear
+									? start.format('MMM D')
+									: start.format('ll');
+								return `${formattedStart} - ${end.format('ll')}`;
+							}
+							return date(value, 'll');
 						}
 					},
 					{
@@ -176,7 +174,7 @@ export default {
 									onClick: () => {
 										if (row.stripe_invoice_url && row.payment_mode == 'Card') {
 											window.open(
-												`/api/method/press.api.client.run_doc_method?dt=Invoice&dn=${row.name}&method=stripe_payment_url`
+												`/api/method/cloud.api.client.run_doc_method?dt=Invoice&dn=${row.name}&method=stripe_payment_url`
 											);
 										} else {
 											this.showBuyPrepaidCreditsDialog = true;
